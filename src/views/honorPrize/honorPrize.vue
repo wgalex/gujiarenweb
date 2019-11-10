@@ -7,7 +7,13 @@
             <mt-button icon="more" slot="right"></mt-button>
         </mt-header>
         <div class="container">
-          <div class="side">
+          <!-- <div class="side">
+            <router-link to="/honorpRizeDetail">
+              <div class="boxLeft">
+                <img class="imgs" src="../../assets/timg.jpg" alt="">
+                <div class="prizes">玉华奖</div>
+              </div>
+            </router-link>
             <router-link to="/honorpRizeDetail">
               <div class="boxLeft">
                 <img class="imgs" src="../../assets/timg.jpg" alt="">
@@ -18,8 +24,20 @@
               <img src="../../assets/timg.jpg" alt="">
               <div class="prizes">双基奖</div>
             </div>
-          </div>
-          <div class="side">
+          </div> -->
+          <div class="mui-content"> 
+            <ul class="mui-table-view mui-grid-view mui-grid-9" >
+                 <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-6" style="float:left" v-for="item in catoryList"  :key="item.id">
+                    <a href="#" @click="jumpDetail(item)">  
+                         <div class="mui-card-content">
+                           <img :src="item.headPath" alt="">
+                         </div>
+                         <div class="mui-media-body">{{item.categoryName}}</div>
+                    </a>
+                 </li>  
+            </ul>
+        </div>
+          <!-- <div class="side">
             <div class="boxLeft">
               <img class="imgs" src="../../assets/timg.jpg" alt="">
               <div class="prizes">年度奖</div>
@@ -28,7 +46,7 @@
               <img src="../../assets/timg.jpg" alt="">
               <div class="prizes">某某奖</div>
             </div>
-          </div>
+          </div> -->
         </div>
 
         <nav class="mui-bar mui-bar-tab">
@@ -48,59 +66,49 @@
     </div>
 </template>
 <script>
-import { getMessage } from './api.js'
+import { queryCategory } from './api.js'
 export default {
   data () {
     return {
-      
+      catoryList:[],
     };
   },
   mounted () {
     this.getData()
   },
   methods:{
-    headInfo() {
-      this.$createDialog({
-        type: 'alert',
-        confirmBtn: {
-          text: '确定',
-          active: true
-        }
-      }, (createElement) => {
-        return [
-          createElement('div', {
-            'class': {
-              'my-title': true
-            },
-            slot: 'title'
-          }, [
-            createElement('div', {
-              'class': {
-                'my-title-img': true
-              }
-            }),
-            createElement('p', '图片区域')
-          ]),
-          createElement('h4', {
-            'class': {
-              'my-content': true
-            },
-            slot: 'content'
-          }, '标题区域'),
-          createElement('textarea', {
-            'class': {
-              'my-content': true,
-            },
-            slot: 'content'
-          }, '正文区域')
-        ]
-      }).show()
-    },
     getData(){
-      alert('111')
-      getMessage().then(res => {
-        console.log(res);
-        
+      let querydata = {}
+      querydata.departmentId = '01'
+      queryCategory(querydata).then(res => {
+        console.log(this.chaxun(res.data));
+        this.catoryList = this.chaxun(res.data)
+      })
+    },
+    //筛选奖项
+     chaxun(dataList) { 
+       let  arr2 = []
+        var cha = '奖';//获取想要查询的值
+        var zhi = "";//接收每个循环中的arr[i]的值
+        for (var i = 0; i < dataList.length; i++) {
+            zhi = dataList[i].categoryName;
+            if (zhi.indexOf(cha) != -1) {//因为indexof找不到的时候是一律为-1，所以直接判断是否为-1，不是就弹出这个值
+                arr2.push(dataList[i]);//将值放入第二个数组
+            }
+        }
+        // debugger
+        return arr2
+        // alert(arr2);//弹出匹配的值
+        // arr2 = [];//清空数组，否则第二次查询时会因为有是全局变量，而导致先前查询的值会和这次一起弹出
+    },
+    jumpDetail(item){
+      // debugger
+      this.$router.push({
+        name: 'honorpRizeDetail',
+        query: {
+          catoryList: this.catoryList,
+          selectItem:item
+        }
       })
     }
   }

@@ -7,17 +7,17 @@
             <mt-button icon="more" slot="right"></mt-button>
         </mt-header>
         <!-- 内容部分 -->
-        <mt-navbar v-model="selected">
-            <mt-tab-item id="1">代办</mt-tab-item>
-            <mt-tab-item id="2">通知</mt-tab-item>
-        </mt-navbar>
-        <mt-tab-container v-model="selected" is-active>
-            <mt-tab-container-item id="1">
-                <div class="containerBox">暂无代办事项</div>
-            </mt-tab-container-item>
-            <mt-tab-container-item id="2">
-                <div>通知页面</div>
-            </mt-tab-container-item>
+        <mt-tab-container v-model="selected" style="display:flex">
+          <div class="mui-card">
+        <!--页眉，放置标题-->
+        <!-- <div class="mui-card-header">页眉</div> -->
+        <!--内容区-->
+        <div class="mui-card-content">
+          <img src="../../assets/791b064ac218957889f351aae9229ce9.jpg" alt="">
+        </div>
+        <!--页脚，放置补充信息或支持的操作-->
+        <!-- <div class="mui-card-footer">页脚</div> -->
+      </div>
         </mt-tab-container>
 
         <nav class="mui-bar mui-bar-tab">
@@ -31,27 +31,6 @@
               <span class="mui-tab-label">单位荣誉</span>
           </router-link>
         </nav>
-
-        
-        
-      <!-- <div class="page-tab-container">
-        <mt-tab-container class="page-tabbar-tab-container" v-model="active" swipeable>
-          <mt-tab-container-item id="tab-container1">
-            <mt-cell>111</mt-cell>
-          </mt-tab-container-item>
-          <mt-tab-container-item id="tab-container2">
-            <mt-cell></mt-cell>
-          </mt-tab-container-item>
-          <mt-tab-container-item id="tab-container3">
-            <mt-cell></mt-cell>
-          </mt-tab-container-item>
-        </mt-tab-container>
-    </div>
-    <div class="nav">
-          <mt-button size="small" @click.native.prevent="active = 'tab-container1'">首页</mt-button>
-          <mt-button size="small" @click.native.prevent="active = 'tab-container2'">股份荣誉</mt-button>
-          <mt-button size="small" @click.native.prevent="active = 'tab-container3'">单位荣誉</mt-button>
-    </div> -->
   </div>
 </template>
 <script>
@@ -101,5 +80,6 @@ export default {
     line-height 200px
     text-align center
     background-color #ccc
+    
   }
 </style>
