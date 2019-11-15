@@ -1,19 +1,19 @@
 <template>
-    <div>
-        <mt-header title="名人堂">
+    <div style="height:100%">
+        <!-- <mt-header title="名人堂">
             <router-link to="/" slot="left">
             <mt-button icon="back"></mt-button>
             </router-link>
             <mt-button icon="more" slot="right"></mt-button>
-        </mt-header>
+        </mt-header> -->
         <!-- 内容部分 -->
-        <mt-tab-container v-model="selected" style="display:flex">
-          <div class="mui-card">
+        <mt-tab-container v-model="selected" style="display:flex;height:100%">
+          <div style="height:100%">
         <!--页眉，放置标题-->
         <!-- <div class="mui-card-header">页眉</div> -->
         <!--内容区-->
-        <div class="mui-card-content">
-          <img src="../../assets/791b064ac218957889f351aae9229ce9.jpg" alt="">
+        <div  style="height:110%">
+          <img src="../../assets/791b064ac218957889f351aae9229ce9.jpg" alt="" style="height:90%;width:100%">
         </div>
         <!--页脚，放置补充信息或支持的操作-->
         <!-- <div class="mui-card-footer">页脚</div> -->
@@ -21,13 +21,13 @@
         </mt-tab-container>
 
         <nav class="mui-bar mui-bar-tab">
-          <router-link style="border: 1px solid #929292;border-right:0;border-top:0;background-color:#f00;color:white;" class="mui-tab-item" :to="{name:'personnelIndex'}">
+          <router-link style="border: 1px solid #929292;border-right:0;border-top:0;background-color:#f00;color:white;" class="mui-tab-item mui-active" :to="{name:'honorIndex'}">
               <span class="mui-tab-label">首页</span>
           </router-link>
-          <router-link style="border: 1px solid #929292;border-right:0;border-top:0" class="mui-tab-item" to="/honorPrize">
+          <router-link style="border: 1px solid #929292;border-right:0;border-top:0" class="mui-tab-item" :to="{name:'honorPrize'}">
               <span class="mui-tab-label">股份荣誉</span>
           </router-link>
-          <router-link style="border: 1px solid #929292;border-top:0" class="mui-tab-item" to="/">
+          <router-link style="border: 1px solid #929292;border-top:0" class="mui-tab-item" :to="{name:'departmentPrizeDetail'}">
               <span class="mui-tab-label">单位荣誉</span>
           </router-link>
         </nav>

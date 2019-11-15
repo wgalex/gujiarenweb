@@ -112,8 +112,13 @@ export default new Router({
       name:'honorDetail',
       component: () => import('@/views/honorDetail/honorDetail'),
     },
-
-    // 人才池部分路由
+    //单位荣誉
+    {
+      path:'/departmentPrizeDetail',
+      name:'departmentPrizeDetail',
+      component: () => import('@/views/departmentPrizeDetail/departmentPrizeDetail'),
+    },
+    // 人才池部分路由departmentPrize
     // {
     //   path:'/personnelHome',
     //   name:'personnelHome',

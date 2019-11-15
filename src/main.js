@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Cube from 'cube-ui'
-import App from './App'
+import App from './App.vue'
 import router from './router'
 import store from '@/store/index'
 
@@ -10,12 +10,10 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import 'mint-ui/lib/index'
 
-//名人堂PC页面
-import ElementUI from 'element-ui';
-import 'element-ui/lib/theme-chalk/index.css';
+
 
 Vue.use(MintUI)
-Vue.use(ElementUI)
+
 
 //使用mui
 import './lib/mui/css/mui.min.css'
@@ -24,22 +22,6 @@ import './lib/mui/css/mui.min.css'
 //手机端调试
 // import VConsole from 'vconsole' 
 // let vConsole = new VConsole() 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 Vue.use(Cube)
 

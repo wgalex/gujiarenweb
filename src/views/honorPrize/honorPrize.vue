@@ -1,33 +1,15 @@
 <template>
     <div>
-      <mt-header title="名人堂">
+      <!-- <mt-header title="名人堂">
             <router-link to="/" slot="left">
             <mt-button icon="back"></mt-button>
             </router-link>
             <mt-button icon="more" slot="right"></mt-button>
-        </mt-header>
+        </mt-header> -->
         <div class="container">
-          <!-- <div class="side">
-            <router-link to="/honorpRizeDetail">
-              <div class="boxLeft">
-                <img class="imgs" src="../../assets/timg.jpg" alt="">
-                <div class="prizes">玉华奖</div>
-              </div>
-            </router-link>
-            <router-link to="/honorpRizeDetail">
-              <div class="boxLeft">
-                <img class="imgs" src="../../assets/timg.jpg" alt="">
-                <div class="prizes">玉华奖</div>
-              </div>
-            </router-link>
-            <div class="boxRight">
-              <img src="../../assets/timg.jpg" alt="">
-              <div class="prizes">双基奖</div>
-            </div>
-          </div> -->
           <div class="mui-content"> 
             <ul class="mui-table-view mui-grid-view mui-grid-9" >
-                 <li class="mui-table-view-cell mui-media mui-col-xs-4 mui-col-sm-6" style="float:left" v-for="item in catoryList"  :key="item.id">
+                 <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="float:left" v-for="item in catoryList"  :key="item.id">
                     <a href="#" @click="jumpDetail(item)">  
                          <div class="mui-card-content">
                            <img :src="item.headPath" alt="">
@@ -53,10 +35,10 @@
           <router-link style="border: 1px solid #929292;border-right:0;border-top:0;" class="mui-tab-item" :to="{name:'honorIndex'}">
               <span class="mui-tab-label">首页</span>
           </router-link>
-          <router-link style="border: 1px solid #929292;border-right:0;border-top:0;background-color:#f00;color:white" class="mui-tab-item" to="/honorPrize">
+          <router-link style="border: 1px solid #929292;border-right:0;border-top:0;background-color:#f00;color:white" class="mui-tab-item mui-active" :to="{name:'honorPrize'}">
               <span class="mui-tab-label">股份荣誉</span>
           </router-link>
-          <router-link style="border: 1px solid #929292;border-top:0" class="mui-tab-item" to="/">
+          <router-link style="border: 1px solid #929292;border-top:0" class="mui-tab-item" :to="{name:'departmentPrizeDetail'}">
               <span class="mui-tab-label">单位荣誉</span>
           </router-link>
         </nav>

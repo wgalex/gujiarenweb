@@ -13,13 +13,14 @@
   </keep-alive> -->
 <!-- 底部部分 -->
 
-    <div class="container">
+    <div class="container" style="height:100%">
       <keep-alive>
         <router-view v-if="$route.meta.keepAlive"/>
       </keep-alive>
       <router-view v-if="!$route.meta.keepAlive"/>
+      <!-- <m-tab></m-tab> -->
     </div>
-    <!-- <m-tab></m-tab> -->
+    
   </div>
 </template>
 
@@ -28,6 +29,7 @@ import MTab from "@/components/m-tab";
 import { setDDConfig } from "@/api/dd";
 import { mapMutations } from "vuex";
 import fetch from "@/api/fetch";
+import { Tabbar, TabItem } from 'mint-ui';
 export default {
   name: "app",
   created() {
@@ -100,6 +102,7 @@ export default {
     });
   },
   methods: {
+    
     ...mapMutations({
       save_userId: "save_userId",
       save_userName:'save_userName',
@@ -111,8 +114,9 @@ export default {
       this.$router.go(-1);//返回上一层
     }
   },
+  
   components: {
-    MTab
+    MTab,Tabbar,TabItem
   }
 };
 </script>
