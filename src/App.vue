@@ -13,7 +13,7 @@
   </keep-alive> -->
 <!-- 底部部分 -->
 
-    <div class="container" style="height:100%">
+    <div class="container" style="height:100%;width:100%">
       <keep-alive>
         <router-view v-if="$route.meta.keepAlive"/>
       </keep-alive>
@@ -34,82 +34,82 @@ export default {
   name: "app",
   created() {
     // 获取用户 id
-    setDDConfig().then(res => {
-      var that = this;
-      let data = res;
-      var is_mobi =
-        navigator.userAgent
-          .toLowerCase()
-          .match(
-            /(ipod|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i
-          ) != null;
-      if (!is_mobi) {
-        // PC
-        console.log("pc");
-        DingTalkPC.ready(() => {
-          DingTalkPC.runtime.permission.requestAuthCode({
-            corpId: data.corpId, //企业ID
-            onSuccess: function(result) {
-              let url =
-                "/kukacms/visitor/getDingUserInfo.htm?accessToken=" +
-                data.token +
-                "&code=" +
-                result.code;
-              fetch({
-                url: url,
-                method: "get"
-              }).then(res => {
-                // console.log(res);
-                that.save_userId(res.data.userId);
-                that.save_userName(res.data.name);
-                thst.save_corpId(res.data.corpId);
-                thst.save_agentid (res.data.agentid)
-              });
-            },
-            onFail: function(err) {
-              window.location.reload();
-            }
-          });
-        });
-      } else {
-        // 移动
-        console.log("mobile");
-        dd.ready(() => {
-          dd.ui.webViewBounce.disable();
-          dd.runtime.permission.requestAuthCode({
-            corpId: data.corpId,
-            onSuccess: function(result) {
-              let url =
-                "/kukacms/visitor/getDingUserInfo.htm?accessToken=" +
-                data.token +
-                "&code=" +
-                result.code;
-              fetch({
-                url: url,
-                method: "get"
-              }).then(res => {
-                // console.log(res);
-                that.save_userId(res.data.userId);
-                that.save_userName(res.data.name);
-              });
-            },
-            onFail: function(err) {
-              window.location.reload();
-            }
-          });
-        });
-      }
-    });
+    // setDDConfig().then(res => {
+    //   var that = this;
+    //   let data = res;
+    //   var is_mobi =
+    //     navigator.userAgent
+    //       .toLowerCase()
+    //       .match(
+    //         /(ipod|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i
+    //       ) != null;
+    //   if (!is_mobi) {
+    //     // PC
+    //     console.log("pc");
+    //     DingTalkPC.ready(() => {
+    //       DingTalkPC.runtime.permission.requestAuthCode({
+    //         corpId: data.corpId, //企业ID
+    //         onSuccess: function(result) {
+    //           let url =
+    //             "/kukacms/visitor/getDingUserInfo.htm?accessToken=" +
+    //             data.token +
+    //             "&code=" +
+    //             result.code;
+    //           fetch({
+    //             url: url,
+    //             method: "get"
+    //           }).then(res => {
+    //             // console.log(res);
+    //             that.save_userId(res.data.userId);
+    //             that.save_userName(res.data.name);
+    //             thst.save_corpId(res.data.corpId);
+    //             thst.save_agentid (res.data.agentid)
+    //           });
+    //         },
+    //         onFail: function(err) {
+    //           window.location.reload();
+    //         }
+    //       });
+    //     });
+    //   } else {
+    //     // 移动
+    //     console.log("mobile");
+    //     dd.ready(() => {
+    //       dd.ui.webViewBounce.disable();
+    //       dd.runtime.permission.requestAuthCode({
+    //         corpId: data.corpId,
+    //         onSuccess: function(result) {
+    //           let url =
+    //             "/kukacms/visitor/getDingUserInfo.htm?accessToken=" +
+    //             data.token +
+    //             "&code=" +
+    //             result.code;
+    //           fetch({
+    //             url: url,
+    //             method: "get"
+    //           }).then(res => {
+    //             // console.log(res);
+    //             that.save_userId(res.data.userId);
+    //             that.save_userName(res.data.name);
+    //           });
+    //         },
+    //         onFail: function(err) {
+    //           window.location.reload();
+    //         }
+    //       });
+    //     });
+    //   }
+    // });
   },
   methods: {
     
-    ...mapMutations({
-      save_userId: "save_userId",
-      save_userName:'save_userName',
-      save_corpId:'save_corpId',
-      save_agentid:'save_agentid'
+    // ...mapMutations({
+    //   save_userId: "save_userId",
+    //   save_userName:'save_userName',
+    //   save_corpId:'save_corpId',
+    //   save_agentid:'save_agentid'
 
-    }),
+    // }),
     back(){
       this.$router.go(-1);//返回上一层
     }

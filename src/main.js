@@ -9,6 +9,10 @@ import store from '@/store/index'
 import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import 'mint-ui/lib/index'
+import 'mint-ui/lib/'
+import { Loadmore } from 'mint-ui';
+
+Vue.component(Loadmore.name, Loadmore);
 
 
 
@@ -47,7 +51,6 @@ Vue.use(VueLazyLoad,{
 
 
 Vue.config.productionTip = false
-
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

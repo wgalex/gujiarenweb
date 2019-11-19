@@ -9,7 +9,7 @@
         <div class="container">
         <div class="mui-card">
         <!--页眉，放置标题-->
-        <div class="mui-card-header">{{choooseOne.categoryName}}</div>
+        <div class="mui-card-header" style="justify-content: center;">{{choooseOne.personName}}</div>
         <!--内容区-->
         <div class="mui-card-content">
           <img :src="choooseOne.headPath" alt="">
@@ -26,6 +26,7 @@
              <div class="mui-card-content" v-if="choooseOne.filePath">
                 <img src="../../assets/Snipaste_2019-11-11_16-23-05.png" alt="" @click="jumpVideo">
             </div>
+            
         </div>
         </div>
             <!-- <div class="prism-player" id="player-con" style="margin-top:50px"></div> -->
@@ -73,12 +74,12 @@ export default {
             // top.location.href = this.choooseOne.filePath
             // window.location.href = this.choooseOne.filePath
             
-        this.$createDialog({
-            type: 'alert',
-            title: '请复制链接地址,到浏览器打开',
-            content:  '<div class="mui-card-content" style="word-break:break-all">'+ this.choooseOne.filePath +'</div>',
-            icon: 'cubeic-alert'
-        }).show()
+        // this.$createDialog({
+        //     type: 'alert',
+        //     title: '请复制链接地址,到浏览器打开',
+        //     content:  '<div class="mui-card-content" style="word-break:break-all">'+ this.choooseOne.filePath +'</div>',
+        //     icon: 'cubeic-alert'
+        // }).show()
       },
   },
 }

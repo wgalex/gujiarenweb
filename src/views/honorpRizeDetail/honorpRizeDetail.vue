@@ -52,7 +52,6 @@ export default {
     selectYears(this.catorySelected).then(res => {
           this.catoryYears = res.data
     })
-    // this.catorySelected = label
     let queryData = {}
     queryData.categoryName = this.catorySelected 
     queryCelebrityPerson(queryData).then(res => {
@@ -77,36 +76,14 @@ export default {
         queryCelebrityPerson(queryDatas).then(res => {
         this.catoryListChildrenList = res.data.itemList
       })
-      // this.catoryYears = ['1']
-    //   if(this.selectedYear == ''){
-    //       queryData.categoryName = label
-    //       queryCelebrityPerson(queryData).then(res => {
-    //       this.catoryListChildrenList = res.data.itemList
-    //     })
-    //      selectYears(this.selected).then(res => {
-    //     for(var i in res.data){
-    //       this.catoryYears.push(res.data[i].toString())
-    //     }
-    // })
-    //   }else{
-    //      queryData.categoryName = label
-    //      queryData.years = this.selectedYear
-    //       queryCelebrityPerson(queryData).then(res => {
-    //       this.catoryListChildrenList = res.data.itemList
-    //     })
-    //     selectYears(this.selected).then(res => {
-    //     for(var i in res.data){
-    //       this.catoryYears.push(res.data[i].toString())
-    //     }
-    // })
-    //   }
     },
       jumpDetails(item){
         this.$router.push({
         name: 'honorDetail',
         query: {
           // catoryList: this.catoryList,
-          selectItem:item
+          selectItem:item,
+          catoryListChildrenList: this.catoryListChildrenList
         }
       })
     },
