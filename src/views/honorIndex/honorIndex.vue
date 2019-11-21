@@ -10,15 +10,14 @@
         <!-- <mt-tab-container v-model="selected" style="display:flex;height:100%;width:100%"> -->
           <div style="height: 0;overflow: hidden;margin: 0;padding-bottom: 100%;">
         <!--页眉，放置标题-->
-        <!-- <div class="mui-card-header">页眉</div> -->
-        <!--内容区-->
-         <img src="../../assets/3C2D0751-5758-4091-8E2D-7EB6F3F47408.png" style=" display: block;position: absolute;width: 100%;top: 0;bottom: 0; height: 100%;" />
+        
+         <img src="../../assets/封面图.jpg" style=" display: block;position: absolute;width: 100%;top: 0;bottom: 0; height: 100%;" />
         <!--页脚，放置补充信息或支持的操作-->
         <!-- <div class="mui-card-footer">页脚</div> -->
       </div>
         <!-- </mt-tab-container> -->
 
-        <nav class="mui-bar mui-bar-tab">
+        <!-- <nav class="mui-bar mui-bar-tab">
           <router-link style="border: 1px solid #929292;border-right:0;border-top:0;background-color:#f00;color:white;" class="mui-tab-item mui-active" :to="{name:'honorIndex'}">
               <span class="mui-tab-label">首页</span>
           </router-link>
@@ -28,7 +27,7 @@
           <router-link style="border: 1px solid #929292;border-top:0" class="mui-tab-item" :to="{name:'departmentPrizeDetail'}">
               <span class="mui-tab-label">单位荣誉</span>
           </router-link>
-        </nav>
+        </nav> -->
   </div>
 </template>
 <script>

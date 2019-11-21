@@ -1,8 +1,10 @@
 <template>
     <div>
-        <cube-input v-model="seachValue" placeholder='请先选部门后查询奖项' @input='test' :clearable="clearable"></cube-input>
+        <div>
+          <mt-search v-model="value" ></mt-search>
+        </div>
         <div style="height:5%">
-         <cube-scroll-nav-bar  :current="currentCatoryListLabel" :labels="catoryListLabel" @change="changeHandler"  :txts='catoryListLabel' />
+         <cube-scroll-nav-bar  :current="currentCatoryListLabel" :labels="catoryListLabel" @change="changeHandler"  :txts='catoryListLabel' class="zzz"/>
         </div>
         <div  >
          <cube-scroll-nav-bar  :current="catoryYears[0]" :labels="catoryYears"  @change="changeYear" :txts='catoryYears' />
@@ -30,17 +32,6 @@
                  </li>  
             </ul>
         </div>  
-        <nav class="mui-bar mui-bar-tab">
-          <router-link style="border: 1px solid #929292;border-right:0;border-top:0" class="mui-tab-item" :to="{name:'honorIndex'}">
-              <span class="mui-tab-label">首页</span>
-          </router-link>
-          <router-link style="border: 1px solid #929292;border-right:0;border-top:0" class="mui-tab-item" :to="{name:'honorPrize'}">
-              <span class="mui-tab-label">股份荣誉</span>
-          </router-link>
-          <router-link style="border: 1px solid #929292;border-top:0;;background-color:#f00;color:white;" class="mui-tab-item mui-active" :to="{name:'departmentPrizeDetail'}">
-              <span class="mui-tab-label">单位荣誉</span>
-          </router-link>
-        </nav>
     </div>
 </template>
 
@@ -67,10 +58,11 @@ export default {
       selectedDepartment:"",
       seachValue:'',
       currentCatoryListLabel:"",
-      clearable: {
+      clearables: {
         visible: true,
         blurHidden: true
-      }
+      },
+      value:"",
     };
   },
   created(){
@@ -85,7 +77,6 @@ export default {
   methods:{
     //筛选奖项
      chaxun(dataList) { 
-       debugger
        let  arr2 = []
         var cha = '部';//获取想要查询的值
         var cha1 = '中心'
@@ -210,5 +201,29 @@ export default {
   }
  .cube-scroll-nav-bar-items {
     font-size: 12px !important;
+}
+.mint-search{
+  height:1%
+}
+.mint-searchbar {
+    background-color: yellow;
+    padding: 26px 12px 5px 20px;
+}
+.mint-searchbar-inner{
+  height: 42px;
+  border-radius: 20px;
+  .mintui-search{
+    font-size: 28px;
+    
+  }
+  input[type=search] {
+      border-radius: 24px;
+      background-color: #fff;
+    }
+}
+.zzz{
+  background-color: #ff0 !important;
+    height: 38px;
+    line-height: 0px;
 }
 </style>

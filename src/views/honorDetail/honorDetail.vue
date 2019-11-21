@@ -11,22 +11,20 @@
         <!--页眉，放置标题-->
         <div class="mui-card-header" style="justify-content: center;">{{choooseOne.personName}}</div>
         <!--内容区-->
-        <div class="mui-card-content">
+        <div class="mui-card-content" style="width: 50%;margin-left: 25%;">
           <img :src="choooseOne.headPath" alt="">
         </div>
-        <!--页脚，放置补充信息或支持的操作-->
-        <div class="mui-card-footer">事迹介绍:{{choooseOne.description}}</div>
+            <div>
+                <span class="contentBody" @click="addline" :style='mypagestyle'>事迹介绍:{{choooseOne.description}}</span>
+            </div>
         <!-- <input type="button" id="Copy" value="点击复制代码" /> -->
         <div v-if="choooseOne.photoPath">
              <div class="mui-card-content">
                 <img :src="choooseOne.photoPath" alt="">
             </div>
         </div>
-        <div >
-             <div class="mui-card-content" v-if="choooseOne.filePath">
-                <img src="../../assets/Snipaste_2019-11-11_16-23-05.png" alt="" @click="jumpVideo">
-            </div>
-            
+        <div class="mui-card-content">
+            <iframe height=198 width=100% :src= choooseOne.filePath frameborder=0 allowfullscreen></iframe>
         </div>
         </div>
             <!-- <div class="prism-player" id="player-con" style="margin-top:50px"></div> -->
@@ -38,49 +36,23 @@ export default {
   data () {
     return {
         choooseOne:{},
+        playPath:'',
+        // mypagestyle:{color: 'yellow',background:"blue"},
+        mypagestyle:''
     };
   },
   created(){
       let selectItem = this.$route.query.selectItem
       this.choooseOne = selectItem
+      this.playPath = this.choooseOne.filePath
   },
   mounted () {
-    //   var player = new Aliplayer({
-    //     "id": "player-con",
-    //     "source": "//player.alicdn.com/video/aliyunmedia.mp4",
-    //     "width": "100%",
-    //     "height": "200px",
-    //     "autoplay": true,
-    //     "isLive": false,
-    //     "rePlay": false,
-    //     "playsinline": true,
-    //     "preload": true,
-    //     "controlBarVisibility": "hover",
-    //     "useH5Prism": true
-    //     }, function (player) {
-    //         console.log("The player is created");
-    //     }
-    // );
-    // 
-        
-        
-
   },
   methods: {
-      jumpVideo(){
-        //   debugger
-        //   window.open(this.choooseOne.filePath)
-        //   self.location.href=this.choooseOne.filePath
-            // top.location.href = this.choooseOne.filePath
-            // window.location.href = this.choooseOne.filePath
-            
-        // this.$createDialog({
-        //     type: 'alert',
-        //     title: '请复制链接地址,到浏览器打开',
-        //     content:  '<div class="mui-card-content" style="word-break:break-all">'+ this.choooseOne.filePath +'</div>',
-        //     icon: 'cubeic-alert'
-        // }).show()
-      },
+      addline(){
+        //   mypagestyle = 
+        this.mypagestyle = '-webkit-line-clamp:50'
+      }
   },
 }
 </script>
@@ -105,5 +77,12 @@ export default {
     }
     textarea{
         font-size 14px
+    }
+    .contentBody{
+        overflow: hidden;  
+        text-overflow: ellipsis;  
+        display: -webkit-box;  
+        -webkit-line-clamp: 12;  
+        -webkit-box-orient: vertical;  
     }
 </style>

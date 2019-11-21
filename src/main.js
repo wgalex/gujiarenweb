@@ -13,11 +13,12 @@ import 'mint-ui/lib/'
 import { Loadmore } from 'mint-ui';
 
 Vue.component(Loadmore.name, Loadmore);
-
-
-
 Vue.use(MintUI)
-
+//播放插件
+import VideoPlayer from 'vue-video-player'
+require('video.js/dist/video-js.css')
+require('vue-video-player/src/custom-theme.css')
+Vue.use(VideoPlayer)
 
 //使用mui
 import './lib/mui/css/mui.min.css'

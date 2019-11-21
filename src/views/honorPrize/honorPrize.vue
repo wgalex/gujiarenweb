@@ -31,7 +31,7 @@
           </div> -->
         </div>
 
-        <nav class="mui-bar mui-bar-tab">
+        <!-- <nav class="mui-bar mui-bar-tab">
           <router-link style="border: 1px solid #929292;border-right:0;border-top:0;" class="mui-tab-item" :to="{name:'honorIndex'}">
               <span class="mui-tab-label">首页</span>
           </router-link>
@@ -41,7 +41,7 @@
           <router-link style="border: 1px solid #929292;border-top:0" class="mui-tab-item" :to="{name:'departmentPrizeDetail'}">
               <span class="mui-tab-label">单位荣誉</span>
           </router-link>
-        </nav>
+        </nav> -->
         <!-- <router-link :to="{name:'honorPc'}">
           <cube-button>跳转PC页面</cube-button>
         </router-link> -->

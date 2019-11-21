@@ -13,14 +13,23 @@
   </keep-alive> -->
 <!-- 底部部分 -->
 
-    <div class="container" style="height:100%;width:100%">
+    <div class="container" style="height:100%;width:100%;padding: 0px;">
       <keep-alive>
         <router-view v-if="$route.meta.keepAlive"/>
       </keep-alive>
       <router-view v-if="!$route.meta.keepAlive"/>
-      <!-- <m-tab></m-tab> -->
     </div>
-    
+    <template>
+      <div style="position: fixed;right: 0px;bottom: 1px;width: 100%;background-color: #fff;height: 9%;">
+          <cube-tab-bar
+            v-model="selectedLabelDefault"
+            :data="tabs"
+            @click="clickHandler"
+            @change="changeHandler">
+          </cube-tab-bar>
+      </div>
+      
+</template>
   </div>
 </template>
 
@@ -32,6 +41,24 @@ import fetch from "@/api/fetch";
 import { Tabbar, TabItem } from 'mint-ui';
 export default {
   name: "app",
+   data () {
+    return {
+      selectedLabelDefault: 'Vip',
+      tabs: [{
+        label: '首页',
+        icon: 'fengmian'
+      }, {
+        label: '股份荣誉',
+        icon: 'gufen'
+      }, {
+        label: '部门荣誉',
+        icon: 'bumen'
+      }, {
+        label: '我的荣誉',
+        icon: 'wode'
+      }]
+    }
+  },
   created() {
     // 获取用户 id
     // setDDConfig().then(res => {
@@ -101,17 +128,43 @@ export default {
     //   }
     // });
   },
-  methods: {
-    
-    // ...mapMutations({
-    //   save_userId: "save_userId",
-    //   save_userName:'save_userName',
-    //   save_corpId:'save_corpId',
-    //   save_agentid:'save_agentid'
-
-    // }),
-    back(){
-      this.$router.go(-1);//返回上一层
+ methods: {
+    clickHandler (label) {
+      // debugger
+      // if you clicked home tab, then print 'Home'
+      console.log(label)
+    },
+    changeHandler (label) {
+   switch(label){
+     case '首页':
+      //  表达式的值和 值1匹配上了，需要执行的代码;
+      this.$router.push({
+        name: 'honorIndex',
+        })
+       break;
+     case '股份荣誉':
+       this.$router.push({
+        name: 'honorPrize',
+      })
+      //  表达式的值和 值2匹配上了，需要执行的代码;
+     break;
+     case '部门荣誉':
+       this.$router.push({
+        name: 'departmentPrizeDetail',
+      })
+      //  表达式的值和 值3匹配上了，需要执行的代码;
+     break;
+      case '我的荣誉':
+      //  表达式的值和 值3匹配上了，需要执行的代码;
+      this.$router.push({
+        name: 'honorIndex',
+      })
+     break;
+     default:
+      //  如果表达式的值和以上的case后面的值都没有匹配上，那么就执行这里的代码。
+       break;
+   }
+      // if you clicked different tab, this methods can be emitted
     }
   },
   
@@ -134,6 +187,7 @@ export default {
   /* margin-top: 40px; */
   width: 100%;
   height: 100%;
+  
   /* overflow: hidden; */
 }
 * {
@@ -142,8 +196,41 @@ export default {
 .mint-header{
   background-color: #eee ;
   color: #333
-  
 }
-
-
+.fengmian{
+  display: inline-block;
+  height: 30px;
+  width: 35px;
+  /* background-color: cyan; */
+  background: url('./assets/首页.png') no-repeat;
+  background-size:100% 100%;
+}
+.gufen{
+  display: inline-block;
+  height: 30px;
+  width: 35px;
+  /* background-color: cyan; */
+  background: url('./assets/股份荣誉.png') no-repeat;
+  background-size:100% 100%;
+}
+.bumen{
+  display: inline-block;
+  height: 30px;
+  width: 35px;
+  /* background-color: cyan; */
+  background: url('./assets/部门荣誉.png') no-repeat;
+  background-size:100% 100%;
+}
+.wode{
+  display: inline-block;
+  height: 30px;
+  width: 35px;
+  /* background-color: cyan; */
+  background: url('./assets/我的荣誉.png') no-repeat;
+  background-size:100% 100%;
+}
+.cube-tab_active {
+      color: cyan!important
+  }
+/* C:\Users\kuka\Desktop\gujiarenweb\src\assets\首页.png */
 </style>

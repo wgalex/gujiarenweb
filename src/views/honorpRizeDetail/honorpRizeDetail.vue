@@ -1,20 +1,26 @@
 <template>
     <div>
-      <!-- <mt-header title="名人堂">
-            <router-link to="/" slot="left">
-            <mt-button icon="back"></mt-button>
-            </router-link>
-            <mt-button icon="more" slot="right"></mt-button>
-        </mt-header> -->
+        <div>
+          <mt-search v-model="value" ></mt-search>
+        </div>
         <div >
          <cube-scroll-nav-bar :current="catorySelected" :labels="catoryListLabel" @change="changeHandler"  :txts='catoryListLabel' />
         </div>
-        <div style="marging-top:20px" >
-         <cube-scroll-nav-bar  :labels="catoryYears"  @change="changeYear" :txts='catoryYears' />
+        <!-- <div class="side-container" style="width:25%;float:left" >
+         <cube-scroll-nav-bar  direction="vertical" :labels="catoryYears"  @change="changeYear" :txts='catoryYears' class="zzz" />
+        </div> -->
+         <div class="side-container" style="width:25%;float:left">
+          <cube-scroll-nav-bar
+            direction="vertical"
+            :labels="catoryYears"
+            :txts="catoryYears"
+            @change="changeYear">
+            <i slot-scope="props">{{props.txt}}</i>
+          </cube-scroll-nav-bar>
         </div>
-      <div class="mui-content"> 
-            <ul class="mui-table-view mui-grid-view mui-grid-9" >
-                 <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="float:left" v-for="item in catoryListChildrenList"  :key="item.id">
+      <div class="mui-content" style="height:560px;overflow:auto"> 
+            <ul class="mui-table-view mui-grid-view mui-grid-9" style="min-height: 0px;">
+                 <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" v-for="item in catoryListChildrenList"  :key="item.id">
                     <a href="#" @click="jumpDetails(item)">  
                          <div class="mui-card-content">
                            <img :src="item.headPath" alt="">
@@ -128,4 +134,28 @@ export default {
   h5{
       color black
   }
+  .side-container{
+     height: 500px
+     font-size: 12px;
+  }
+  .mint-search{
+  height:1%
+}
+.mint-searchbar {
+    background-color: yellow;
+    padding: 26px 12px 5px 20px;
+}
+.mint-searchbar-inner{
+  height: 42px;
+  border-radius: 20px;
+  .mintui-search{
+    font-size: 28px;
+    
+  }
+  input[type=search] {
+      border-radius: 24px;
+      background-color: #fff;
+    }
+}
+
 </style>
