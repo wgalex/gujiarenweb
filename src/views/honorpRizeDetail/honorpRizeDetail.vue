@@ -16,7 +16,7 @@
       </div>
     </div>
     <div></div>
-    <div class="side-container" style="width:20%;float:left;background-color: #f1f4f9;">
+    <div class="side-container" style="width:18%;float:left;background-color: #f1f4f9;">
       <cube-scroll-nav-bar
         direction="vertical"
         :labels="catoryYears"
@@ -71,7 +71,7 @@ export default {
   created() {
     this.catoryList = this.$route.query.catoryList;
     for (var i in this.catoryList) {
-      this.catoryListLabel.push('<span id="123">'+this.catoryList[i].categoryName+'</span>');
+      this.catoryListLabel.push('<span style="display: inline-block;padding: 5px;margin: 0 35px;">'+this.catoryList[i].categoryName+'</span>');
      
     }
     this.catorySelectf = this.$route.query.selectItem.categoryName;
@@ -85,7 +85,7 @@ export default {
         return
       }
       for(var i in res.data){
-        this.catoryYears.push('<span  >'+ res.data[i]+'</span>' )
+        this.catoryYears.push('<span style="display: inline-block;padding: 10px 26px 10px 10px;position: relative;" >'+ res.data[i]+'<div class="bbb"></div></span>' )
       }
     });
     let queryData = {};
@@ -100,6 +100,11 @@ export default {
   mounted() {},
   methods: {
     changeHandler(label) {
+      setTimeout(() => {
+        let selectTop = document.querySelector(".cube-scroll-nav-bar-item_active");
+        selectTop.classList.remove("cube-scroll-nav-bar-item_active");
+        selectTop.classList.add("ddd");
+       }, 5);
       this.catoryYears = [];
       this.catoryListChildrenList = [];
       // this.catorySelected = label;
@@ -118,7 +123,7 @@ export default {
           return
         }
         for(var i in res.data){
-        this.catoryYears.push('<span   >'+ res.data[i]+'</span>' )
+        this.catoryYears.push('<span style="display: inline-block;padding: 10px 26px 10px 10px;position: relative;">'+ res.data[i]+'<div class="bbb"></div></span>' )
       }
       });
       let queryDatas = {};
@@ -126,12 +131,7 @@ export default {
       queryCelebrityPerson(queryDatas).then(res => {
         this.catoryListChildrenList = res.data.itemList;
       });
-       setTimeout(() => {
-         debugger
-        let selectTop = document.querySelector(".cube-scroll-nav-bar-item_active");
-        selectTop.classList.remove("active");
-        
-       }, 200);
+       
     },
     jumpDetails(item) {
       this.$router.push({
@@ -144,6 +144,14 @@ export default {
       });
     },
     changeYear(label) {
+      setTimeout(() => {
+        // debugger
+        let selectTop = document.querySelector(".cube-scroll-nav-bar-item_active");
+        selectTop.classList.remove("cube-scroll-nav-bar-item_active");
+        // let oldSelect = document.querySelector(".zzz");
+        // oldSelect.classList.remove("zzz");
+        selectTop.classList.add("zzz");
+       }, 5);
       this.selectedYear = label;
       this.catoryListChildrenList = [];
       let queryData = {};
@@ -251,20 +259,24 @@ h5 {
 }
 
 .mint-search {
-  height: 1%;
+    height: 60px;
 }
 
 .mint-searchbar {
   background-color: rgba(0,0,0,0);
-  padding: 26px 12px 5px 20px;
+  padding: 0px 12px 5px 20px;
 }
 
 .mint-searchbar-inner {
-  height: 42px;
+  position relative
+  height: 35px;
   border-radius: 20px;
 
   .mintui-search {
-    font-size: 28px;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 20px;
   }
 
   input[type=search] {
@@ -296,11 +308,34 @@ h5 {
   padding:0
 }
 .cube-scroll-nav-bar-item{
-  padding:0
+  padding 0px!important
 }
 .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
   font-size: 13px;
   text-align: left;
 }
+.ddd{
+  border-radius: 12px;
+  background-color: #fff;
+  color skyblue
+}
+.zzz{
+  background-color #fff
+  border-left 2px solid skyblue
+  color skyblue
+  .bbb{
+    border-left: 8px solid skyblue;
+  }
+}
+.bbb{
+position: absolute;top: 11px;
+right: 0px;width: 0px;
+height:0px;
+border-top: 8px solid rgba(0,0,0,0);
+border-right: 8px solid  rgba(0,0,0,0);
+border-bottom: 8px solid  rgba(0,0,0,0);
+border-left: 8px solid rgb(241, 244, 249);
+}
+
 
 </style>

@@ -9,8 +9,8 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/mrt/',
-    // assetsPublicPath: '/',
+    // assetsPublicPath: '/mrt/',
+    assetsPublicPath: '/',
 
     proxyTable: {
 			'/kukacms': {
@@ -19,8 +19,8 @@ module.exports = {
         // target: 'http://172.16.26.125:9090/kukacms',
         //target: 'http://172.16.26.125:9090'
         // target: 'http://172.16.28.73:8080/kukacms',
-        // target: 'http://116.62.60.13:8090/kukacms',
-        target: 'http://192.168.251.33:8880//kukacms/',
+        target: 'http://116.62.60.13:8090/kukacms',
+        // target: 'http://192.168.251.33:8880//kukacms/',
         changeOrigin: true,
         pathRewrite: {
           '^/kukacms': ''
