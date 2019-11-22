@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div style="background-image: linear-gradient(#e66465, #9198e5);">
+    <div style="background-image: linear-gradient(#0e82fd, #3edbfa);">
       <div>
         <mt-search v-model="value"></mt-search>
       </div>
@@ -15,33 +15,31 @@
         />
       </div>
     </div>
-
-    <!-- <div class="side-container" style="width:25%;float:left" >
-         <cube-scroll-nav-bar  direction="vertical" :labels="catoryYears"  @change="changeYear" :txts='catoryYears' class="zzz" />
-    </div>-->
-    <div class="side-container" style="width:15%;float:left;background-color: #ccc">
+    <div></div>
+    <div class="side-container" style="width:20%;float:left;background-color: #f1f4f9;">
       <cube-scroll-nav-bar
         direction="vertical"
         :labels="catoryYears"
         :txts="catoryYears"
         @change="changeYear"
       >
-        <!-- <i slot-scope="props">{{props.txt}}</i> -->
       </cube-scroll-nav-bar>
     </div>
     <div class="mui-content" style="height:560px;overflow:auto">
-      <ul class="mui-table-view mui-grid-view mui-grid-9" style="min-height: 0px;">
+      <ul class="mui-table-view mui-grid-view mui-grid-8" style="min-height: 0px;">
         <li
-          class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6"
+          class="mui-table-view-cell mui-media mui-col-xs-12 "
           v-for="item in catoryListChildrenList"
           :key="item.id"
         >
           <a href="#" @click="jumpDetails(item)">
             <div class="mui-card-content">
-              <img :src="item.headPath" alt />
+              <span style="float:left;width:60px;height:60px;border-radius: 12px;" :style="{ 'background-image': 'url(' + item.headPath + ')','background-repeat':'no-repeat','background-size':'cover' }" ></span>
+              <div style="float:left;margin-left: 5%;">
+                <span class="mui-media-body">{{item.tittle}}</span>
+                <span class="mui-media-body">{{item.personName}}</span>
+              </div>
             </div>
-            <div class="mui-media-body">{{item.personName}}</div>
-            <div class="mui-media-body">{{item.description}}</div>
           </a>
         </li>
       </ul>
@@ -51,58 +49,89 @@
 
 <script>
 import { queryCelebrityPerson, selectYears } from "./detailApi.js";
-
+import textdata from './testData'
 export default {
   data() {
     return {
       // selected: '',
       catoryListLabel: [],
+      middlecatoryListLabel:[],
       catoryListChildrenList: [],
       catoryYears: [],
+      middlecatoryYears:[],
       selectedYear: "",
       catorySelected: "",
-      value:""
+      value:"",
+      textdata: textdata,
+      catoryList:[],
+      catorySelectf:""
+
     };
   },
   created() {
-    let catoryList = this.$route.query.catoryList;
-    for (var i in catoryList) {
-      this.catoryListLabel.push('<span>'+catoryList[i].categoryName+'</span>');
-      // console.log(this.catoryListLabel);
-      
-      // this.catoryListLabel.push();
-
+    this.catoryList = this.$route.query.catoryList;
+    for (var i in this.catoryList) {
+      this.catoryListLabel.push('<span id="123">'+this.catoryList[i].categoryName+'</span>');
+     
     }
-    this.catorySelected = this.$route.query.selectItem.categoryName;
-    selectYears(this.catorySelected).then(res => {
-      // this.catoryYears = res.data;
-      // debugger
+    this.catorySelectf = this.$route.query.selectItem.categoryName;
+    let charesoule = this.chaxun3(this.catoryListLabel,this.catorySelectf)
+    for(let i in charesoule){
+      this.catorySelected = charesoule[i]
+    }
+    selectYears(this.catorySelectf).then(res => {
+      this.middlecatoryYears = res.data
+      if(res.data == ''){
+        return
+      }
       for(var i in res.data){
-        this.catoryYears.push('<span style="padding: 12px 17px;margin: -20px -15px" class="pop" >'+ res.data[i]+'</span>' )
+        this.catoryYears.push('<span  >'+ res.data[i]+'</span>' )
       }
     });
     let queryData = {};
-    queryData.categoryName = this.catorySelected;
+    queryData.categoryName = this.catorySelectf;
     queryCelebrityPerson(queryData).then(res => {
+      this.middlecatoryListLabel = res.data.itemList
       this.catoryListChildrenList = res.data.itemList;
-      console.log(this.catoryListChildrenList);
+      // console.log(this.catoryListChildrenList);
     });
+   
   },
   mounted() {},
   methods: {
     changeHandler(label) {
       this.catoryYears = [];
       this.catoryListChildrenList = [];
-      this.catorySelected = label;
+      // this.catorySelected = label;
       let queryData = {};
-      selectYears(label).then(res => {
-        this.catoryYears = res.data;
+      let curretLabel = this.chaxun(this.catoryList,label)
+      let current = ''
+      for(let i in curretLabel){
+        current = curretLabel[0].categoryName
+         this.catorySelectf = current
+      }
+      selectYears(current).then(res => {
+        this.middlecatoryYears = []
+        this.middlecatoryYears = res.data
+        // this.catoryYears = res.data;
+        if(res.data == ''){
+          return
+        }
+        for(var i in res.data){
+        this.catoryYears.push('<span   >'+ res.data[i]+'</span>' )
+      }
       });
       let queryDatas = {};
-      queryDatas.categoryName = label;
+      queryDatas.categoryName = current;
       queryCelebrityPerson(queryDatas).then(res => {
         this.catoryListChildrenList = res.data.itemList;
       });
+       setTimeout(() => {
+         debugger
+        let selectTop = document.querySelector(".cube-scroll-nav-bar-item_active");
+        selectTop.classList.remove("active");
+        
+       }, 200);
     },
     jumpDetails(item) {
       this.$router.push({
@@ -118,16 +147,64 @@ export default {
       this.selectedYear = label;
       this.catoryListChildrenList = [];
       let queryData = {};
-      queryData.categoryName = this.catorySelected;
-      queryData.years = label;
+      queryData.categoryName = this.catorySelectf;
+      let currentYear = this.chaxun2(this.middlecatoryYears,label)
+      for(let i in currentYear){
+         queryData.years = currentYear[i];
+      }
       queryCelebrityPerson(queryData).then(res => {
         this.catoryListChildrenList = res.data.itemList;
       });
     },
-    ree(){
-      console.log(123);
-      
-    }
+    //筛选奖项
+     chaxun(dataList,label) { 
+       let  arr2 = []
+        var cha = label;//获取想要查询的值
+        var zhi = '';//接收每个循环中的arr[i]的值
+        for (var i = 0; i < dataList.length; i++) {
+            zhi = dataList[i].categoryName;
+            if (cha.indexOf(zhi) != -1) {//因为indexof找不到的时候是一律为-1，所以直接判断是否为-1，不是就弹出这个值
+                arr2.push(dataList[i]);//将值放入第二个数组
+                // this.depatmentList.push(dataList[i])
+            }
+        }
+        // debugger
+        return arr2
+        // alert(arr2);//弹出匹配的值
+        // arr2 = [];//清空数组，否则第二次查询时会因为有是全局变量，而导致先前查询的值会和这次一起弹出
+    },
+     chaxun2(dataList,label) { 
+       let  arr2 = []
+        var cha = label;//获取想要查询的值
+        var zhi = '';//接收每个循环中的arr[i]的值
+        for (var i = 0; i < dataList.length; i++) {
+            zhi = dataList[i];
+            if (cha.indexOf(zhi) != -1) {//因为indexof找不到的时候是一律为-1，所以直接判断是否为-1，不是就弹出这个值
+                arr2.push(dataList[i]);//将值放入第二个数组
+                // this.depatmentList.push(dataList[i])
+            }
+        }
+        // debugger
+        return arr2
+        // alert(arr2);//弹出匹配的值
+        // arr2 = [];//清空数组，否则第二次查询时会因为有是全局变量，而导致先前查询的值会和这次一起弹出
+    },
+    chaxun3(dataList,label) { 
+       let  arr2 = []
+        var cha = label;//获取想要查询的值
+        var zhi = '';//接收每个循环中的arr[i]的值
+        for (var i = 0; i < dataList.length; i++) {
+            zhi = dataList[i];
+            if (zhi.indexOf(cha) != -1) {//因为indexof找不到的时候是一律为-1，所以直接判断是否为-1，不是就弹出这个值
+                arr2.push(dataList[i]);//将值放入第二个数组
+                // this.depatmentList.push(dataList[i])
+            }
+        }
+        // debugger
+        return arr2
+        // alert(arr2);//弹出匹配的值
+        // arr2 = [];//清空数组，否则第二次查询时会因为有是全局变量，而导致先前查询的值会和这次一起弹出
+    },
   }
 };
 </script>
@@ -135,6 +212,7 @@ export default {
 .container {
   height: 600px;
   padding: 10px;
+  
 }
 
 .boxLeft {
@@ -168,7 +246,7 @@ h5 {
 }
 
 .side-container {
-  height: 500px;
+  height: 354px;
   font-size: 12px;
 }
 
@@ -192,8 +270,6 @@ h5 {
   input[type=search] {
     border-radius: 24px;
     background-color: #fff;
-    
-    
   }
 }
 .cube-scroll-nav-bar{
@@ -203,4 +279,28 @@ h5 {
   background-color: #fff;
   color :blue!important
 }
+.mui-content{
+  background-color: #fff;
+}
+.mui-content>.mui-table-view:first-child {
+     margin-top: 0px; 
+}
+.mui-grid-view.mui-grid-8{
+  background-color #fff
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell{
+  border-bottom: 1px solid #ededed;
+  padding-bottom: 5px;
+}
+.mui-table-view.mui-grid-view{
+  padding:0
+}
+.cube-scroll-nav-bar-item{
+  padding:0
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
+  font-size: 13px;
+  text-align: left;
+}
+
 </style>

@@ -11,7 +11,7 @@
           <div style="height: 0;overflow: hidden;margin: 0;padding-bottom: 100%;">
         <!--页眉，放置标题-->
         
-         <img src="../../assets/封面图.jpg" style=" display: block;position: absolute;width: 100%;top: 0;bottom: 0; height: 100%;" />
+         <img src="../../assets/微信图片_201911211726494.jpg" style=" display: block;position: absolute;width: 100%;top: 0;bottom: 0; height: 100%;" />
         <!--页脚，放置补充信息或支持的操作-->
         <!-- <div class="mui-card-footer">页脚</div> -->
       </div>
@@ -79,7 +79,7 @@ export default {
     background-color #ccc
   }
   .imgbox{
-    background:url('../../assets/791b064ac218957889f351aae9229ce9.jpg');
+    background:url('../../assets/微信图片_201911211726494.jpg');
     background-size: cover;
     min-height: 269px;
     background-position: 50% 0px;
