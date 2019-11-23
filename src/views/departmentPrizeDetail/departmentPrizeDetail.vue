@@ -1,7 +1,7 @@
 <template>
   <div style="height: 100%;">
-    <div style="background-image: linear-gradient(#0e82fd, #3edbfa);">
-      <div>
+    <div style="background-image: linear-gradient(#0e82fd, #3edbfa);height:20%">
+      <div style="height:70%;">
         <mt-search v-model="value"></mt-search>
       </div>
       <div>
@@ -22,88 +22,88 @@
         :txts="catoryListLabel"
         style="background-color:#fff!important"
       />
+    </div>
+    <div>
       <div
-        style="width: 100%;
-    height: 0px;
-    position: absolute;
-    bottom: 5px;
-    border-bottom: 1px solid #ccc;"
-      ></div>
-    </div>
-
-    <div class="side-container" style="width:26%;float:left;background-color: #f1f4f9;height: 67%;">
-      <cube-scroll-nav-bar
-        direction="vertical"
-        :current="labelts[0]"
-        :labels="labelts"
-        :txts="labelts"
-        @change="changeHandlert"
-      ></cube-scroll-nav-bar>
-    </div>
-    <div class="mui-content" style="overflow:auto;height:67%">
-      <ul class="mui-table-view mui-grid-view mui-grid-8" style="min-height: 0px;">
-        <li
-          class="mui-table-view-cell mui-media mui-col-xs-12"
-          v-for="item in catoryListChildrenList"
-          :key="item.id"
-          @click="detailitem(item)"
-        >
-          <a href="#">
-            <div class="mui-card-content">
-              <span
-                style="float:left;width:60px;height:60px;border-radius: 12px;"
-                :style="{ 'background-image': 'url(' + item.headPath + ')','background-repeat':'no-repeat','background-size':'cover' }"
-              ></span>
-              <div style="float:left;margin-left: 5%;">
-                <span
-                  class="mui-media-body"
-                  style="width: 178px;display: block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
-                >{{item.tittle}}</span>
-                <span class="mui-media-body">{{item.personName}}</span>
-              </div>
-            </div>
-          </a>
-        </li>
-      </ul>
-      <div v-if="detailFlag">
-      <div class="container">
-        <div >
-          <div class="mui-card-content" style="width: 100%;height: 170px;margin-bottom: 20px;">
-            <img src="../../assets/791b064ac218957889f351aae9229ce9.jpg" style="width:100%;height:100%;border-radius: 18px;
-    padding: 6px;" alt />
-          </div>
-          <div style="text-align: center;">
-            <div style="font-size:24px">{{detailItem.tittle}}</div>
-            <div style="text-align: right;">--{{detailItem.personName}}</div>
-          </div>
-          <!--内容区-->
-          <div>
-            <span class="contentBody" @click="addline" :style="mypagestyle">
-              <p>事迹介绍:</p>
-              <div>{{detailItem.description}}</div>
-              
-            </span>
-          </div>
-          <!-- <input type="button" id="Copy" value="点击复制代码" /> -->
-          <div >
-            <div class="mui-card-content">
-              <img src="../../assets/3C2D0751-5758-4091-8E2D-7EB6F3F47408.png"  alt />
-            </div>
-          </div>
-          <div class="mui-card-content" v-if="detailItem.filePath" >
-            <iframe
-              height="15%"
-              width="100%"
-              :src="detailItem.filePath"
-              frameborder="0"
-              allowfullscreen
-            ></iframe>
-          </div>
-          <i class="cubeic-back ppp" @click="backtest"></i>
-        </div>
-        <!-- <div class="prism-player" id="player-con" style="margin-top:50px"></div> -->
+        class="side-container"
+        style="width:26%;float:left;background-color: #f1f4f9;height: 67%;"
+      >
+        <cube-scroll-nav-bar
+          direction="vertical"
+          :current="labelts[0]"
+          :labels="labelts"
+          :txts="labelts"
+          @change="changeHandlert"
+        ></cube-scroll-nav-bar>
       </div>
-    </div>
+      <div class="mui-content" style="overflow:auto;height:67%">
+        <ul class="mui-table-view mui-grid-view mui-grid-8" style="min-height: 0px;">
+          <li
+            class="mui-table-view-cell mui-media mui-col-xs-12"
+            v-for="item in catoryListChildrenList"
+            :key="item.id"
+            @click="detailitem(item)"
+          >
+            <a href="#">
+              <div class="mui-card-content">
+                <span
+                  style="float:left;width:60px;height:60px;border-radius: 12px;"
+                  :style="{ 'background-image': 'url(' + item.headPath + ')','background-repeat':'no-repeat','background-size':'cover' }"
+                ></span>
+                <div style="float:left;margin-left: 5%;">
+                  <span
+                    class="mui-media-body"
+                    style="width: 178px;display: block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
+                  >{{item.tittle}}</span>
+                  <span class="mui-media-body">{{item.personName}}</span>
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+        <div v-if="detailFlag">
+          <div class="container">
+            <div>
+              <div class="mui-card-content" style="width: 100%;height: 170px;margin-bottom: 20px;">
+                <img
+                  src="../../assets/791b064ac218957889f351aae9229ce9.jpg"
+                  style="width:100%;height:100%;border-radius: 18px;
+    padding: 6px;"
+                  alt
+                />
+              </div>
+              <div style="text-align: center;">
+                <div style="font-size:24px">{{detailItem.tittle}}</div>
+                <div style="text-align: right;">--{{detailItem.personName}}</div>
+              </div>
+              <!--内容区-->
+              <div>
+                <span class="contentBody" @click="addline" :style="mypagestyle">
+                  <p>事迹介绍:</p>
+                  <div>{{detailItem.description}}</div>
+                </span>
+              </div>
+              <!-- <input type="button" id="Copy" value="点击复制代码" /> -->
+              <div>
+                <div class="mui-card-content">
+                  <img src="../../assets/3C2D0751-5758-4091-8E2D-7EB6F3F47408.png" alt />
+                </div>
+              </div>
+              <div class="mui-card-content" v-if="detailItem.filePath">
+                <iframe
+                  height="15%"
+                  width="100%"
+                  :src="detailItem.filePath"
+                  frameborder="0"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <i class="cubeic-back ppp" @click="backtest"></i>
+            </div>
+            <!-- <div class="prism-player" id="player-con" style="margin-top:50px"></div> -->
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -142,9 +142,9 @@ export default {
       detailItem: {},
       playPath: "",
       mypagestyle: "",
-      detailFlag:false,
-      clicktwice:false,
-      backcatoryListChildrenList:[]
+      detailFlag: false,
+      clicktwice: false,
+      backcatoryListChildrenList: []
     };
   },
   mounted() {
@@ -205,7 +205,7 @@ export default {
       // arr2 = [];//清空数组，否则第二次查询时会因为有是全局变量，而导致先前查询的值会和这次一起弹出
     },
     changeHandler(label) {
-      this.detailFlag = false
+      this.detailFlag = false;
       setTimeout(() => {
         // debugger
         let selectTop = document.querySelector(
@@ -236,7 +236,7 @@ export default {
     },
     //纵向部门选择
     changeHandlert(label) {
-      this.detailFlag = false
+      this.detailFlag = false;
       setTimeout(() => {
         // debugger
         let selectTop = document.querySelector(
@@ -268,9 +268,9 @@ export default {
         // this.middlecatoryListLabel = this.catoryListLabel
         for (let i in this.middlecatoryListLabel) {
           this.catoryListLabel.push(
-            '<span style="display: inline-block;padding: 5px;font-size: 12px;height: 44px;margin:10px"><div>' +
+            '<span style="display: inline-block;padding: 5px;font-size: 12px;height: 44px;margin:10px">' +
               this.middlecatoryListLabel[i] +
-              "</div></span>"
+              "</span>"
           );
         }
         this.currentCatoryListLabel = this.catoryListLabel[0];
@@ -287,7 +287,7 @@ export default {
       });
     },
     changeYear(label) {
-      this.detailFlag = false
+      this.detailFlag = false;
       setTimeout(() => {
         let selectTop = document.querySelector(
           ".cube-scroll-nav-bar-item_active"
@@ -349,29 +349,28 @@ export default {
       // arr2 = [];//清空数组，否则第二次查询时会因为有是全局变量，而导致先前查询的值会和这次一起弹出
     },
     detailitem(item) {
-      this.detailFlag = true
-      this.backcatoryListChildrenList = []
-      this.backcatoryListChildrenList = this.catoryListChildrenList
+      this.detailFlag = true;
+      this.backcatoryListChildrenList = [];
+      this.backcatoryListChildrenList = this.catoryListChildrenList;
       this.catoryListChildrenList = [];
       this.detailItem = item;
       // debugger;
     },
     addline() {
       // debugger
-      if(this.clicktwice){
+      if (this.clicktwice) {
         this.mypagestyle = "-webkit-line-clamp:50";
-        this.clicktwice = false
-      }else{
+        this.clicktwice = false;
+      } else {
         this.mypagestyle = "-webkit-line-clamp:4";
-        this.clicktwice = true
+        this.clicktwice = true;
       }
     },
-    backtest(){
-      this.detailFlag = false
-      this.detailItem = {}
-      this.catoryListChildrenList = this.backcatoryListChildrenList  
-    },
-    
+    backtest() {
+      this.detailFlag = false;
+      this.detailItem = {};
+      this.catoryListChildrenList = this.backcatoryListChildrenList;
+    }
   }
 };
 </script>
@@ -445,12 +444,17 @@ export default {
 
 .cube-scroll-nav-bar-item {
   padding: 0px !important;
+  height: 100%;
   border-bottom: 2px solid rgba(0, 0, 0, 0);
 }
 
 .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body {
   font-size: 13px;
   text-align: left;
+}
+
+.cube-scroll-content {
+  height: 100%;
 }
 
 .ddd {
@@ -489,24 +493,26 @@ export default {
   border-bottom: 8px solid rgba(0, 0, 0, 0);
   border-left: 8px solid rgb(241, 244, 249);
 }
-.contentBody{
-        overflow: hidden;  
-        text-overflow: ellipsis;  
-        display: -webkit-box;  
-        -webkit-line-clamp: 4;  
-        -webkit-box-orient: vertical;
-        font-size: 12px;  
-    }
-    .ppp{
-    width: 50px;
-    height: 50px;
-    position: fixed;
-    top: 50%;
-    right: 65%;
-    text-align: center;
-    line-height: 50px;
-    opacity: 0.4;
-    font-size: 58px;
-    color: #ccc;
-  }
+
+.contentBody {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  font-size: 12px;
+}
+
+.ppp {
+  width: 50px;
+  height: 50px;
+  position: fixed;
+  top: 50%;
+  right: 65%;
+  text-align: center;
+  line-height: 50px;
+  opacity: 0.4;
+  font-size: 58px;
+  color: #ccc;
+}
 </style>
