@@ -1,63 +1,82 @@
 <template>
   <div id="app">
-    <!-- 头部部分 -->
-    <!-- <mt-header title="投诉直通车">
-      <router-link to="/" slot="left">
-        <mt-button  @click="back" style="z-index:999 ;" icon='back'>返回</mt-button>
-      </router-link>
-      <mt-button icon="more" slot="right" style="z-index:999;"></mt-button>
-    </mt-header> -->
-  <!-- 内容部分 -->
- <!-- <keep-alive>
-        <router-view v-if="$route.meta.keepAlive"/>
-  </keep-alive> -->
-<!-- 底部部分 -->
-
-    <div class="container" style="height:100%;width:100%;padding: 0px;">
+    <div class="container" style="height:110%;width:100%;padding: 0px;">
       <keep-alive>
-        <router-view v-if="$route.meta.keepAlive"/>
+        <router-view v-if="$route.meta.keepAlive" />
       </keep-alive>
-      <router-view v-if="!$route.meta.keepAlive"/>
+      <router-view v-if="!$route.meta.keepAlive" />
     </div>
     <template>
-      <div style="position: fixed;right: 0px;bottom: 1px;width: 100%;background-color: #fff;height: 9%;">
-          <cube-tab-bar
-            v-model="selectedLabelDefault"
-            :data="tabs"
-            @click="clickHandler"
-            @change="changeHandler">
-          </cube-tab-bar>
+      <div
+        style="position: fixed;right: 0px;bottom: 1px;width: 100%;background-color: #fff;height: 10%;z-index:99"
+      >
+        <cube-tab-bar
+          v-model="selectedLabelDefault"
+          :data="tabs"
+          @click="clickHandler"
+          @change="changeHandler"
+        ></cube-tab-bar>
       </div>
-      
+    </template>
+  </div>
 </template>
   </div>
 </template>
+<script>
+var overscroll = function(el) {
+  el.addEventListener("touchstart", function() {
+    var top = el.scrollTop,
+      totalScroll = el.scrollHeight,
+      currentScroll = top + el.offsetHeight;
+    if (top === 0) {
+      el.scrollTop = 1;
+    } else if (currentScroll === totalScroll) {
+      el.scrollTop = top - 1;
+    }
+  });
 
+  el.addEventListener("touchmove", function(evt) {
+    if (el.offsetHeight < el.scrollHeight) evt._isScroller = true;
+  });
+};
+
+overscroll(document.querySelector(".scroll"));
+document.body.addEventListener("touchmove", function(evt) {
+  if (!evt._isScroller) {
+    evt.preventDefault();
+  }
+});
+</script>
 <script>
 import MTab from "@/components/m-tab";
 import { setDDConfig } from "@/api/dd";
 import { mapMutations } from "vuex";
 import fetch from "@/api/fetch";
-import { Tabbar, TabItem } from 'mint-ui';
+import { Tabbar, TabItem } from "mint-ui";
 export default {
   name: "app",
-   data () {
+  data() {
     return {
-      selectedLabelDefault: 'Vip',
-      tabs: [{
-        label: '首页',
-        icon: 'fengmian'
-      }, {
-        label: '股份荣誉',
-        icon: 'gufen'
-      }, {
-        label: '部门荣誉',
-        icon: 'bumen'
-      }, {
-        label: '我的荣誉',
-        icon: 'wode'
-      }]
-    }
+      selectedLabelDefault: "Vip",
+      tabs: [
+        {
+          label: "首页",
+          icon: "fengmian"
+        },
+        {
+          label: "股份荣誉",
+          icon: "gufen"
+        },
+        {
+          label: "部门荣誉",
+          icon: "bumen"
+        },
+        {
+          label: "我的荣誉",
+          icon: "wode"
+        }
+      ]
+    };
   },
   created() {
     // 获取用户 id
@@ -128,48 +147,50 @@ export default {
     //   }
     // });
   },
- methods: {
-    clickHandler (label) {
+  methods: {
+    clickHandler(label) {
       // debugger
       // if you clicked home tab, then print 'Home'
-      console.log(label)
+      console.log(label);
     },
-    changeHandler (label) {
-   switch(label){
-     case '首页':
-      //  表达式的值和 值1匹配上了，需要执行的代码;
-      this.$router.push({
-        name: 'honorIndex',
-        })
-       break;
-     case '股份荣誉':
-       this.$router.push({
-        name: 'honorPrize',
-      })
-      //  表达式的值和 值2匹配上了，需要执行的代码;
-     break;
-     case '部门荣誉':
-       this.$router.push({
-        name: 'departmentPrizeDetail',
-      })
-      //  表达式的值和 值3匹配上了，需要执行的代码;
-     break;
-      case '我的荣誉':
-      //  表达式的值和 值3匹配上了，需要执行的代码;
-      this.$router.push({
-        name: 'honorIndex',
-      })
-     break;
-     default:
-      //  如果表达式的值和以上的case后面的值都没有匹配上，那么就执行这里的代码。
-       break;
-   }
+    changeHandler(label) {
+      switch (label) {
+        case "首页":
+          //  表达式的值和 值1匹配上了，需要执行的代码;
+          this.$router.push({
+            name: "honorIndex"
+          });
+          break;
+        case "股份荣誉":
+          this.$router.push({
+            name: "honorPrize"
+          });
+          //  表达式的值和 值2匹配上了，需要执行的代码;
+          break;
+        case "部门荣誉":
+          this.$router.push({
+            name: "departmentPrizeDetail"
+          });
+          //  表达式的值和 值3匹配上了，需要执行的代码;
+          break;
+        case "我的荣誉":
+          //  表达式的值和 值3匹配上了，需要执行的代码;
+          this.$router.push({
+            name: "minehonor"
+          });
+          break;
+        default:
+          //  如果表达式的值和以上的case后面的值都没有匹配上，那么就执行这里的代码。
+          break;
+      }
       // if you clicked different tab, this methods can be emitted
     }
   },
-  
+
   components: {
-    MTab,Tabbar,TabItem
+    MTab,
+    Tabbar,
+    TabItem
   }
 };
 </script>
@@ -187,50 +208,50 @@ export default {
   /* margin-top: 40px; */
   width: 100%;
   height: 100%;
-  
+
   /* overflow: hidden; */
 }
 * {
   -webkit-overflow-scrolling: touch;
 }
-.mint-header{
-  background-color: #eee ;
-  color: #333
+.mint-header {
+  background-color: #eee;
+  color: #333;
 }
-.fengmian{
+.fengmian {
   display: inline-block;
   height: 30px;
   width: 35px;
   /* background-color: cyan; */
-  background: url('./assets/首页.png') no-repeat;
-  background-size:100% 100%;
+  background: url("./assets/首页.png") no-repeat;
+  background-size: 100% 100%;
 }
-.gufen{
+.gufen {
   display: inline-block;
   height: 30px;
   width: 35px;
   /* background-color: cyan; */
-  background: url('./assets/股份荣誉.png') no-repeat;
-  background-size:100% 100%;
+  background: url("./assets/股份荣誉.png") no-repeat;
+  background-size: 100% 100%;
 }
-.bumen{
+.bumen {
   display: inline-block;
   height: 30px;
   width: 35px;
   /* background-color: cyan; */
-  background: url('./assets/部门荣誉.png') no-repeat;
-  background-size:100% 100%;
+  background: url("./assets/部门荣誉.png") no-repeat;
+  background-size: 100% 100%;
 }
-.wode{
+.wode {
   display: inline-block;
   height: 30px;
   width: 35px;
   /* background-color: cyan; */
-  background: url('./assets/我的荣誉.png') no-repeat;
-  background-size:100% 100%;
+  background: url("./assets/我的荣誉.png") no-repeat;
+  background-size: 100% 100%;
 }
 .cube-tab_active {
-      color: cyan!important
-  }
+  color: cyan !important;
+}
 /* C:\Users\kuka\Desktop\gujiarenweb\src\assets\首页.png */
 </style>

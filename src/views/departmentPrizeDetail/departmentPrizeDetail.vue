@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100%;">
     <div style="background-image: linear-gradient(#0e82fd, #3edbfa);">
       <div>
         <mt-search v-model="value"></mt-search>
@@ -14,7 +14,7 @@
         />
       </div>
     </div>
-    <div style="height:5%;position: relative;">
+    <div style="height:10%;position: relative;">
       <cube-scroll-nav-bar
         :current="currentCatoryListLabel"
         :labels="catoryListLabel"
@@ -31,7 +31,7 @@
       ></div>
     </div>
 
-    <div class="side-container" style="width:26%;float:left;background-color: #f1f4f9;">
+    <div class="side-container" style="width:26%;float:left;background-color: #f1f4f9;height: 67%;">
       <cube-scroll-nav-bar
         direction="vertical"
         :current="labelts[0]"
@@ -40,7 +40,7 @@
         @change="changeHandlert"
       ></cube-scroll-nav-bar>
     </div>
-    <div class="mui-content" style="height:560px;overflow:auto ">
+    <div class="mui-content" style="overflow:auto;height:67%">
       <ul class="mui-table-view mui-grid-view mui-grid-8" style="min-height: 0px;">
         <li
           class="mui-table-view-cell mui-media mui-col-xs-12"
@@ -69,7 +69,8 @@
       <div class="container">
         <div >
           <div class="mui-card-content" style="width: 100%;height: 170px;margin-bottom: 20px;">
-            <img src="../../assets/791b064ac218957889f351aae9229ce9.jpg" style="width:100%;height:100%" alt />
+            <img src="../../assets/791b064ac218957889f351aae9229ce9.jpg" style="width:100%;height:100%;border-radius: 18px;
+    padding: 6px;" alt />
           </div>
           <div style="text-align: center;">
             <div style="font-size:24px">{{detailItem.tittle}}</div>
@@ -98,6 +99,7 @@
               allowfullscreen
             ></iframe>
           </div>
+          <i class="cubeic-back ppp" @click="backtest"></i>
         </div>
         <!-- <div class="prism-player" id="player-con" style="margin-top:50px"></div> -->
       </div>
@@ -142,6 +144,7 @@ export default {
       mypagestyle: "",
       detailFlag:false,
       clicktwice:false,
+      backcatoryListChildrenList:[]
     };
   },
   mounted() {
@@ -347,9 +350,11 @@ export default {
     },
     detailitem(item) {
       this.detailFlag = true
+      this.backcatoryListChildrenList = []
+      this.backcatoryListChildrenList = this.catoryListChildrenList
       this.catoryListChildrenList = [];
       this.detailItem = item;
-      debugger;
+      // debugger;
     },
     addline() {
       // debugger
@@ -360,7 +365,13 @@ export default {
         this.mypagestyle = "-webkit-line-clamp:4";
         this.clicktwice = true
       }
-    }
+    },
+    backtest(){
+      this.detailFlag = false
+      this.detailItem = {}
+      this.catoryListChildrenList = this.backcatoryListChildrenList  
+    },
+    
   }
 };
 </script>
@@ -368,34 +379,6 @@ export default {
 .container {
   height: 600px;
   padding: 10px;
-}
-
-.boxLeft {
-  width: 40%;
-  height: 69px;
-  float: left;
-}
-
-.boxRight {
-  width: 40%;
-  height: 69px;
-  float: right;
-}
-
-.prize {
-  width: 100%;
-  height: 60px;
-  margin-top: 10px;
-}
-
-.side {
-  width: 100%;
-  departmentPrize;
-  height: 180px;
-}
-
-h5 {
-  color: black;
 }
 
 .side-container {
@@ -497,8 +480,8 @@ h5 {
 
 .bbb {
   position: absolute;
-  top: 11px;
-  right: -13px;
+  top: 29%;
+  right: -19%;
   width: 0px;
   height: 0px;
   border-top: 8px solid rgba(0, 0, 0, 0);
@@ -510,8 +493,20 @@ h5 {
         overflow: hidden;  
         text-overflow: ellipsis;  
         display: -webkit-box;  
-        -webkit-line-clamp: 8;  
+        -webkit-line-clamp: 4;  
         -webkit-box-orient: vertical;
         font-size: 12px;  
     }
+    .ppp{
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    top: 50%;
+    right: 65%;
+    text-align: center;
+    line-height: 50px;
+    opacity: 0.4;
+    font-size: 58px;
+    color: #ccc;
+  }
 </style>

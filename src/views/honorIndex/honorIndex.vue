@@ -1,11 +1,5 @@
 <template>
     <div style="height:100%;width:100%">
-        <!-- <mt-header title="名人堂">
-            <router-link to="/" slot="left">
-            <mt-button icon="back"></mt-button>
-            </router-link>
-            <mt-button icon="more" slot="right"></mt-button>
-        </mt-header> -->
         <!-- 内容部分 -->
         <!-- <mt-tab-container v-model="selected" style="display:flex;height:100%;width:100%"> -->
           <div style="height: 0;overflow: hidden;margin: 0;padding-bottom: 100%;">
@@ -15,19 +9,6 @@
         <!--页脚，放置补充信息或支持的操作-->
         <!-- <div class="mui-card-footer">页脚</div> -->
       </div>
-        <!-- </mt-tab-container> -->
-
-        <!-- <nav class="mui-bar mui-bar-tab">
-          <router-link style="border: 1px solid #929292;border-right:0;border-top:0;background-color:#f00;color:white;" class="mui-tab-item mui-active" :to="{name:'honorIndex'}">
-              <span class="mui-tab-label">首页</span>
-          </router-link>
-          <router-link style="border: 1px solid #929292;border-right:0;border-top:0" class="mui-tab-item" :to="{name:'honorPrize'}">
-              <span class="mui-tab-label">股份荣誉</span>
-          </router-link>
-          <router-link style="border: 1px solid #929292;border-top:0" class="mui-tab-item" :to="{name:'departmentPrizeDetail'}">
-              <span class="mui-tab-label">单位荣誉</span>
-          </router-link>
-        </nav> -->
   </div>
 </template>
 <script>

@@ -118,6 +118,11 @@ export default new Router({
       name:'departmentPrizeDetail',
       component: () => import('@/views/departmentPrizeDetail/departmentPrizeDetail'),
     },
+    {
+      path:'/minehonor',
+      name:'minehonor',
+      component: () => import('@/views/minehonor/minehonor'),
+    },
     // 人才池部分路由departmentPrize
     // {
     //   path:'/personnelHome',
