@@ -1,7 +1,7 @@
 <template>
   <div style="height:100%">
-    <div style="background-image: linear-gradient(#0e82fd, #3edbfa);">
-      <div>
+    <div style="background-image: linear-gradient(#0e82fd, #3edbfa);height:20%">
+      <div style="height:68%" >
         <mt-search v-model="value"></mt-search>
       </div>
       <div>
@@ -116,7 +116,7 @@ export default {
     this.catoryList = this.$route.query.catoryList;
     for (var i in this.catoryList) {
       this.catoryListLabel.push(
-        '<span style="display: inline-block;padding: 5px;margin: 0 35px;">' +
+        '<span style="display: inline-block;padding: 5px;margin: 0 15px;">' +
           this.catoryList[i].categoryName +
           "</span>"
       );
@@ -345,7 +345,8 @@ h5 {
 }
 
 .mint-search {
-  height: 60px;
+  height: 70%;
+  padding-top: 6%;
 }
 
 .mint-searchbar {
@@ -355,7 +356,7 @@ h5 {
 
 .mint-searchbar-inner {
   position: relative;
-  height: 35px;
+  height: 40px;
   border-radius: 20px;
 
   .mintui-search {
@@ -370,7 +371,9 @@ h5 {
     background-color: #fff;
   }
 }
-
+.mint-searchbar-cancel{
+  color #ccc
+}
 .cube-scroll-nav-bar {
   background-color: rgba(0, 0, 0, 0) !important;
 }
