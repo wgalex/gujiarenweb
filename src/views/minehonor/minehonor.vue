@@ -9,9 +9,9 @@
       <div>
         <div>
           <div class="contentDiv">
-            <img src="../../assets/default_avtar.jpg" />
+            <img :src= loginimage />
           </div>
-          <div style="width: 51px;margin: 0px auto;padding: 13px 0;color: #ccc;;">未登录</div>
+          <div style="width: 51px;margin: 0px auto;padding: 13px 0;color: #ccc;;">{{loginstus}}</div>
         </div>
       </div>
     <div>
@@ -24,7 +24,6 @@
         />
       </div>
     </div>
-    <div></div>
     <div class="side-container" style="width:30%;float:left;background-color: #f1f4f9;height:74%">
       <cube-scroll-nav-bar
           direction="vertical"
@@ -56,46 +55,6 @@
           </a>
         </li>
       </ul>
-      <div v-if="detailFlag">
-        <div class="container">
-          <div>
-            <div class="mui-card-content" style="width: 100%;height: 170px;margin-bottom: 20px;">
-              <img
-                src="../../assets/791b064ac218957889f351aae9229ce9.jpg"
-                style="width:100%;height:100%"
-                alt
-              />
-            </div>
-            <div style="text-align: center;">
-              <div style="font-size:24px">{{detailItem.tittle}}</div>
-              <div style="text-align: right;">--{{detailItem.personName}}</div>
-            </div>
-            <!--内容区-->
-            <div>
-              <span class="contentBody" @click="addline" :style="mypagestyle">
-                <p>事迹介绍:</p>
-                <div>{{detailItem.description}}</div>
-              </span>
-            </div>
-            <!-- <input type="button" id="Copy" value="点击复制代码" /> -->
-            <div>
-              <div class="mui-card-content">
-                <img src="../../assets/3C2D0751-5758-4091-8E2D-7EB6F3F47408.png" alt />
-              </div>
-            </div>
-            <div class="mui-card-content" v-if="detailItem.filePath">
-              <iframe
-                height="15%"
-                width="100%"
-                :src="detailItem.filePath"
-                frameborder="0"
-                allowfullscreen
-              ></iframe>
-            </div>
-          </div>
-          <!-- <div class="prism-player" id="player-con" style="margin-top:50px"></div> -->
-        </div>
-      </div>
     </div>
   </div>
 </template>
@@ -121,6 +80,8 @@ export default {
       detailFlag: false,
       detailItem: {},
       allhonerlist:[],
+      loginstus:'未登录',
+      loginimage:'src/assets/default_avtar.jpg'
     };
   },
   created() {
@@ -261,44 +222,11 @@ export default {
   padding: 10px;
 }
 
-.boxLeft {
-  width: 40%;
-  height: 69px;
-  float: left;
-}
-
-.boxRight {
-  width: 40%;
-  height: 69px;
-  float: right;
-}
-
-.prize {
-  width: 100%;
-  height: 60px;
-  margin-top: 10px;
-}
-
-.side {
-  width: 100%;
-  height: 180px;
-}
-
-h5 {
-  color: black;
-  background-color: #fff;
-  padding: 12px 17px;
-  border-left: 3px solid blue;
-}
-
 .side-container {
   height: 354px;
   font-size: 12px;
 }
 
-.mint-search {
-  height: 60px;
-}
 
 .mint-searchbar {
   background-color: rgba(0, 0, 0, 0);
@@ -387,15 +315,6 @@ h5 {
   border-right: 8px solid rgba(0, 0, 0, 0);
   border-bottom: 8px solid rgba(0, 0, 0, 0);
   border-left: 8px solid rgb(241, 244, 249);
-}
-
-.contentBody {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  font-size: 12px;
 }
 
 .contentDiv {

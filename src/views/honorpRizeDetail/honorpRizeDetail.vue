@@ -308,42 +308,10 @@ export default {
   height: 600px;
   padding: 10px;
 }
-
-.boxLeft {
-  width: 40%;
-  height: 69px;
-  float: left;
-}
-
-.boxRight {
-  width: 40%;
-  height: 69px;
-  float: right;
-}
-
-.prize {
-  width: 100%;
-  height: 60px;
-  margin-top: 10px;
-}
-
-.side {
-  width: 100%;
-  height: 180px;
-}
-
-h5 {
-  color: black;
-  background-color: #fff;
-  padding: 12px 17px;
-  border-left: 3px solid blue;
-}
-
 .side-container {
   height: 354px;
   font-size: 12px;
 }
-
 .mint-search {
   height: 70%;
   padding-top: 6%;
