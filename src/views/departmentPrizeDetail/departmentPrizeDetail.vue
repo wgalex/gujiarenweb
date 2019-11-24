@@ -2,7 +2,7 @@
   <div style="height: 100%;">
     <div style="background-image: linear-gradient(#0e82fd, #3edbfa);height:20%">
       <div style="height:70%;">
-        <mt-search v-model="value"></mt-search>
+        <mt-search v-model="value2" @input="seachv"></mt-search>
       </div>
       <div>
         <cube-scroll-nav-bar
@@ -136,7 +136,7 @@ export default {
         visible: true,
         blurHidden: true
       },
-      value: "",
+      value2: "",
       middlecatoryListLabel: [],
       middlelabels: [],
       detailItem: {},
@@ -163,6 +163,15 @@ export default {
   },
   // mounted() {},
   methods: {
+    seachv(){
+      // debugger
+      for(let j in this.catoryListLabel){
+        if (this.catoryListLabel[j].indexOf(this.value2) != -1) {
+          this.currentCatoryListLabel = this.catoryListLabel[j]
+          break
+        }
+      }
+    },
     //筛选奖项
     chaxun(dataList) {
       let arr2 = [];

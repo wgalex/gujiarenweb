@@ -1,20 +1,18 @@
 <template>
   <div style="height:100%">
-    <div
-      style="background-image: linear-gradient(#0e82fd, #3edbfa);height:28%"
-    >
+    <div style="background-image: linear-gradient(#0e82fd, #3edbfa);height:32%">
       <div>
-        <mt-search v-model="value" style="padding-bottom: 2%;"></mt-search>
+        <mt-search v-model="value3" style="padding-bottom: 2%;" @input="seachva"></mt-search>
       </div>
+      <!-- <div> -->
+      <!-- <div> -->
+      <div class="contentDiv">
+        <img :src="loginimage" />
+      </div>
+      <div style="width: 51px;margin: 0px auto;padding: 13px 0;color: #ccc;;">{{loginstus}}</div>
+      <!-- </div> -->
+      <!-- </div> -->
       <div>
-        <div>
-          <div class="contentDiv">
-            <img :src= loginimage />
-          </div>
-          <div style="width: 51px;margin: 0px auto;padding: 13px 0;color: #ccc;;">{{loginstus}}</div>
-        </div>
-      </div>
-    <div>
         <cube-scroll-nav-bar
           :current="catoryYears[0]"
           :labels="catoryYears"
@@ -26,12 +24,12 @@
     </div>
     <div class="side-container" style="width:30%;float:left;background-color: #f1f4f9;height:74%">
       <cube-scroll-nav-bar
-          direction="vertical"
-          :current="catoryListLabel[0]"
-          :labels="catoryListLabel"
-          @change="changeHandler"
-          :txts="catoryListLabel"
-        />
+        direction="vertical"
+        :current="cureet"
+        :labels="catoryListLabel"
+        @change="changeHandler"
+        :txts="catoryListLabel"
+      />
     </div>
     <div class="mui-content" style="height:560px;overflow:auto">
       <ul class="mui-table-view mui-grid-view mui-grid-8" style="min-height: 0px;">
@@ -73,75 +71,93 @@ export default {
       middlecatoryYears: [],
       selectedYear: "",
       catorySelected: "",
-      value: "",
+      value3: "",
       textdata: textdata,
       catoryList: [],
       catorySelectf: "",
       detailFlag: false,
       detailItem: {},
-      allhonerlist:[],
-      loginstus:'未登录',
-      loginimage:'src/assets/default_avtar.jpg'
+      allhonerlist: [],
+      loginstus: "未登录",
+      loginimage: "src/assets/default_avtar.jpg",
+      cureet: ""
     };
   },
   created() {
-    let startcatoryYears = []
-    let startcatoryListLabel = []
-    this.allhonerlist = this.textdata.data.itemList
-    for(var i in this.allhonerlist){
-      startcatoryYears.push(this.allhonerlist[i].years)
-      startcatoryListLabel.push(this.allhonerlist[i].categoryName)
-      // debugger
-    }
-    this.middlecatoryYears =this.quchong(startcatoryYears)
-    this.middlecatoryListLabel =this.quchong(startcatoryListLabel)
-    for (var i in this.middlecatoryYears) {
-          this.catoryYears.push(
+    debugger
+
+    if (localStorage.getItem("personCode") != "") {
+      console.log(localStorage.getItem("personCode"));
+      
+      let that = this;
+      let queryData = {};
+      queryData.personCode = localStorage.getItem("personCode");
+      queryCelebrityPerson(queryData).then(res => {
+        let startcatoryYears = [];
+        let startcatoryListLabel = [];
+        that.allhonerlist = that.textdata.data.itemList;
+        for (var i in that.allhonerlist) {
+          startcatoryYears.push(that.allhonerlist[i].years);
+          startcatoryListLabel.push(that.allhonerlist[i].categoryName);
+          // debugger
+        }
+        that.middlecatoryYears = that.quchong(startcatoryYears);
+        that.middlecatoryListLabel = that.quchong(startcatoryListLabel);
+        for (var i in that.middlecatoryYears) {
+          that.catoryYears.push(
             '<span style="display: inline-block;padding:0 10px;font-size: 12px;"><div>' +
-              this.middlecatoryYears[i] +
+              that.middlecatoryYears[i] +
               "年</div></span>"
           );
-    }
-    for (var i in this.middlecatoryListLabel) {
-        this.catoryListLabel.push(
-          '<span style="display: inline-block;padding: 10px 26px 10px 10px;position: relative;" >' +
-            this.middlecatoryListLabel[i] +
-            '<div class="bbb"></div></span>'
-        );
-      }
-    this.changeYear(this.catoryYears[0])
-     setTimeout(() => {
-        // debugger
-        let selectTop = document.querySelector(
-          ".cube-scroll-nav-bar-item_active"
-        );
-        if (selectTop == null) {
-        } else {
-          selectTop.classList.remove("cube-scroll-nav-bar-item_active");
-          selectTop.classList.add("hhh");
         }
-      }, 4);
+        for (var i in that.middlecatoryListLabel) {
+          that.catoryListLabel.push(
+            '<span style="display: inline-block;padding: 10px 26px 10px 10px;position: relative;" >' +
+              that.middlecatoryListLabel[i] +
+              '<div class="bbb"></div></span>'
+          );
+        }
+        that.changeYear(that.catoryYears[0]);
+        setTimeout(() => {
+          // debugger
+          that.cureet = that.catoryListLabel[0];
+        }, 5);
+      });
+    }
+    if (localStorage.getItem("name") != "") {
+      that.loginstus = localStorage.getItem("name");
+    }
+    if (localStorage.getItem("avatar") != "") {
+      that.loginimage = localStorage.getItem("avatar");
+    }
   },
   mounted() {},
   methods: {
-      //数组去重
-    quchong(array){ 
-    //一个新的数组 
-    var arrs = []; 
-    //遍历当前数组 
-    for(var i = 0; i < array.length; i++){ 
-        //如果临时数组里没有当前数组的当前值，则把当前值push到新数组里面 
-        if (arrs.indexOf(array[i]) == -1){ 
-            arrs.push(array[i])
-        }; 
-    } 
-    return arrs; 
-},
-
-
-
+    seachva() {
+      // debugger;
+      for (let j in this.catoryListLabel) {
+        if (this.catoryListLabel[j].indexOf(this.value3) != -1) {
+          this.cureet = this.catoryListLabel[j];
+          break;
+        }
+      }
+    },
+    //数组去重
+    quchong(array) {
+      //一个新的数组
+      var arrs = [];
+      //遍历当前数组
+      for (var i = 0; i < array.length; i++) {
+        //如果临时数组里没有当前数组的当前值，则把当前值push到新数组里面
+        if (arrs.indexOf(array[i]) == -1) {
+          arrs.push(array[i]);
+        }
+      }
+      return arrs;
+    },
 
     changeHandler(label) {
+      // debugger;
       setTimeout(() => {
         // debugger
         let selectTop = document.querySelector(
@@ -153,17 +169,17 @@ export default {
           selectTop.classList.add("hhh");
         }
       }, 4);
-      this.catoryListChildrenList = []
-      let currentlabel = ''
-      for(var i in this.middlecatoryListLabel){
-        if(label.indexOf(this.middlecatoryListLabel[i]) != -1){
-           currentlabel  = this.middlecatoryListLabel[i]
-           break
+      this.catoryListChildrenList = [];
+      let currentlabel = "";
+      for (var i in this.middlecatoryListLabel) {
+        if (label.indexOf(this.middlecatoryListLabel[i]) != -1) {
+          currentlabel = this.middlecatoryListLabel[i];
+          break;
         }
       }
-      for(var i in this.allhonerlist){
-        if(currentlabel == this.allhonerlist[i].categoryName){
-          this.catoryListChildrenList.push(this.allhonerlist[i])
+      for (var i in this.allhonerlist) {
+        if (currentlabel == this.allhonerlist[i].categoryName) {
+          this.catoryListChildrenList.push(this.allhonerlist[i]);
         }
       }
     },
@@ -178,7 +194,8 @@ export default {
       });
     },
     changeYear(label) {
-      this.catoryListChildrenList = []
+      // debugger
+      this.catoryListChildrenList = [];
       setTimeout(() => {
         // debugger
         let selectTop = document.querySelector(
@@ -186,20 +203,20 @@ export default {
         );
         if (selectTop == null) {
         } else {
-            selectTop.classList.remove("cube-scroll-nav-bar-item_active");
-            selectTop.classList.add("ggg");
+          selectTop.classList.remove("cube-scroll-nav-bar-item_active");
+          selectTop.classList.add("ggg");
         }
       }, 3);
-      let currentYears = ''
-      for(var i in this.middlecatoryYears){
-        if(label.indexOf(this.middlecatoryYears[i]) != -1){
-           currentYears  = this.middlecatoryYears[i]
-           break
+      let currentYears = "";
+      for (var i in this.middlecatoryYears) {
+        if (label.indexOf(this.middlecatoryYears[i]) != -1) {
+          currentYears = this.middlecatoryYears[i];
+          break;
         }
       }
-      for(var i in this.allhonerlist){
-        if(currentYears == this.allhonerlist[i].years){
-          this.catoryListChildrenList.push(this.allhonerlist[i])
+      for (var i in this.allhonerlist) {
+        if (currentYears == this.allhonerlist[i].years) {
+          this.catoryListChildrenList.push(this.allhonerlist[i]);
         }
       }
     },
@@ -227,6 +244,10 @@ export default {
   font-size: 12px;
 }
 
+.mint-search {
+  height: 70%;
+  padding-top: 6%;
+}
 
 .mint-searchbar {
   background-color: rgba(0, 0, 0, 0);
@@ -300,6 +321,7 @@ export default {
   background-color: #fff;
   border-left: 2px solid skyblue;
   color: skyblue;
+
   .bbb {
     border-left: 8px solid skyblue;
   }
@@ -332,11 +354,12 @@ export default {
   width: 100%;
   min-height: 100%;
 }
+
 .ggg {
   color: skyblue;
   border-bottom: 2px solid skyblue;
   z-index: 2;
-  background-color #fff
+  background-color: #fff;
   border-radius: 17px;
 }
 </style>

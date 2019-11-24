@@ -2,7 +2,7 @@
   <div style="height:100%">
     <div style="background-image: linear-gradient(#0e82fd, #3edbfa);height:20%">
       <div style="height:68%" >
-        <mt-search v-model="value"></mt-search>
+        <mt-search v-model="value1" @input="seachvalue"></mt-search>
       </div>
       <div>
         <cube-scroll-nav-bar
@@ -15,7 +15,7 @@
       </div>
     </div>
     <div></div>
-    <div class="side-container" style="width:18%;float:left;background-color: #f1f4f9;height: 77%;">
+    <div class="side-container" style="width:18%;background-color: #f1f4f9;height: 77%;">
       <cube-scroll-nav-bar
         direction="vertical"
         :labels="catoryYears"
@@ -102,7 +102,7 @@ export default {
       middlecatoryYears: [],
       selectedYear: "",
       catorySelected: "",
-      value: "",
+      value1: "",
       textdata: textdata,
       catoryList: [],
       catorySelectf: "",
@@ -150,10 +150,20 @@ export default {
   },
   mounted() {},
   methods: {
+    seachvalue(){
+      // debugger
+      for(let j in this.catoryListLabel){
+        if (this.catoryListLabel[j].indexOf(this.value1) != -1) {
+          this.catorySelected = this.catoryListLabel[j]
+          break
+        }
+      }
+    },
     changeHandler(label) {
       // debugger
       this.detailFlag = false
       setTimeout(() => {
+        // debugger
         let selectTop = document.querySelector(
           ".cube-scroll-nav-bar-item_active"
         );
@@ -211,7 +221,7 @@ export default {
         selectTop.classList.remove("cube-scroll-nav-bar-item_active");
         // let oldSelect = document.querySelector(".zzz");
         // oldSelect.classList.remove("zzz");
-        selectTop.classList.add("zzz");
+        selectTop.classList.add("mags");
       }, 5);
       this.selectedYear = label;
       this.catoryListChildrenList = [];
@@ -387,11 +397,10 @@ export default {
   color: skyblue;
 }
 
-.zzz {
-  background-color: #fff;
+.mags {
+  background-color: #fff !important;
   border-left: 2px solid skyblue;
   color: skyblue;
-
   .fff {
     border-left: 8px solid skyblue;
   }
