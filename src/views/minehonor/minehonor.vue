@@ -1,8 +1,7 @@
 <template>
   <div>
     <div
-      style="background:url('src/assets/淡蓝.jpg');background-size: cover;
-    background-repeat: no-repeat no-repeat;height:200px"
+      style="background-image: linear-gradient(#0e82fd, #3edbfa);height:20%"
     >
       <div>
         <mt-search v-model="value"></mt-search>

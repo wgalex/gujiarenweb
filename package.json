@@ -18,6 +18,7 @@
   "dependencies": {
     "compress": "^0.99.0",
     "cube-ui": "~1.10.9",
+    "dingtalk-jsapi": "^2.8.11",
     "mint-ui": "^2.2.13",
     "moment": "^2.24.0",
     "vue": "^2.5.2",

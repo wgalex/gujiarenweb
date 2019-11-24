@@ -53,6 +53,7 @@ import { setDDConfig } from "@/api/dd";
 import { mapMutations } from "vuex";
 import fetch from "@/api/fetch";
 import { Tabbar, TabItem } from "mint-ui";
+import * as dd from 'dingtalk-jsapi';
 export default {
   name: "app",
   data() {
@@ -79,73 +80,75 @@ export default {
     };
   },
   created() {
+    debugger
     // 获取用户 id
-    // setDDConfig().then(res => {
-    //   var that = this;
-    //   let data = res;
-    //   var is_mobi =
-    //     navigator.userAgent
-    //       .toLowerCase()
-    //       .match(
-    //         /(ipod|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i
-    //       ) != null;
-    //   if (!is_mobi) {
-    //     // PC
-    //     console.log("pc");
-    //     DingTalkPC.ready(() => {
-    //       DingTalkPC.runtime.permission.requestAuthCode({
-    //         corpId: data.corpId, //企业ID
-    //         onSuccess: function(result) {
-    //           let url =
-    //             "/kukacms/visitor/getDingUserInfo.htm?accessToken=" +
-    //             data.token +
-    //             "&code=" +
-    //             result.code;
-    //           fetch({
-    //             url: url,
-    //             method: "get"
-    //           }).then(res => {
-    //             // console.log(res);
-    //             that.save_userId(res.data.userId);
-    //             that.save_userName(res.data.name);
-    //             thst.save_corpId(res.data.corpId);
-    //             thst.save_agentid (res.data.agentid)
-    //           });
-    //         },
-    //         onFail: function(err) {
-    //           window.location.reload();
-    //         }
-    //       });
-    //     });
-    //   } else {
-    //     // 移动
-    //     console.log("mobile");
-    //     dd.ready(() => {
-    //       dd.ui.webViewBounce.disable();
-    //       dd.runtime.permission.requestAuthCode({
-    //         corpId: data.corpId,
-    //         onSuccess: function(result) {
-    //           let url =
-    //             "/kukacms/visitor/getDingUserInfo.htm?accessToken=" +
-    //             data.token +
-    //             "&code=" +
-    //             result.code;
-    //           fetch({
-    //             url: url,
-    //             method: "get"
-    //           }).then(res => {
-    //             // console.log(res);
-    //             that.save_userId(res.data.userId);
-    //             that.save_userName(res.data.name);
-    //           });
-    //         },
-    //         onFail: function(err) {
-    //           window.location.reload();
-    //         }
-    //       });
-    //     });
-    //   }
-    // });
+    setDDConfig().then(res => {
+      console.log(res);
+      var that = this;
+      let data = res;
+      var is_mobi =
+        navigator.userAgent
+          .toLowerCase()
+          .match(
+            /(ipod|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i
+          ) != null;
+      if (!is_mobi) {
+        // PC
+        console.log("pc");
+        DingTalkPC.ready(() => {
+          DingTalkPC.runtime.permission.requestAuthCode({
+            corpId: data.corpId, //企业ID
+            onSuccess: function(result) {
+              let url =
+                "kukacms/api/categropy/getDingUserInfo.htm?accessToken=" +
+                data.token +
+                "&code=" +
+                result.code;
+              fetch({
+                url: url,
+                method: "get"
+              }).then(res => {
+                console.log(res);
+                that.save_userId(res.data.userId);
+                that.save_userName(res.data.name);
+                thst.save_corpId(res.data.corpId);
+                thst.save_agentid (res.data.agentid)
+              });
+            },
+            onFail: function(err) {
+              window.location.reload();
+            }
+          });
+        });
+      } else {
+        // 移动
+        console.log("mobile");
+        dd.ready(() => {
+          dd.ui.webViewBounce.disable();
+          dd.runtime.permission.requestAuthCode({
+            corpId: data.corpId,
+            onSuccess: function(result) {
+              let url =
+                "/kukacms/api/categropy/getDingUserInfo.htm?accessToken=" +
+                data.token +
+                "&code=" +
+                result.code;
+              fetch({
+                url: url,
+                method: "get"
+              }).then(res => {
+                // console.log(res);
+                that.save_userId(res.data.userId);
+                that.save_userName(res.data.name);
+              });
+            },
+            onFail: function(err) {
+              window.location.reload();
+            }
+          });
+        });
+      }
+    });
   },
   methods: {
     clickHandler(label) {

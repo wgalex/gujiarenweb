@@ -23,7 +23,7 @@
         style="background-color:#fff!important"
       />
     </div>
-    <div>
+    <!-- <div> -->
       <div
         class="side-container"
         style="width:26%;float:left;background-color: #f1f4f9;height: 67%;"
@@ -104,7 +104,7 @@
           </div>
         </div>
       </div>
-    </div>
+    <!-- </div> -->
   </div>
 </template>
 
@@ -268,7 +268,7 @@ export default {
         // this.middlecatoryListLabel = this.catoryListLabel
         for (let i in this.middlecatoryListLabel) {
           this.catoryListLabel.push(
-            '<span style="display: inline-block;padding: 5px;font-size: 12px;height: 44px;margin:10px">' +
+            '<span style="display: inline-block;padding: 5px;font-size: 12px;margin:10px">' +
               this.middlecatoryListLabel[i] +
               "</span>"
           );

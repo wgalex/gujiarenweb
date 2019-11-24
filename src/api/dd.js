@@ -3,7 +3,7 @@ import fetch from '@/api/fetch'
 // 获取钉钉配置信息
 export function getDDConfig() {
   return fetch({
-    url: '/kukacms/api/getDingConfig.htm',
+    url: '/kukacms/api/categropy/getDingConfig.htm',
     method: 'get'
   })
 }
@@ -89,7 +89,7 @@ export function setDDConfig() {
               errorCode: "错误码"
            }
           **/
-          alert('dd error: ' + JSON.stringify(error));
+          // alert('dd error: ' + JSON.stringify(error));
         });
         if (data) {
           resolve(data)
