@@ -80,7 +80,7 @@ export default {
     };
   },
   created() {
-    debugger
+    // debugger
     // 获取用户 id
     setDDConfig().then(res => {
       console.log(res);
@@ -140,6 +140,17 @@ export default {
                 // console.log(res);
                 that.save_userId(res.data.userId);
                 that.save_userName(res.data.name);
+                if(res.data.jobNumber == undefined){
+                localStorage.setItem("personCode", '');
+                }else{
+                localStorage.setItem("personCode", res.data.jobNumber);
+                }
+                localStorage.setItem("name", res.data.name);
+                if(res.data.avatar == undefined){
+                localStorage.setItem("avatar", '');
+                }else{
+                localStorage.setItem("avatar", res.data.avatar);
+                }
               });
             },
             onFail: function(err) {

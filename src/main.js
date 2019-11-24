@@ -25,8 +25,8 @@ import './lib/mui/css/mui.min.css'
 // import './lib/mui/js/mui.js'
 
 // 手机端调试
-import VConsole from 'vconsole' 
-let vConsole = new VConsole() 
+// import VConsole from 'vconsole' 
+// let vConsole = new VConsole() 
 
 Vue.use(Cube)
 

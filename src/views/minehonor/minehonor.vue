@@ -1,10 +1,10 @@
 <template>
-  <div>
+  <div style="height:100%">
     <div
-      style="background-image: linear-gradient(#0e82fd, #3edbfa);height:20%"
+      style="background-image: linear-gradient(#0e82fd, #3edbfa);height:28%"
     >
       <div>
-        <mt-search v-model="value"></mt-search>
+        <mt-search v-model="value" style="padding-bottom: 2%;"></mt-search>
       </div>
       <div>
         <div>
@@ -14,25 +14,25 @@
           <div style="width: 51px;margin: 0px auto;padding: 13px 0;color: #ccc;;">未登录</div>
         </div>
       </div>
-
-      <div>
+    <div>
         <cube-scroll-nav-bar
-          :current="catorySelected"
-          :labels="catoryListLabel"
-          @change="changeHandler"
-          :txts="catoryListLabel"
-          style="background-color: rgba(0,0,0,0);"
+          :current="catoryYears[0]"
+          :labels="catoryYears"
+          @change="changeYear"
+          :txts="catoryYears"
+          style="height:36px"
         />
       </div>
     </div>
     <div></div>
-    <div class="side-container" style="width:18%;float:left;background-color: #f1f4f9;">
+    <div class="side-container" style="width:30%;float:left;background-color: #f1f4f9;height:74%">
       <cube-scroll-nav-bar
-        direction="vertical"
-        :labels="catoryYears"
-        :txts="catoryYears"
-        @change="changeYear"
-      ></cube-scroll-nav-bar>
+          direction="vertical"
+          :current="catoryListLabel[0]"
+          :labels="catoryListLabel"
+          @change="changeHandler"
+          :txts="catoryListLabel"
+        />
     </div>
     <div class="mui-content" style="height:560px;overflow:auto">
       <ul class="mui-table-view mui-grid-view mui-grid-8" style="min-height: 0px;">
@@ -40,7 +40,7 @@
           class="mui-table-view-cell mui-media mui-col-xs-12"
           v-for="item in catoryListChildrenList"
           :key="item.id"
-          @click="detailitem(item)"
+          @click="jumpDetails(item)"
         >
           <a href="#">
             <div class="mui-card-content">
@@ -119,177 +119,128 @@ export default {
       catoryList: [],
       catorySelectf: "",
       detailFlag: false,
-      detailItem: {}
+      detailItem: {},
+      allhonerlist:[],
     };
   },
   created() {
-    // this.catoryList = this.$route.query.catoryList;
-    // for (var i in this.catoryList) {
-    //   this.catoryListLabel.push(
-    //     '<span style="display: inline-block;padding: 5px;margin: 0 35px;">' +
-    //       this.catoryList[i].categoryName +
-    //       "</span>"
-    //   );
-    // }
-    // this.catorySelectf = this.$route.query.selectItem.categoryName;
-    // let charesoule = this.chaxun3(this.catoryListLabel, this.catorySelectf);
-    // for (let i in charesoule) {
-    //   this.catorySelected = charesoule[i];
-    // }
-    // selectYears(this.catorySelectf).then(res => {
-    //   this.middlecatoryYears = res.data;
-    //   if (res.data == "") {
-    //     return;
-    //   }
-    //   for (var i in res.data) {
-    //     this.catoryYears.push(
-    //       '<span style="display: inline-block;padding: 10px 26px 10px 10px;position: relative;" >' +
-    //         res.data[i] +
-    //         '<div class="bbb"></div></span>'
-    //     );
-    //   }
-    // });
-    // let queryData = {};
-    // queryData.categoryName = this.catorySelectf;
-    // queryCelebrityPerson(queryData).then(res => {
-    //   this.middlecatoryListLabel = res.data.itemList;
-    //   this.catoryListChildrenList = res.data.itemList;
-    //   // console.log(this.catoryListChildrenList);
-    // });
-  },
-  mounted() {},
-  methods: {
-    changeHandler(label) {
-      this.detailFlag = false;
-      setTimeout(() => {
+    let startcatoryYears = []
+    let startcatoryListLabel = []
+    this.allhonerlist = this.textdata.data.itemList
+    for(var i in this.allhonerlist){
+      startcatoryYears.push(this.allhonerlist[i].years)
+      startcatoryListLabel.push(this.allhonerlist[i].categoryName)
+      // debugger
+    }
+    this.middlecatoryYears =this.quchong(startcatoryYears)
+    this.middlecatoryListLabel =this.quchong(startcatoryListLabel)
+    for (var i in this.middlecatoryYears) {
+          this.catoryYears.push(
+            '<span style="display: inline-block;padding:0 10px;font-size: 12px;"><div>' +
+              this.middlecatoryYears[i] +
+              "年</div></span>"
+          );
+    }
+    for (var i in this.middlecatoryListLabel) {
+        this.catoryListLabel.push(
+          '<span style="display: inline-block;padding: 10px 26px 10px 10px;position: relative;" >' +
+            this.middlecatoryListLabel[i] +
+            '<div class="bbb"></div></span>'
+        );
+      }
+    this.changeYear(this.catoryYears[0])
+     setTimeout(() => {
+        // debugger
         let selectTop = document.querySelector(
           ".cube-scroll-nav-bar-item_active"
         );
-        selectTop.classList.remove("cube-scroll-nav-bar-item_active");
-        selectTop.classList.add("ddd");
-      }, 5);
-      this.catoryYears = [];
-      this.catoryListChildrenList = [];
-      // this.catorySelected = label;
-      let queryData = {};
-      let curretLabel = this.chaxun(this.catoryList, label);
-      let current = "";
-      for (let i in curretLabel) {
-        current = curretLabel[0].categoryName;
-        this.catorySelectf = current;
-      }
-      selectYears(current).then(res => {
-        this.middlecatoryYears = [];
-        this.middlecatoryYears = res.data;
-        // this.catoryYears = res.data;
-        if (res.data == "") {
-          return;
+        if (selectTop == null) {
+        } else {
+          selectTop.classList.remove("cube-scroll-nav-bar-item_active");
+          selectTop.classList.add("hhh");
         }
-        for (var i in res.data) {
-          this.catoryYears.push(
-            '<span style="display: inline-block;padding: 10px 26px 10px 10px;position: relative;">' +
-              res.data[i] +
-              '<div class="bbb"></div></span>'
-          );
-        }
-      });
-      let queryDatas = {};
-      queryDatas.categoryName = current;
-      queryCelebrityPerson(queryDatas).then(res => {
-        this.catoryListChildrenList = res.data.itemList;
-      });
-    },
-    // jumpDetails(item) {
-    //   this.$router.push({
-    //     name: "honorDetail",
-    //     query: {
-    //       // catoryList: this.catoryList,
-    //       selectItem: item,
-    //       catoryListChildrenList: this.catoryListChildrenList
-    //     }
-    //   });
-    // },
-    changeYear(label) {
-      this.detailFlag = false;
+      }, 4);
+  },
+  mounted() {},
+  methods: {
+      //数组去重
+    quchong(array){ 
+    //一个新的数组 
+    var arrs = []; 
+    //遍历当前数组 
+    for(var i = 0; i < array.length; i++){ 
+        //如果临时数组里没有当前数组的当前值，则把当前值push到新数组里面 
+        if (arrs.indexOf(array[i]) == -1){ 
+            arrs.push(array[i])
+        }; 
+    } 
+    return arrs; 
+},
+
+
+
+
+    changeHandler(label) {
       setTimeout(() => {
         // debugger
         let selectTop = document.querySelector(
           ".cube-scroll-nav-bar-item_active"
         );
-        selectTop.classList.remove("cube-scroll-nav-bar-item_active");
-        // let oldSelect = document.querySelector(".zzz");
-        // oldSelect.classList.remove("zzz");
-        selectTop.classList.add("zzz");
-      }, 5);
-      this.selectedYear = label;
-      this.catoryListChildrenList = [];
-      let queryData = {};
-      queryData.categoryName = this.catorySelectf;
-      let currentYear = this.chaxun2(this.middlecatoryYears, label);
-      for (let i in currentYear) {
-        queryData.years = currentYear[i];
+        if (selectTop == null) {
+        } else {
+          selectTop.classList.remove("cube-scroll-nav-bar-item_active");
+          selectTop.classList.add("hhh");
+        }
+      }, 4);
+      this.catoryListChildrenList = []
+      let currentlabel = ''
+      for(var i in this.middlecatoryListLabel){
+        if(label.indexOf(this.middlecatoryListLabel[i]) != -1){
+           currentlabel  = this.middlecatoryListLabel[i]
+           break
+        }
       }
-      queryCelebrityPerson(queryData).then(res => {
-        this.catoryListChildrenList = res.data.itemList;
+      for(var i in this.allhonerlist){
+        if(currentlabel == this.allhonerlist[i].categoryName){
+          this.catoryListChildrenList.push(this.allhonerlist[i])
+        }
+      }
+    },
+    jumpDetails(item) {
+      this.$router.push({
+        name: "honorDetail",
+        query: {
+          // catoryList: this.catoryList,
+          selectItem: item,
+          catoryListChildrenList: this.catoryListChildrenList
+        }
       });
     },
-    //筛选奖项
-    chaxun(dataList, label) {
-      let arr2 = [];
-      var cha = label; //获取想要查询的值
-      var zhi = ""; //接收每个循环中的arr[i]的值
-      for (var i = 0; i < dataList.length; i++) {
-        zhi = dataList[i].categoryName;
-        if (cha.indexOf(zhi) != -1) {
-          //因为indexof找不到的时候是一律为-1，所以直接判断是否为-1，不是就弹出这个值
-          arr2.push(dataList[i]); //将值放入第二个数组
-          // this.depatmentList.push(dataList[i])
+    changeYear(label) {
+      this.catoryListChildrenList = []
+      setTimeout(() => {
+        // debugger
+        let selectTop = document.querySelector(
+          ".cube-scroll-nav-bar-item_active"
+        );
+        if (selectTop == null) {
+        } else {
+            selectTop.classList.remove("cube-scroll-nav-bar-item_active");
+            selectTop.classList.add("ggg");
+        }
+      }, 3);
+      let currentYears = ''
+      for(var i in this.middlecatoryYears){
+        if(label.indexOf(this.middlecatoryYears[i]) != -1){
+           currentYears  = this.middlecatoryYears[i]
+           break
         }
       }
-      // debugger
-      return arr2;
-      // alert(arr2);//弹出匹配的值
-      // arr2 = [];//清空数组，否则第二次查询时会因为有是全局变量，而导致先前查询的值会和这次一起弹出
-    },
-    chaxun2(dataList, label) {
-      let arr2 = [];
-      var cha = label; //获取想要查询的值
-      var zhi = ""; //接收每个循环中的arr[i]的值
-      for (var i = 0; i < dataList.length; i++) {
-        zhi = dataList[i];
-        if (cha.indexOf(zhi) != -1) {
-          //因为indexof找不到的时候是一律为-1，所以直接判断是否为-1，不是就弹出这个值
-          arr2.push(dataList[i]); //将值放入第二个数组
-          // this.depatmentList.push(dataList[i])
+      for(var i in this.allhonerlist){
+        if(currentYears == this.allhonerlist[i].years){
+          this.catoryListChildrenList.push(this.allhonerlist[i])
         }
       }
-      // debugger
-      return arr2;
-      // alert(arr2);//弹出匹配的值
-      // arr2 = [];//清空数组，否则第二次查询时会因为有是全局变量，而导致先前查询的值会和这次一起弹出
-    },
-    chaxun3(dataList, label) {
-      let arr2 = [];
-      var cha = label; //获取想要查询的值
-      var zhi = ""; //接收每个循环中的arr[i]的值
-      for (var i = 0; i < dataList.length; i++) {
-        zhi = dataList[i];
-        if (zhi.indexOf(cha) != -1) {
-          //因为indexof找不到的时候是一律为-1，所以直接判断是否为-1，不是就弹出这个值
-          arr2.push(dataList[i]); //将值放入第二个数组
-          // this.depatmentList.push(dataList[i])
-        }
-      }
-      // debugger
-      return arr2;
-      // alert(arr2);//弹出匹配的值
-      // arr2 = [];//清空数组，否则第二次查询时会因为有是全局变量，而导致先前查询的值会和这次一起弹出
-    },
-    detailitem(item) {
-      this.detailFlag = true;
-      this.catoryListChildrenList = [];
-      this.detailItem = item;
-      debugger;
     },
     addline() {
       // debugger
@@ -417,11 +368,10 @@ h5 {
   color: skyblue;
 }
 
-.zzz {
+.hhh {
   background-color: #fff;
   border-left: 2px solid skyblue;
   color: skyblue;
-
   .bbb {
     border-left: 8px solid skyblue;
   }
@@ -462,5 +412,12 @@ h5 {
 .contentDiv img {
   width: 100%;
   min-height: 100%;
+}
+.ggg {
+  color: skyblue;
+  border-bottom: 2px solid skyblue;
+  z-index: 2;
+  background-color #fff
+  border-radius: 17px;
 }
 </style>
