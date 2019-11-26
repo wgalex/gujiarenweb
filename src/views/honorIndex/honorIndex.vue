@@ -5,7 +5,7 @@
           <div style="height: 0;overflow: hidden;margin: 0;padding-bottom: 100%;">
         <!--页眉，放置标题-->
         
-         <img src="../../assets/微信图片_201911211726494.jpg" style=" display: block;position: absolute;width: 100%;top: 0;bottom: 0; height: 100%;" />
+         <img src="../../assets/微信图片_201911211726494.jpg" style=" display: block;position: absolute;width: 100%;top: 0;bottom: 0; height: 93%;" />
         <!--页脚，放置补充信息或支持的操作-->
         <!-- <div class="mui-card-footer">页脚</div> -->
       </div>

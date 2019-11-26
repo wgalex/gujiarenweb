@@ -8,7 +8,7 @@
           :labels="catoryListLabel"
           @change="changeHandler"
           :txts="catoryListLabel"
-          style="background-color: rgba(0,0,0,0);margin-top:60px"
+          style="background-color: rgba(0,0,0,0);margin-top:60px;margin-bottom:8px"
         />
       </div>
       <div>
@@ -22,7 +22,7 @@
       </div>
     </div>
     <div></div>
-    <div class="side-container" style="width:21%;background-color: #f1f4f9;height: 77%;float:left;">
+    <div class="side-container" style="width:18%;background-color: #f1f4f9;height: 77%;float:left;">
       <cube-scroll-nav-bar
         direction="vertical"
         :current="catoryYears[0]"

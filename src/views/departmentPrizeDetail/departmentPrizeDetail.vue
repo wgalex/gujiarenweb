@@ -25,7 +25,7 @@
     </div>
     <!-- <div> -->
       
-          <div class="side-container" style="width:21%;float:left;background-color: #f1f4f9;height: 65%;">
+          <div class="side-container" style="width:21%;float:left;background-color: #f1f4f9;height: 63%;">
           <cube-scroll-nav-bar
             direction="vertical"
             :current="labelts[0]"
@@ -36,7 +36,7 @@
         </div>
       
       
-      <div class="mui-content" style="overflow:auto;height:67%">
+      <div class="mui-content" style="overflow:auto;height:63%">
         <ul class="mui-table-view mui-grid-view mui-grid-8" style="min-height: 0px;">
           <li
             class="mui-table-view-cell mui-media mui-col-xs-12"
