@@ -61,7 +61,7 @@ export default {
   methods:{
     getData(){
       let querydata = {}
-      querydata.departmentId = '01'
+      querydata.orginCategoryCode = '43090'
       queryCategory(querydata).then(res => {
         console.log(this.chaxun(res.data));
         this.catoryList = this.chaxun(res.data)
@@ -70,13 +70,13 @@ export default {
     //筛选奖项
      chaxun(dataList) { 
        let  arr2 = []
-        var cha = '奖';//获取想要查询的值
+        // var cha = '奖';//获取想要查询的值
         var zhi = "";//接收每个循环中的arr[i]的值
         for (var i = 0; i < dataList.length; i++) {
             zhi = dataList[i].categoryName;
-            if (zhi.indexOf(cha) != -1) {//因为indexof找不到的时候是一律为-1，所以直接判断是否为-1，不是就弹出这个值
+            // if (zhi.indexOf(cha) != -1) {//因为indexof找不到的时候是一律为-1，所以直接判断是否为-1，不是就弹出这个值
                 arr2.push(dataList[i]);//将值放入第二个数组
-            }
+            // }
         }
         // debugger
         return arr2

@@ -1,21 +1,19 @@
 <template>
   <div style="height:100%">
-    <div style="background-image: linear-gradient(#0e82fd, #3edbfa);height:20%">
-      <div style="height:68%" >
-        <mt-search v-model="value1" @input="seachvalue"></mt-search>
-      </div>
+    <div style="background-image: linear-gradient(#0e82fd, #3edbfa);">
+        <mt-search v-model="value1" @input="seachvalue" placeholder="搜索奖项" ></mt-search>
       <div>
         <cube-scroll-nav-bar
           :current="catorySelected"
           :labels="catoryListLabel"
           @change="changeHandler"
           :txts="catoryListLabel"
-          style="background-color: rgba(0,0,0,0);"
+          style="background-color: rgba(0,0,0,0);margin-top:60px"
         />
       </div>
     </div>
     <div></div>
-    <div class="side-container" style="width:18%;background-color: #f1f4f9;height: 77%;">
+    <div class="side-container" style="width:18%;background-color: #f1f4f9;height: 77%;float:left;">
       <cube-scroll-nav-bar
         direction="vertical"
         :labels="catoryYears"
@@ -49,7 +47,7 @@
       <div class="container">
         <div >
           <div class="mui-card-content" style="width: 100%;height: 170px;margin-bottom: 20px;">
-            <img src="../../assets/791b064ac218957889f351aae9229ce9.jpg" style="width:100%;height:100%;border-radius: 18px;
+            <img :src="detailItem.headPath" style="width:100%;height:100%;border-radius: 18px;
     padding: 6px;" alt />
           </div>
           <div style="text-align: center;">
@@ -66,8 +64,8 @@
           </div>
           <!-- <input type="button" id="Copy" value="点击复制代码" /> -->
           <div >
-            <div class="mui-card-content">
-              <img src="../../assets/3C2D0751-5758-4091-8E2D-7EB6F3F47408.png"  alt />
+            <div class="mui-card-content"  v-if="detailItem.photoPath">
+              <img :src="detailItem.photoPath"  alt />
             </div>
           </div>
           <div class="mui-card-content" v-if="detailItem.filePath" >
@@ -113,6 +111,7 @@ export default {
     };
   },
   created() {
+    // debugger
     this.catoryList = this.$route.query.catoryList;
     for (var i in this.catoryList) {
       this.catoryListLabel.push(
@@ -141,10 +140,11 @@ export default {
     //   }
     // });
     let queryData = {};
-    queryData.categoryName = this.catorySelectf;
+    let that = this
+    queryData.categoryName = that.catorySelectf;
     queryCelebrityPerson(queryData).then(res => {
-      this.middlecatoryListLabel = res.data.itemList;
-      this.catoryListChildrenList = res.data.itemList;
+      that.middlecatoryListLabel = res.data.itemList;
+      that.catoryListChildrenList = res.data.itemList;
       // console.log(this.catoryListChildrenList);
     });
   },

@@ -1,13 +1,14 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import state from './state'
-import mutations from './mutations'
-
-Vue.use(Vuex)
-
-export default new Vuex.Store({
-  // 存储数据
-  state,
-  // 修改方法
-  mutations
-})
+import Vue from 'vue';
+import Vuex from 'vuex';
+Vue.use(Vuex);
+ const state={//要设置的全局访问的state对象
+    name: '未登录',
+    personCode:'',
+    avatar:''
+     //要设置的初始属性值
+   };
+ const store = new Vuex.Store({
+       state
+    });
+ 
+export default store;

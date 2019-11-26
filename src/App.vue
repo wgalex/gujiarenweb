@@ -20,8 +20,7 @@
     </template>
   </div>
 </template>
-  </div>
-</template>
+
 <script>
 var overscroll = function(el) {
   el.addEventListener("touchstart", function() {
@@ -50,7 +49,7 @@ document.body.addEventListener("touchmove", function(evt) {
 <script>
 import MTab from "@/components/m-tab";
 import { setDDConfig } from "@/api/dd";
-import { mapMutations } from "vuex";
+// import { mapMutations } from "vuex";
 import fetch from "@/api/fetch";
 import { Tabbar, TabItem } from "mint-ui";
 import * as dd from 'dingtalk-jsapi';
@@ -81,6 +80,8 @@ export default {
   },
   created() {
     // debugger
+    // this.save_userName('123');
+    // debugger
     // 获取用户 id
     setDDConfig().then(res => {
       console.log(res);
@@ -108,7 +109,7 @@ export default {
                 url: url,
                 method: "get"
               }).then(res => {
-                console.log(res);
+                alert(res)
                 that.save_userId(res.data.userId);
                 that.save_userName(res.data.name);
                 thst.save_corpId(res.data.corpId);
@@ -137,20 +138,11 @@ export default {
                 url: url,
                 method: "get"
               }).then(res => {
-                // console.log(res);
-                that.save_userId(res.data.userId);
-                that.save_userName(res.data.name);
-                if(res.data.jobNumber == undefined){
-                localStorage.setItem("personCode", '');
-                }else{
-                localStorage.setItem("personCode", res.data.jobNumber);
-                }
-                localStorage.setItem("name", res.data.name);
-                if(res.data.avatar == undefined){
-                localStorage.setItem("avatar", '');
-                }else{
-                localStorage.setItem("avatar", res.data.avatar);
-                }
+                console.log(res);
+                // that.save_userId(res.data.userId);
+                that.$store.state.name = res.data.name;
+                that.$store.state.personCode = res.data.jobNumber;
+                that.$store.state.avatar = res.data.avatar;
               });
             },
             onFail: function(err) {
@@ -165,7 +157,7 @@ export default {
     clickHandler(label) {
       // debugger
       // if you clicked home tab, then print 'Home'
-      console.log(label);
+      // console.log(label);
     },
     changeHandler(label) {
       switch (label) {

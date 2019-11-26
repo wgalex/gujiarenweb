@@ -1,8 +1,8 @@
 <template>
   <div style="height: 100%;">
-    <div style="background-image: linear-gradient(#0e82fd, #3edbfa);height:20%">
-      <div style="height:70%;">
-        <mt-search v-model="value2" @input="seachv"></mt-search>
+    <div style="background-image: linear-gradient(#0e82fd, #3edbfa)">
+      <div >
+        <mt-search v-model="value2" @input="seachv" placeholder="请先选部门后搜索奖项" style="padding-top:10px"></mt-search>
       </div>
       <div>
         <cube-scroll-nav-bar
@@ -10,7 +10,7 @@
           :labels="catoryYears"
           @change="changeYear"
           :txts="catoryYears"
-          style="background-color: rgba(0,0,0,0);height:36px"
+          style="background-color: rgba(0,0,0,0);height:36px;margin-top:30px"
         />
       </div>
     </div>
@@ -24,18 +24,18 @@
       />
     </div>
     <!-- <div> -->
-      <div
-        class="side-container"
-        style="width:26%;float:left;background-color: #f1f4f9;height: 67%;"
-      >
-        <cube-scroll-nav-bar
-          direction="vertical"
-          :current="labelts[0]"
-          :labels="labelts"
-          :txts="labelts"
-          @change="changeHandlert"
-        ></cube-scroll-nav-bar>
-      </div>
+      
+          <div class="side-container" style="width:30%;float:left;background-color: #f1f4f9;height: 65%;">
+          <cube-scroll-nav-bar
+            direction="vertical"
+            :current="labelts[0]"
+            :labels="labelts"
+            :txts="labelts"
+            @change="changeHandlert"
+          ></cube-scroll-nav-bar>
+        </div>
+      
+      
       <div class="mui-content" style="overflow:auto;height:67%">
         <ul class="mui-table-view mui-grid-view mui-grid-8" style="min-height: 0px;">
           <li
@@ -50,7 +50,7 @@
                   style="float:left;width:60px;height:60px;border-radius: 12px;"
                   :style="{ 'background-image': 'url(' + item.headPath + ')','background-repeat':'no-repeat','background-size':'cover' }"
                 ></span>
-                <div style="float:left;margin-left: 5%;">
+                <div style="width: 67%;float: right">
                   <span
                     class="mui-media-body"
                     style="width: 178px;display: block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
@@ -66,9 +66,8 @@
             <div>
               <div class="mui-card-content" style="width: 100%;height: 170px;margin-bottom: 20px;">
                 <img
-                  src="../../assets/791b064ac218957889f351aae9229ce9.jpg"
-                  style="width:100%;height:100%;border-radius: 18px;
-    padding: 6px;"
+                  :src="detailItem.headPath"
+                  style="width:100%;height:100%;border-radius: 18px;padding: 6px;"
                   alt
                 />
               </div>
@@ -85,8 +84,8 @@
               </div>
               <!-- <input type="button" id="Copy" value="点击复制代码" /> -->
               <div>
-                <div class="mui-card-content">
-                  <img src="../../assets/3C2D0751-5758-4091-8E2D-7EB6F3F47408.png" alt />
+                <div class="mui-card-content" v-if="detailItem.photoPath">
+                  <img :src="detailItem.photoPath" alt />
                 </div>
               </div>
               <div class="mui-card-content" v-if="detailItem.filePath">
@@ -148,8 +147,10 @@ export default {
     };
   },
   mounted() {
+    // debugger
     let queryData = {};
     queryData.orginCategoryCode = 79400;
+    let that = this
     queryCategory(queryData).then(res => {
       this.middlelabels = this.chaxun(res.data);
       for (var i in this.middlelabels) {
@@ -159,6 +160,8 @@ export default {
             '<div class="bbb"></div></span>'
         );
       }
+
+      // that.changeYear(catoryYears[0])
     });
   },
   // mounted() {},
@@ -198,15 +201,15 @@ export default {
     },
     chaxunjiang(dataList) {
       let arr2 = [];
-      var cha = "奖"; //获取想要查询的值
+      // var cha = "奖"; //获取想要查询的值
       var zhi = ""; //接收每个循环中的arr[i]的值
       for (var i = 0; i < dataList.length; i++) {
         zhi = dataList[i].categoryName;
-        if (zhi.indexOf(cha) != -1) {
+        // if (zhi.indexOf(cha) != -1) {
           //因为indexof找不到的时候是一律为-1，所以直接判断是否为-1，不是就弹出这个值
           arr2.push(dataList[i].categoryName); //将值放入第二个数组
           // this.depatmentList.push(dataList[i])
-        }
+        // }
       }
       //
       return arr2;
@@ -222,22 +225,26 @@ export default {
         );
         if (selectTop == null) {
         } else {
-          if (selectTop.innerText.indexOf("奖") != -1) {
-            selectTop.classList.remove("cube-scroll-nav-bar-item_active");
+          for (let j in that.middlecatoryListLabel) {
+            if (selectTop.innerText.indexOf(that.middlecatoryListLabel[j]) != -1) {
+                selectTop.classList.remove("cube-scroll-nav-bar-item_active");
             selectTop.classList.add("ccc");
+              break;
+            }
           }
         }
       }, 3);
       let catoryListLabel = this.chaxun2(this.middlecatoryListLabel, label);
       this.catorySelected = catoryListLabel;
+      let that = this
       selectYears(catoryListLabel).then(res => {
-        this.catoryYears = [];
-        this.middlecatoryYears = res.data;
-        // this.catoryYears = res.data;
-        for (var i in this.middlecatoryYears) {
-          this.catoryYears.push(
+        that.catoryYears = [];
+        that.middlecatoryYears = res.data;
+        // that.catoryYears = res.data;
+        for (var i in that.middlecatoryYears) {
+          that.catoryYears.push(
             '<span style="display: inline-block;padding:0 10px;font-size: 12px;"><div>' +
-              this.middlecatoryYears[i] +
+              that.middlecatoryYears[i] +
               "年</div></span>"
           );
         }
@@ -245,15 +252,12 @@ export default {
     },
     //纵向部门选择
     changeHandlert(label) {
+      // debugger
       this.detailFlag = false;
       setTimeout(() => {
-        // debugger
         let selectTop = document.querySelector(
           ".cube-scroll-nav-bar-item_active"
         );
-        // if(selectTop.innerText.indexOf('奖')== -1){
-        //   return
-        // }
         if (selectTop == null) {
         } else {
           let that = this;
@@ -269,20 +273,21 @@ export default {
       let currentDepartment = this.chaxun2(this.middlelabels, label);
       this.selectedDepartment = currentDepartment[0];
       let queryData = {};
-      queryData.departmentName = this.selectedDepartment;
+      let that = this
+      queryData.departmentName = that.selectedDepartment;
       queryCategory(queryData).then(res => {
-        // this.labels = this.chaxun(res.data)
-        this.catoryListLabel = [];
-        this.middlecatoryListLabel = this.chaxunjiang(res.data);
-        // this.middlecatoryListLabel = this.catoryListLabel
-        for (let i in this.middlecatoryListLabel) {
-          this.catoryListLabel.push(
+        // that.labels = that.chaxun(res.data)
+        that.catoryListLabel = [];
+        that.middlecatoryListLabel = that.chaxunjiang(res.data);
+        // that.middlecatoryListLabel = that.catoryListLabel
+        for (let i in that.middlecatoryListLabel) {
+          that.catoryListLabel.push(
             '<span style="display: inline-block;padding: 5px;font-size: 12px;margin:10px">' +
-              this.middlecatoryListLabel[i] +
+              that.middlecatoryListLabel[i] +
               "</span>"
           );
         }
-        this.currentCatoryListLabel = this.catoryListLabel[0];
+        that.currentCatoryListLabel = that.catoryListLabel[0];
       });
     },
     jumpDetails(item) {
@@ -318,8 +323,9 @@ export default {
       queryData.departmentName = this.selectedDepartment;
       queryData.categoryName = this.catorySelected[0];
       queryData.years = catoryYears[0];
+      let that = this
       queryCelebrityPerson(queryData).then(res => {
-        this.catoryListChildrenList = res.data.itemList;
+        that.catoryListChildrenList = res.data.itemList;
       });
     },
     searchList(keyWord, list) {
@@ -453,7 +459,6 @@ export default {
 
 .cube-scroll-nav-bar-item {
   padding: 0px !important;
-  height: 100%;
   border-bottom: 2px solid rgba(0, 0, 0, 0);
 }
 
@@ -462,9 +467,7 @@ export default {
   text-align: left;
 }
 
-.cube-scroll-content {
-  height: 100%;
-}
+
 
 .ddd {
   border-radius: 14px;
@@ -494,7 +497,7 @@ export default {
 .bbb {
   position: absolute;
   top: 29%;
-  right: -19%;
+  right: -7%;
   width: 0px;
   height: 0px;
   border-top: 8px solid rgba(0, 0, 0, 0);

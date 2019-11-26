@@ -11,7 +11,13 @@ const mutations = {
   },
   save_agentid (state,agentid) {
     state.agentid = agentid
-  }
+  },
+  save_personCode (state, personCode) {
+    state.personCode = personCode    
+  },
+  save_avatar (state, avatar) {
+    state.avatar = avatar    
+  },
 }
 
 export default mutations

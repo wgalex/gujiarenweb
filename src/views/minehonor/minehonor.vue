@@ -1,15 +1,15 @@
 <template>
   <div style="height:100%">
-    <div style="background-image: linear-gradient(#0e82fd, #3edbfa);height:32%">
+    <div style="background-image: linear-gradient(#0e82fd, #3edbfa);">
       <div>
-        <mt-search v-model="value3" style="padding-bottom: 2%;" @input="seachva"></mt-search>
+        <mt-search v-model="value3" style="padding-bottom: 2%;" @input="seachva" placeholder="搜索奖项"></mt-search>
       </div>
       <!-- <div> -->
       <!-- <div> -->
       <div class="contentDiv">
         <img :src="loginimage" />
       </div>
-      <div style="width: 51px;margin: 0px auto;padding: 13px 0;color: #ccc;;">{{loginstus}}</div>
+      <div style="width: 51px;margin: 0px auto;margin-top:10px">{{loginstus}}</div>
       <!-- </div> -->
       <!-- </div> -->
       <div>
@@ -22,7 +22,7 @@
         />
       </div>
     </div>
-    <div class="side-container" style="width:30%;float:left;background-color: #f1f4f9;height:74%">
+    <div class="side-container" style="width:25%;float:left;background-color: #f1f4f9;height:74%">
       <cube-scroll-nav-bar
         direction="vertical"
         :current="cureet"
@@ -58,9 +58,22 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import { queryCelebrityPerson, selectYears } from "./detailApi.js";
 import textdata from "./testData";
+import * as dd from 'dingtalk-jsapi';
+import { setDDConfig } from "@/api/dd";
 export default {
+  // computed: {
+  //   ...mapState({
+  //     personCode: state => state.personCode,
+  //     loginstus: state => state.name,
+  //     loginimage: state => state.avatar,
+
+  //     // agentid: state => state.agentid,
+  //     // corpId: state => state.corpId
+  //   }),
+  // },
   data() {
     return {
       // selected: '',
@@ -78,24 +91,33 @@ export default {
       detailFlag: false,
       detailItem: {},
       allhonerlist: [],
-      loginstus: "未登录",
-      loginimage: "src/assets/default_avtar.jpg",
+      loginstus: "",
+      // loginimage: "@src/default_avtar.jpg",require('../assets/a1.png')
+      loginimage:require('../../assets/default_avtar.jpg'),
       cureet: ""
     };
   },
   created() {
-    debugger
-
-    if (localStorage.getItem("personCode") != "") {
-      console.log(localStorage.getItem("personCode"));
-      
-      let that = this;
+    // console.log(this.$store.state);
+    if(this.$store.state.avatar != '' ){
+      this.loginimage = this.$store.state.avatar
+    }
+    this.loginstus = this.$store.state.name
+    if (this.$store.state.personCode == undefined || this.$store.state.personCode == '') {
+     this.$createDialog({
+        type: 'alert',
+        title: '提示',
+        content: '未能获取到工号',
+        icon: 'cubeic-alert'
+      }).show()
+    }else{
+       let that = this;
       let queryData = {};
-      queryData.personCode = localStorage.getItem("personCode");
+      queryData.personCode = that.$store.state.personCode;
       queryCelebrityPerson(queryData).then(res => {
         let startcatoryYears = [];
         let startcatoryListLabel = [];
-        that.allhonerlist = that.textdata.data.itemList;
+        that.allhonerlist = res.data.itemList;
         for (var i in that.allhonerlist) {
           startcatoryYears.push(that.allhonerlist[i].years);
           startcatoryListLabel.push(that.allhonerlist[i].categoryName);
@@ -114,7 +136,7 @@ export default {
           that.catoryListLabel.push(
             '<span style="display: inline-block;padding: 10px 26px 10px 10px;position: relative;" >' +
               that.middlecatoryListLabel[i] +
-              '<div class="bbb"></div></span>'
+              '<div class="rrr"></div></span>'
           );
         }
         that.changeYear(that.catoryYears[0]);
@@ -124,14 +146,7 @@ export default {
         }, 5);
       });
     }
-    if (localStorage.getItem("name") != "") {
-      that.loginstus = localStorage.getItem("name");
-    }
-    if (localStorage.getItem("avatar") != "") {
-      that.loginimage = localStorage.getItem("avatar");
-    }
   },
-  mounted() {},
   methods: {
     seachva() {
       // debugger;
@@ -321,15 +336,15 @@ export default {
   background-color: #fff;
   border-left: 2px solid skyblue;
   color: skyblue;
-
-  .bbb {
+  position relative
+  .rrr {
     border-left: 8px solid skyblue;
   }
 }
 
-.bbb {
+.rrr {
   position: absolute;
-  top: 11px;
+  top: 30%;
   right: 0px;
   width: 0px;
   height: 0px;
