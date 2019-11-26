@@ -22,7 +22,7 @@
         />
       </div>
     </div>
-    <div class="side-container" style="width:25%;float:left;background-color: #f1f4f9;height:74%">
+    <div class="side-container" style="width:21%;float:left;background-color: #f1f4f9;height:74%">
       <cube-scroll-nav-bar
         direction="vertical"
         :current="cureet"
@@ -266,12 +266,12 @@ export default {
 
 .mint-searchbar {
   background-color: rgba(0, 0, 0, 0);
-  padding: 0px 12px 5px 20px;
+  padding: 0px 40px 5px 40px;
 }
 
 .mint-searchbar-inner {
   position: relative;
-  height: 35px;
+  height: 26px
   border-radius: 20px;
 
   .mintui-search {
@@ -284,6 +284,7 @@ export default {
   input[type=search] {
     border-radius: 24px;
     background-color: #fff;
+    height: 26px
   }
 }
 

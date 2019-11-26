@@ -214,7 +214,7 @@ export default {
   /* margin-top: 40px; */
   width: 100%;
   height: 100%;
-
+  
   /* overflow: hidden; */
 }
 * {
@@ -226,32 +226,32 @@ export default {
 }
 .fengmian {
   display: inline-block;
-  height: 30px;
-  width: 35px;
+  height: 25px;
+  width: 25px;
   /* background-color: cyan; */
   background: url("./assets/首页.png") no-repeat;
   background-size: 100% 100%;
 }
 .gufen {
   display: inline-block;
-  height: 30px;
-  width: 35px;
+    height: 25px;
+    width: 25px;
   /* background-color: cyan; */
   background: url("./assets/股份荣誉.png") no-repeat;
   background-size: 100% 100%;
 }
 .bumen {
   display: inline-block;
-  height: 30px;
-  width: 35px;
+  height: 25px;
+  width: 25px;
   /* background-color: cyan; */
   background: url("./assets/部门荣誉.png") no-repeat;
   background-size: 100% 100%;
 }
 .wode {
   display: inline-block;
-  height: 30px;
-  width: 35px;
+  height: 25px;
+  width: 25px;
   /* background-color: cyan; */
   background: url("./assets/我的荣誉.png") no-repeat;
   background-size: 100% 100%;

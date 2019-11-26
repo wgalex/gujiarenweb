@@ -10,11 +10,11 @@
           :labels="catoryYears"
           @change="changeYear"
           :txts="catoryYears"
-          style="background-color: rgba(0,0,0,0);height:36px;margin-top:30px"
+          style="background-color: rgba(0,0,0,0);height:36px;margin-top:60px"
         />
       </div>
     </div>
-    <div style="height:10%;position: relative;">
+    <div style="height:8%;position: relative;">
       <cube-scroll-nav-bar
         :current="currentCatoryListLabel"
         :labels="catoryListLabel"
@@ -25,7 +25,7 @@
     </div>
     <!-- <div> -->
       
-          <div class="side-container" style="width:30%;float:left;background-color: #f1f4f9;height: 65%;">
+          <div class="side-container" style="width:21%;float:left;background-color: #f1f4f9;height: 65%;">
           <cube-scroll-nav-bar
             direction="vertical"
             :current="labelts[0]"
@@ -402,16 +402,17 @@ export default {
 
 .mint-search {
   height: 60px;
+  padding-top: 6% !important;
 }
 
 .mint-searchbar {
   background-color: rgba(0, 0, 0, 0);
-  padding: 0px 12px 5px 20px;
+  padding: 0px 40px 5px 40px;
 }
 
 .mint-searchbar-inner {
   position: relative;
-  height: 35px;
+  height: 26px
   border-radius: 20px;
 
   .mintui-search {
@@ -424,6 +425,7 @@ export default {
   input[type=search] {
     border-radius: 24px;
     background-color: #fff;
+    height: 26px
   }
 }
 
