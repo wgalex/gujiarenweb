@@ -11,11 +11,21 @@
           style="background-color: rgba(0,0,0,0);margin-top:60px"
         />
       </div>
+       <div>
+        <cube-scroll-nav-bar
+          :current="catoryChildrenListLabel[0]"
+          :labels="catoryChildrenListLabel"
+          @change="ChildrenchangeHandler"
+          :txts="catoryChildrenListLabel"
+          style="background-color: rgba(0,0,0,0);"
+        />
+      </div>
     </div>
     <div></div>
     <div class="side-container" style="width:18%;background-color: #f1f4f9;height: 77%;float:left;">
       <cube-scroll-nav-bar
         direction="vertical"
+        :current="catoryYears[0]"
         :labels="catoryYears"
         :txts="catoryYears"
         @change="changeYear"
@@ -48,7 +58,7 @@
         <div >
           <div class="mui-card-content" style="width: 100%;height: 170px;margin-bottom: 20px;">
             <img :src="detailItem.headPath" style="width:100%;height:100%;border-radius: 18px;
-    padding: 6px;" alt />
+            padding: 6px;" alt />
           </div>
           <div style="text-align: center;">
             <div style="font-size:24px">{{detailItem.tittle}}</div>
@@ -88,11 +98,11 @@
 
 <script>
 import { queryCelebrityPerson, selectYears } from "./detailApi.js";
+import { queryCategory } from './api.js'
 import textdata from "./testData";
 export default {
   data() {
     return {
-      // selected: '',
       catoryListLabel: [],
       middlecatoryListLabel: [],
       catoryListChildrenList: [],
@@ -107,13 +117,19 @@ export default {
       detailFlag:false,
       detailItem: {},
       backcatoryListChildrenList:[],
-      mypagestyle:""
+      mypagestyle:"",
+      catoryChildrenListLabel:[],
+      middlecatoryChildrenListLabel:[],
+      startcatoryChildrenListLabel:[],
+      queryyearcode:'',
+      currentChilden:''
+
     };
   },
   created() {
-    // debugger
     this.catoryList = this.$route.query.catoryList;
     for (var i in this.catoryList) {
+      this.startcatoryChildrenListLabel.push(this.catoryList[i].categoryName)
       this.catoryListLabel.push(
         '<span style="display: inline-block;padding: 5px;margin: 0 15px;">' +
           this.catoryList[i].categoryName +
@@ -121,37 +137,37 @@ export default {
       );
     }
     this.catorySelectf = this.$route.query.selectItem.categoryName;
-    let charesoule = this.chaxun3(this.catoryListLabel, this.catorySelectf);
-    for (let i in charesoule) {
-      this.catorySelected = charesoule[i];
-    }
-    this.changeHandler(this.catorySelected)
-    // selectYears(this.catorySelectf).then(res => {
-    //   this.middlecatoryYears = res.data;
-    //   if (res.data == "") {
-    //     return;
-    //   }
-    //   for (var i in res.data) {
-    //     this.catoryYears.push(
-    //       '<span style="display: inline-block;padding: 10px 26px 10px 10px;position: relative;" >' +
-    //         res.data[i] +
-    //         '<div class="bbb"></div></span>'
-    //     );
-    //   }
+    let querydatas = {}
+      querydatas.orginCategoryCode = this.$route.query.selectItem.categoryCode
+      let that = this
+      queryCategory(querydatas).then(res => {
+          for(var j in res.data){
+            that.middlecatoryChildrenListLabel.push(res.data[j].categoryName)
+          }
+          for (var k in that.middlecatoryChildrenListLabel) {
+          that.catoryChildrenListLabel.push(
+            '<span style="display: inline-block;padding: 5px;margin: 0 15px;">' +
+              that.middlecatoryChildrenListLabel[k] +
+              "</span>"
+          );
+        }
+      })
+    // let charesoule = this.chaxun3(this.catoryListLabel, this.catorySelectf);
+    // for (let i in charesoule) {
+    //   this.catorySelected = charesoule[i];
+    // }
+    // this.changeHandler(this.catorySelected)
+    // let queryData = {};
+    // let that = this
+    // queryData.categoryName = that.catorySelectf;
+    // queryCelebrityPerson(queryData).then(res => {
+    //   that.middlecatoryListLabel = res.data.itemList;
+    //   that.catoryListChildrenList = res.data.itemList;
     // });
-    let queryData = {};
-    let that = this
-    queryData.categoryName = that.catorySelectf;
-    queryCelebrityPerson(queryData).then(res => {
-      that.middlecatoryListLabel = res.data.itemList;
-      that.catoryListChildrenList = res.data.itemList;
-      // console.log(this.catoryListChildrenList);
-    });
   },
   mounted() {},
   methods: {
     seachvalue(){
-      // debugger
       for(let j in this.catoryListLabel){
         if (this.catoryListLabel[j].indexOf(this.value1) != -1) {
           this.catorySelected = this.catoryListLabel[j]
@@ -160,79 +176,101 @@ export default {
       }
     },
     changeHandler(label) {
-      // debugger
       this.detailFlag = false
       setTimeout(() => {
-        // debugger
         let selectTop = document.querySelector(
           ".cube-scroll-nav-bar-item_active"
         );
         selectTop.classList.remove("cube-scroll-nav-bar-item_active");
         selectTop.classList.add("ddd");
-      }, 5);
+      }, 2);
+      for(let i in this.startcatoryChildrenListLabel){
+        if(label.indexOf(this.startcatoryChildrenListLabel[i])){
+          let currentChildrenListLabel = this.startcatoryChildrenListLabel[i]
+        }
+      }
+      for(let j in this.catoryList){
+        if( this.catoryList[j].categoryName == currentChildrenListLabel){
+          let currentChildrenListcode = this.catoryList[j].categoryCode
+        }
+      }
+      this.queryyearcode = currentChildrenListcode
       this.catoryYears = [];
       this.catoryListChildrenList = [];
-      // this.catorySelected = label;
+      this.catoryChildrenListLabel = [];
+      this.middlecatoryChildrenListLabel=[]
       let queryData = {};
-      let curretLabel = this.chaxun(this.catoryList, label);
-      let current = "";
-      for (let i in curretLabel) {
-        current = curretLabel[0].categoryName;
-        this.catorySelectf = current;
-      }
-      selectYears(current).then(res => {
-        this.middlecatoryYears = [];
-        this.middlecatoryYears = res.data;
-        // this.catoryYears = res.data;
-        if (res.data == "") {
-          return;
-        }
-        for (var i in res.data) {
-          this.catoryYears.push(
-            '<span style="display: inline-block;padding: 10px 26px 10px 10px;position: relative;">' +
-              res.data[i] +
-              '<div class="fff"></div></span>'
+      queryData.orginCategoryCode = currentChildrenListcode
+       queryCategory(querydata).then(res => {
+          for (var k in res.data) {
+          this.catoryChildrenListLabel.push(
+            '<span style="display: inline-block;padding: 5px;margin: 0 15px;">' +
+              res.data[k].categoryName +
+              "</span>"
           );
         }
-      });
-      let queryDatas = {};
-      queryDatas.categoryName = current;
-      queryCelebrityPerson(queryDatas).then(res => {
-        this.catoryListChildrenList = res.data.itemList;
-      });
+      })
     },
-    // jumpDetails(item) {
-    //   this.$router.push({
-    //     name: "honorDetail",
-    //     query: {
-    //       // catoryList: this.catoryList,
-    //       selectItem: item,
-    //       catoryListChildrenList: this.catoryListChildrenList
-    //     }
-    //   });
-    // },
-    changeYear(label) {
+    ChildrenchangeHandler(label) {
+      debugger
       this.detailFlag = false
       setTimeout(() => {
-        // debugger
         let selectTop = document.querySelector(
           ".cube-scroll-nav-bar-item_active"
         );
         selectTop.classList.remove("cube-scroll-nav-bar-item_active");
-        // let oldSelect = document.querySelector(".zzz");
-        // oldSelect.classList.remove("zzz");
-        selectTop.classList.add("mags");
-      }, 5);
-      this.selectedYear = label;
+        selectTop.classList.add("ddd");
+      }, 3);
+      this.catoryYears = [];
       this.catoryListChildrenList = [];
-      let queryData = {};
-      queryData.categoryName = this.catorySelectf;
-      let currentYear = this.chaxun2(this.middlecatoryYears, label);
-      for (let i in currentYear) {
-        queryData.years = currentYear[i];
+      let that = this
+      for(let i in that.middlecatoryChildrenListLabel){
+        if(label.indexOf(that.middlecatoryChildrenListLabel[i]) != -1){
+          that.currentChilden = that.middlecatoryChildrenListLabel[i]
+          break
+        }
       }
+      selectYears(that.currentChilden).then(res => {
+        that.middlecatoryYears = [];
+        that.middlecatoryYears = res.data;
+        if (res.data == "") {
+          return;
+        }
+        for (var j in res.data) {
+          that.middlecatoryYears.push(res.data[i])
+          that.catoryYears.push(
+            '<span style="display: inline-block;padding: 10px 26px 10px 10px;position: relative;">' +
+              res.data[j] +
+              '<div class="fff"></div></span>'
+          );
+        }
+      });
+      // let queryDatas = {};
+      // queryDatas.categoryName = current;
+      // queryCelebrityPerson(queryDatas).then(res => {
+      //   that.catoryListChildrenList = res.data.itemList;
+      // });
+    },
+    changeYear(label) {
+      this.detailFlag = false
+      setTimeout(() => {
+        let selectTop = document.querySelector(
+          ".cube-scroll-nav-bar-item_active"
+        );
+        selectTop.classList.remove("cube-scroll-nav-bar-item_active");
+        selectTop.classList.add("mags");
+      }, 4);
+      // this.selectedYear = label;
+      this.catoryListChildrenList = [];
+      for( let j in this.middlecatoryYears){
+        if(label.indexOf(this.middlecatoryYears[j])){
+          let currentYear = this.middlecatoryYears[j]
+        }
+      }
+      let queryData = {};
+      queryData.categoryCode = this.queryyearcode;
       queryCelebrityPerson(queryData).then(res => {
-        this.catoryListChildrenList = res.data.itemList;
+        that.catoryListChildrenList = res.data.itemList;
       });
     },
     //筛选奖项
@@ -248,7 +286,6 @@ export default {
           // this.depatmentList.push(dataList[i])
         }
       }
-      // debugger
       return arr2;
       // alert(arr2);//弹出匹配的值
       // arr2 = [];//清空数组，否则第二次查询时会因为有是全局变量，而导致先前查询的值会和这次一起弹出
@@ -265,7 +302,6 @@ export default {
           // this.depatmentList.push(dataList[i])
         }
       }
-      // debugger
       return arr2;
       // alert(arr2);//弹出匹配的值
       // arr2 = [];//清空数组，否则第二次查询时会因为有是全局变量，而导致先前查询的值会和这次一起弹出
@@ -282,7 +318,6 @@ export default {
           // this.depatmentList.push(dataList[i])
         }
       }
-      // debugger
       return arr2;
       // alert(arr2);//弹出匹配的值
       // arr2 = [];//清空数组，否则第二次查询时会因为有是全局变量，而导致先前查询的值会和这次一起弹出
@@ -293,10 +328,8 @@ export default {
       this.backcatoryListChildrenList = this.catoryListChildrenList
       this.catoryListChildrenList = [];
       this.detailItem = item;
-      // debugger;
     },
     addline() {
-      // debugger
       if(this.clicktwice){
         this.mypagestyle = "-webkit-line-clamp:50";
         this.clicktwice = false

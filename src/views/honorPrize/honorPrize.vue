@@ -63,7 +63,6 @@ export default {
       let querydata = {}
       querydata.orginCategoryCode = '43090'
       queryCategory(querydata).then(res => {
-        console.log(this.chaxun(res.data));
         this.catoryList = this.chaxun(res.data)
       })
     },
