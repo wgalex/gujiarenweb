@@ -123,6 +123,18 @@ export default new Router({
       name:'minehonor',
       component: () => import('@/views/minehonor/minehonor'),
     },
+    //部门展示
+    {
+      path:'/departShow',
+      name:'departShow',
+      component: () => import('@/views/departShow/departShow'),
+    },
+    //单位部门第二次展示
+    {
+      path:'/departSecondShow',
+      name:'departSecondShow',
+      component: () => import('@/views/departSecondShow/departSecondShow'),
+    },
     // 人才池部分路由departmentPrize
     // {
     //   path:'/personnelHome',

@@ -8,7 +8,7 @@
     </div>
     <template>
       <div
-        style="position: fixed;right: 0px;bottom: 1px;width: 100%;background-color: #fff;height: 10%;z-index:99"
+        style="position: fixed;right: 0px;bottom: 1px;width: 100%;background-color: #fff;height: 10%;z-index:99;font-size: 14px;"
       >
         <cube-tab-bar
           v-model="selectedLabelDefault"
@@ -175,7 +175,7 @@ export default {
           break;
         case "部门荣誉":
           this.$router.push({
-            name: "departmentPrizeDetail"
+            name: "departShow"
           });
           //  表达式的值和 值3匹配上了，需要执行的代码;
           break;

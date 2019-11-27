@@ -11,13 +11,13 @@
           style="background-color: rgba(0,0,0,0);margin-top:7px;margin-bottom:8px"
         />
       </div>
-      <div>
+      <div style="position: relative;"> 
         <cube-scroll-nav-bar
           :current="catoryChildrenListLabel[0]"
           :labels="catoryChildrenListLabel"
           @change="ChildrenchangeHandler"
           :txts="catoryChildrenListLabel"
-          style="background-color: rgba(0,0,0,0);height:40px"
+          style="background-color:#fff!important;height:58px;"
         />
       </div>
     </div>
@@ -136,7 +136,7 @@ export default {
     for (var i in this.catoryList) {
       this.startcatoryChildrenListLabel.push(this.catoryList[i].categoryName);
       this.catoryListLabel.push(
-        '<span style="display: inline-block;padding: 5px;margin: 0 8px;font-size: 18px;">' +
+        '<span style="display: inline-block;padding: 5px;margin: 0 8px;font-size: 12px;">' +
           this.catoryList[i].categoryName +
           "</span>"
       );
@@ -200,7 +200,7 @@ export default {
         for (var k in res.data) {
           this.middlecatoryChildrenListLabel.push(res.data[k].categoryName);
           this.catoryChildrenListLabel.push(
-            '<span style="padding: 0px;margin: 0 8px;font-size: 12px;">' +
+            '<span style="display: inline-block;padding: 5px;font-size: 12px;margin:10px">' +
               res.data[k].categoryName +
               "</span>"
           );
@@ -208,7 +208,6 @@ export default {
       });
     },
     ChildrenchangeHandler(label) {
-      debugger
       this.detailFlag = false;
       setTimeout(() => {
         let selectTop = document.querySelector(
@@ -217,7 +216,7 @@ export default {
         if (selectTop == null) {
         } else {
           selectTop.classList.remove("cube-scroll-nav-bar-item_active");
-          selectTop.classList.add("ddd");
+          selectTop.classList.add("jjj");
         }
       }, 6);
       this.middlecatoryYears = [];
@@ -458,7 +457,11 @@ export default {
     border-left: 8px solid skyblue;
   }
 }
-
+.jjj{
+  color: skyblue;
+  border-bottom: 2px solid skyblue;
+  z-index: 2;
+}
 .fff {
   position: absolute;
   top: 30%;

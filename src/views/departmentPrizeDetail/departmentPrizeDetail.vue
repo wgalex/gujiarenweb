@@ -14,13 +14,13 @@
         />
       </div>
     </div>
-    <div style="height:9%;position: relative;">
+    <div style="position: relative;">
       <cube-scroll-nav-bar
-        :current="currentCatoryListLabel"
+        :current="seconddepart"
         :labels="catoryListLabel"
         @change="changeHandler"
         :txts="catoryListLabel"
-        style="background-color:#fff!important"
+        style="background-color:#fff!important,height:58px"
       />
     </div>
     <!-- <div> -->
@@ -28,7 +28,7 @@
           <div class="side-container" style="width:18%;float:left;background-color: #f1f4f9;height: 63%;">
           <cube-scroll-nav-bar
             direction="vertical"
-            :current="labelts[0]"
+            :current="firstdepart"
             :labels="labelts"
             :txts="labelts"
             @change="changeHandlert"
@@ -143,11 +143,17 @@ export default {
       mypagestyle: "",
       detailFlag: false,
       clicktwice: false,
-      backcatoryListChildrenList: []
+      backcatoryListChildrenList: [],
+      secondSelectItem:{},
+      firstSelectItem:{},
+      firstdepart:"",
+      seconddepart:''
     };
   },
   mounted() {
     // debugger
+    this.secondSelectItem = this.$route.query.secondSelectItem;
+    this.firstSelectItem = this.$route.query.firstSelectItem;
     let queryData = {};
     queryData.orginCategoryCode = 79400;
     let that = this
@@ -159,6 +165,12 @@ export default {
             this.middlelabels[i] +
             '<div class="bbb"></div></span>'
         );
+        for(let j in this.labelts){
+            if(this.labelts[j].indexOf(this.firstSelectItem.departmentName) != -1){
+              this.firstdepart= this.labelts[j]
+              break
+            }
+        }
       }
 
       // that.changeYear(catoryYears[0])
@@ -217,6 +229,7 @@ export default {
       // arr2 = [];//清空数组，否则第二次查询时会因为有是全局变量，而导致先前查询的值会和这次一起弹出
     },
     changeHandler(label) {
+      debugger
       this.detailFlag = false;
       setTimeout(() => {
         // debugger
@@ -287,6 +300,12 @@ export default {
               "</span>"
           );
         }
+        for(let j in that.catoryListLabel){
+            if(that.catoryListLabel[j].indexOf(that.secondSelectItem.categoryName) != -1){
+              that.seconddepart= that.catoryListLabel[j]
+              break
+            }
+        }
         that.currentCatoryListLabel = that.catoryListLabel[0];
       });
     },
@@ -301,6 +320,7 @@ export default {
       });
     },
     changeYear(label) {
+      debugger
       this.detailFlag = false;
       setTimeout(() => {
         let selectTop = document.querySelector(
