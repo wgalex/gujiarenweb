@@ -11,10 +11,10 @@
             <ul class="mui-table-view mui-grid-view mui-grid-9" >
                  <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="float:left" v-for="item in catoryList"  :key="item.id">
                     <a href="#" @click="jumpDetail(item)">  
-                         <div class="mui-card-content">
-                           <img :src="item.headPath" alt="">
+                         <div class="mui-card-content" style="width: 150px;height: 150px;">
+                           <img :src="item.headPath" alt="" style="width: 100%;height: 100%;">
                          </div>
-                         <div class="mui-media-body">{{item.categoryName}}</div>
+                         <div class="mui-media-body" style="text-align: center">{{item.categoryName}}</div>
                     </a>
                  </li>  
             </ul>

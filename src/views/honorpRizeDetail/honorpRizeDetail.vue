@@ -8,7 +8,7 @@
           :labels="catoryListLabel"
           @change="changeHandler"
           :txts="catoryListLabel"
-          style="background-color: rgba(0,0,0,0);margin-top:60px;margin-bottom:8px"
+          style="background-color: rgba(0,0,0,0);margin-top:7px;margin-bottom:8px"
         />
       </div>
       <div>
@@ -56,11 +56,10 @@
       <div v-if="detailFlag">
         <div class="container">
           <div>
-            <div class="mui-card-content" style="width: 100%;height: 170px;margin-bottom: 20px;">
+            <div class="mui-card-content" style="width: 100%;height: 100px;margin-bottom: 20px;background-color: #f1f4f9;">
               <img
                 :src="detailItem.headPath"
-                style="width:100%;height:100%;border-radius: 18px;
-            padding: 6px;"
+                style="width: 60%;height: 100%;border-radius: 18px;padding: 6px;margin: 0 auto;"
                 alt
               />
             </div>
@@ -77,8 +76,8 @@
             </div>
             <!-- <input type="button" id="Copy" value="点击复制代码" /> -->
             <div>
-              <div class="mui-card-content" v-if="detailItem.photoPath">
-                <img :src="detailItem.photoPath" alt />
+              <div class="mui-card-content" v-if="detailItem.photoPath" style="margin-top: 20px;">
+                <img :src="detailItem.photoPath" alt style="display: block;width: 100%;margin-top: 20px;height: 100%;" />
               </div>
             </div>
             <div class="mui-card-content" v-if="detailItem.filePath">
@@ -137,7 +136,7 @@ export default {
     for (var i in this.catoryList) {
       this.startcatoryChildrenListLabel.push(this.catoryList[i].categoryName);
       this.catoryListLabel.push(
-        '<span style="display: inline-block;padding: 5px;margin: 0 15px;font-size: 16px;">' +
+        '<span style="display: inline-block;padding: 5px;margin: 0 8px;font-size: 18px;">' +
           this.catoryList[i].categoryName +
           "</span>"
       );
@@ -201,7 +200,7 @@ export default {
         for (var k in res.data) {
           this.middlecatoryChildrenListLabel.push(res.data[k].categoryName);
           this.catoryChildrenListLabel.push(
-            '<span style="display: inline-block;padding: 5px;margin: 0 15px;">' +
+            '<span style="padding: 0px;margin: 0 8px;font-size: 12px;">' +
               res.data[k].categoryName +
               "</span>"
           );
@@ -209,6 +208,7 @@ export default {
       });
     },
     ChildrenchangeHandler(label) {
+      debugger
       this.detailFlag = false;
       setTimeout(() => {
         let selectTop = document.querySelector(
@@ -233,10 +233,19 @@ export default {
       }
       let queryData = {};
       queryData.categoryName = this.currentChilden;
+      let middlescatoryYears = []
       queryCelebrityPerson(queryData).then(res => {
         for (let k in res.data.itemList) {
-          this.middlecatoryYears.push(res.data.itemList[k].years);
+          middlescatoryYears.push(res.data.itemList[k].years);
         }
+        if(middlescatoryYears.length != 0){
+          for (let m = 0; m<middlescatoryYears.length; m++) {
+            if (this.middlecatoryYears.indexOf(middlescatoryYears[m]) === -1) {
+              this.middlecatoryYears.push(middlescatoryYears[m]);
+            }
+        }
+        } 
+         
         for (let j in this.middlecatoryYears) {
           this.catoryYears.push(
             '<span style="display: inline-block;padding: 10px 26px 10px 10px;position: relative;">' +
@@ -377,16 +386,17 @@ export default {
   border-radius: 20px;
 
   .mintui-search {
-    position: absolute;
-    top: 8px;
+   position: absolute;
+    top: 4px;
     right: 8px;
-    font-size: 20px;
+    font-size: 14px;
   }
 
   input[type=search] {
     border-radius: 24px;
     background-color: #fff;
     height: 26px
+    font-size: 12px;
   }
 }
 
@@ -452,7 +462,7 @@ export default {
 .fff {
   position: absolute;
   top: 30%;
-  right: -10%;
+  right: -5%;
   width: 0px;
   height: 0px;
   border-top: 8px solid rgba(0, 0, 0, 0);
@@ -471,15 +481,15 @@ export default {
 }
 
 .rrr {
-  width: 50px;
+ width: 50px;
   height: 50px;
   position: fixed;
   top: 50%;
-  right: 73%;
+  right: 72%;
   text-align: center;
   line-height: 50px;
   opacity: 0.4;
-  font-size: 58px;
-  color: #ccc;
+  font-size: 21px;
+  color: skyblue;
 }
 </style>

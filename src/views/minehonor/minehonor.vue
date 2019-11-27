@@ -9,7 +9,7 @@
       <div class="contentDiv">
         <img :src="loginimage" />
       </div>
-      <div style="width: 51px;margin: 0px auto;margin-top:10px">{{loginstus}}</div>
+      <div style="margin: auto;padding-top: 10px;">{{loginstus}}</div>
       <!-- </div> -->
       <!-- </div> -->
       <div>
@@ -275,16 +275,17 @@ export default {
   border-radius: 20px;
 
   .mintui-search {
-    position: absolute;
-    top: 8px;
+   position: absolute;
+    top: 4px;
     right: 8px;
-    font-size: 20px;
+    font-size: 14px;
   }
 
   input[type=search] {
     border-radius: 24px;
     background-color: #fff;
     height: 26px
+    font-size: 12px;
   }
 }
 

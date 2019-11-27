@@ -10,11 +10,11 @@
           :labels="catoryYears"
           @change="changeYear"
           :txts="catoryYears"
-          style="background-color: rgba(0,0,0,0);height:36px;margin-top:60px"
+          style="background-color: rgba(0,0,0,0);height:36px;margin-top:30px"
         />
       </div>
     </div>
-    <div style="height:8%;position: relative;">
+    <div style="height:9%;position: relative;">
       <cube-scroll-nav-bar
         :current="currentCatoryListLabel"
         :labels="catoryListLabel"
@@ -25,7 +25,7 @@
     </div>
     <!-- <div> -->
       
-          <div class="side-container" style="width:21%;float:left;background-color: #f1f4f9;height: 63%;">
+          <div class="side-container" style="width:18%;float:left;background-color: #f1f4f9;height: 63%;">
           <cube-scroll-nav-bar
             direction="vertical"
             :current="labelts[0]"
@@ -64,10 +64,10 @@
         <div v-if="detailFlag">
           <div class="container">
             <div>
-              <div class="mui-card-content" style="width: 100%;height: 170px;margin-bottom: 20px;">
+              <div class="mui-card-content" style="width: 100%;height: 100px;margin-bottom: 20px;background-color: #f1f4f9;">
                 <img
                   :src="detailItem.headPath"
-                  style="width:100%;height:100%;border-radius: 18px;padding: 6px;"
+                  style="width: 60%;height: 100%;border-radius: 18px;padding: 6px;margin: 0 auto;"
                   alt
                 />
               </div>
@@ -84,11 +84,11 @@
               </div>
               <!-- <input type="button" id="Copy" value="点击复制代码" /> -->
               <div>
-                <div class="mui-card-content" v-if="detailItem.photoPath">
-                  <img :src="detailItem.photoPath" alt />
+                <div class="mui-card-content" v-if="detailItem.photoPath" style="width: 80%;height: 80%;margin: 0 auto;">
+                  <img :src="detailItem.photoPath" alt style="display: block;width: 100%;margin-top: 20px;height: 100%;" />
                 </div>
               </div>
-              <div class="mui-card-content" v-if="detailItem.filePath">
+              <div class="mui-card-content" v-if="detailItem.filePath" style="margin-top: 20px;">
                 <iframe
                   height="15%"
                   width="100%"
@@ -155,7 +155,7 @@ export default {
       this.middlelabels = this.chaxun(res.data);
       for (var i in this.middlelabels) {
         this.labelts.push(
-          '<span style="display: inline-block;padding: 10px 26px 10px 10px;position: relative;" >' +
+          '<span style="font-size: 12px;display: inline-block;padding: 5px 10px 2px 2px;position: relative;text-align: left;" >' +
             this.middlelabels[i] +
             '<div class="bbb"></div></span>'
         );
@@ -416,16 +416,17 @@ export default {
   border-radius: 20px;
 
   .mintui-search {
-    position: absolute;
-    top: 8px;
+   position: absolute;
+    top: 4px;
     right: 8px;
-    font-size: 20px;
+    font-size: 14px;
   }
 
   input[type=search] {
     border-radius: 24px;
     background-color: #fff;
     height: 26px
+    font-size: 12px;
   }
 }
 
@@ -522,11 +523,11 @@ export default {
   height: 50px;
   position: fixed;
   top: 50%;
-  right: 65%;
+  right: 72%;
   text-align: center;
   line-height: 50px;
   opacity: 0.4;
-  font-size: 58px;
-  color: #ccc;
+  font-size: 21px;
+  color: skyblue;
 }
 </style>
