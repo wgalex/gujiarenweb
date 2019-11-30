@@ -16,10 +16,10 @@
             :key="item.id"
           >
             <a href="#" @click="jumpDetail(item)">
-              <div class="mui-card-content" style="width: 150px;height: 150px;">
-                <img :src="item.headPath" alt style="width: 100%;height: 100%;" />
+              <div class="mui-card-content" style="width: 150px;height: 150px;position: relative">
+                <img :src="departimage" alt style="width: 100%;height: 100%;" />
+                 <div class="mui-media-body" style="position: absolute;bottom: 10%;text-align: center;color: blue;">{{item.categoryName}}</div>
               </div>
-              <div class="mui-media-body" style="text-align: center">{{item.categoryName}}</div>
             </a>
           </li>
         </ul>
@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       catoryList: [],
-      departimage:require('../../assets/9243d4e3c400a088448bc0093ba7d4a7.jpg'),
+      departimage:require('../../assets/组1拷贝.png'),
       firstSelectItem:{}
     };
   },

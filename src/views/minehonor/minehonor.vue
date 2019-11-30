@@ -6,10 +6,13 @@
       </div>
       <!-- <div> -->
       <!-- <div> -->
-      <div class="contentDiv">
-        <img :src="loginimage" />
+      <div style="text-align: center">
+        <div class="contentDiv">
+          <img :src="loginimage" />
+        </div>
+        <span>{{loginstus}}</span>
       </div>
-      <div style="margin: auto;padding-top: 10px;">{{loginstus}}</div>
+
       <!-- </div> -->
       <!-- </div> -->
       <div>
@@ -61,7 +64,7 @@
 import { mapState } from "vuex";
 import { queryCelebrityPerson, selectYears } from "./detailApi.js";
 import textdata from "./testData";
-import * as dd from 'dingtalk-jsapi';
+import * as dd from "dingtalk-jsapi";
 import { setDDConfig } from "@/api/dd";
 export default {
   // computed: {
@@ -93,25 +96,28 @@ export default {
       allhonerlist: [],
       loginstus: "",
       // loginimage: "@src/default_avtar.jpg",require('../assets/a1.png')
-      loginimage:require('../../assets/default_avtar.jpg'),
+      loginimage: require("../../assets/default_avtar.jpg"),
       cureet: ""
     };
   },
   created() {
     // console.log(this.$store.state);
-    if(this.$store.state.avatar != '' ){
-      this.loginimage = this.$store.state.avatar
+    if (this.$store.state.avatar != "") {
+      this.loginimage = this.$store.state.avatar;
     }
-    this.loginstus = this.$store.state.name
-    if (this.$store.state.personCode == undefined || this.$store.state.personCode == '') {
-     this.$createDialog({
-        type: 'alert',
-        title: '提示',
-        content: '未能获取到工号',
-        icon: 'cubeic-alert'
-      }).show()
-    }else{
-       let that = this;
+    this.loginstus = this.$store.state.name;
+    if (
+      this.$store.state.personCode == undefined ||
+      this.$store.state.personCode == ""
+    ) {
+      this.$createDialog({
+        type: "alert",
+        title: "提示",
+        content: "未能获取到工号",
+        icon: "cubeic-alert"
+      }).show();
+    } else {
+      let that = this;
       let queryData = {};
       queryData.personCode = that.$store.state.personCode;
       queryCelebrityPerson(queryData).then(res => {
@@ -271,11 +277,11 @@ export default {
 
 .mint-searchbar-inner {
   position: relative;
-  height: 26px
+  height: 26px;
   border-radius: 20px;
 
   .mintui-search {
-   position: absolute;
+    position: absolute;
     top: 4px;
     right: 8px;
     font-size: 14px;
@@ -284,7 +290,7 @@ export default {
   input[type=search] {
     border-radius: 24px;
     background-color: #fff;
-    height: 26px
+    height: 26px;
     font-size: 12px;
   }
 }
@@ -338,7 +344,8 @@ export default {
   background-color: #fff;
   border-left: 2px solid skyblue;
   color: skyblue;
-  position relative
+  position: relative;
+
   .rrr {
     border-left: 8px solid skyblue;
   }
