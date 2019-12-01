@@ -4,7 +4,7 @@
     class="showdepart"
       style=""
     >
-      <mt-search placeholder="搜索奖项"></mt-search>
+      <mt-search placeholder="搜索" cancel-text="确认" v-model="seachvalue" @blur.native.capture="search"></mt-search>
     </div>
     <div class="container">
       <div class="mui-content" style="">
@@ -34,6 +34,7 @@ export default {
     return {
       catoryList: [],
       departimage:require('../../assets/9243d4e3c400a088448bc0093ba7d4a7.jpg'),
+      seachvalue:""
     };
   },
   mounted() {
@@ -61,10 +62,18 @@ export default {
     jumpDetail(item) {
       // debugger
       this.$router.push({
-        name: "departSecondShow",
+        name: "departmentPrizeDetail",
         query: {
         //   catoryList: this.catoryList,
           firstSelectItem: item
+        }
+      });
+    },
+    search(){
+      this.$router.push({
+        name: "departmentPrizeDetail",
+        query: {
+          seachvalue: this.seachvalue
         }
       });
     }

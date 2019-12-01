@@ -4,7 +4,7 @@
     class="showdepart"
       style=""
     >
-      <mt-search placeholder="搜索奖项"></mt-search>
+      <mt-search placeholder="搜索" cancel-text="确认" v-model="seachvalue" @blur.native.capture="search"></mt-search>
     </div>
         <div class="container">
           <div class="mui-content"> 
@@ -28,6 +28,7 @@ export default {
   data () {
     return {
       catoryList:[],
+      seachvalue:''
     };
   },
   mounted () {
@@ -66,6 +67,15 @@ export default {
           selectItem:item
         }
       })
+    },
+    search(){
+      debugger
+      this.$router.push({
+        name: "departmentPrizeDetail",
+        query: {
+          seachvalue: this.seachvalue
+        }
+      });
     }
   }
 }

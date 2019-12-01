@@ -1,7 +1,7 @@
 <template>
   <div style="height:100%">
     <div style="background-image: linear-gradient(#0e82fd, #3edbfa);">
-      <mt-search v-model="value1" @input="seachvalue" placeholder="搜索奖项"></mt-search>
+      <mt-search placeholder="搜索" cancel-text="确认" v-model="seachvalue" @blur.native.capture="search"></mt-search>
       <div>
         <cube-scroll-nav-bar
           :current="catorySelected"
@@ -112,7 +112,7 @@ export default {
       middlecatoryYears: [],
       selectedYear: "",
       catorySelected: "",
-      value1: "",
+      seachvalue: "",
       textdata: textdata,
       catoryList: [],
       catorySelectf: "",
@@ -354,6 +354,14 @@ export default {
       this.detailFlag = false;
       this.detailItem = {};
       this.catoryListChildrenList = this.backcatoryListChildrenList;
+    },
+    search(){
+      this.$router.push({
+        name: "departmentPrizeDetail",
+        query: {
+          seachvalue: this.seachvalue
+        }
+      });
     }
   }
 };

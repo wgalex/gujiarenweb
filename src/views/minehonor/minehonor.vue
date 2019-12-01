@@ -2,7 +2,7 @@
   <div style="height:100%">
     <div style="background-image: linear-gradient(#0e82fd, #3edbfa);">
       <div>
-        <mt-search v-model="value3" style="padding-bottom: 2%;" @input="seachva" placeholder="搜索奖项"></mt-search>
+        <mt-search placeholder="搜索" cancel-text="确认" v-model="seachvalue" @blur.native.capture="search" style="padding-bottom: 2%;"></mt-search>
       </div>
       <!-- <div> -->
       <!-- <div> -->
@@ -97,7 +97,8 @@ export default {
       loginstus: "",
       // loginimage: "@src/default_avtar.jpg",require('../assets/a1.png')
       loginimage: require("../../assets/default_avtar.jpg"),
-      cureet: ""
+      cureet: "",
+      seachvalue:""
     };
   },
   created() {
@@ -250,6 +251,14 @@ export default {
         this.mypagestyle = "-webkit-line-clamp:4";
         this.clicktwice = true;
       }
+    },
+    search(){
+      this.$router.push({
+        name: "departmentPrizeDetail",
+        query: {
+          seachvalue: this.seachvalue
+        }
+      });
     }
   }
 };

@@ -2,7 +2,7 @@
   <div style="height: 100%;">
     <div style="background-image: linear-gradient(#0e82fd, #3edbfa)">
       <div >
-        <mt-search v-model="value2" @input="seachv" placeholder="请先选部门后搜索奖项" style="padding-top:10px"></mt-search>
+        <mt-search placeholder="搜索" cancel-text="确认" v-model="seachvalue" @blur.native.capture="search" style="padding-top:10px"></mt-search>
       </div>
       <div>
         <cube-scroll-nav-bar
@@ -16,7 +16,7 @@
     </div>
     <div style="position: relative;">
       <cube-scroll-nav-bar
-        :current="seconddepart"
+        :current="catoryListLabel[0]"
         :labels="catoryListLabel"
         @change="changeHandler"
         :txts="catoryListLabel"
@@ -129,7 +129,7 @@ export default {
       txts: [],
       depatmentList: [],
       selectedDepartment: "",
-      seachValue: "",
+      seachvalue: "",
       currentCatoryListLabel: "",
       clearables: {
         visible: true,
@@ -144,15 +144,31 @@ export default {
       detailFlag: false,
       clicktwice: false,
       backcatoryListChildrenList: [],
-      secondSelectItem:{},
+      // secondSelectItem:{},
       firstSelectItem:{},
       firstdepart:"",
       seconddepart:''
     };
   },
   mounted() {
-    // debugger
-    this.secondSelectItem = this.$route.query.secondSelectItem;
+    debugger
+    if(this.$route.query.seachvalue != '' && this.$route.query.seachvalue != undefined ){
+        let queryData = {}
+        queryData.personName =  this.$route.query.seachvalue
+        queryCelebrityPerson(queryData).then(res => {
+        if(res.data.itemList != undefined){
+            this.catoryListChildrenList = res.data.itemList;
+          }else{
+            this.$createDialog({
+                type: "alert",
+                title: "提示",
+                content: "暂无此人",
+                icon: "cubeic-alert"
+              }).show();
+          }
+      });
+      return
+    }
     this.firstSelectItem = this.$route.query.firstSelectItem;
     let queryData = {};
     queryData.orginCategoryCode = 79400;
@@ -167,26 +183,14 @@ export default {
         );
         for(let j in this.labelts){
             if(this.labelts[j].indexOf(this.firstSelectItem.departmentName) != -1){
-              this.firstdepart= this.labelts[j]
+              this.firstdepart = this.labelts[j]
               break
             }
         }
       }
-
-      // that.changeYear(catoryYears[0])
     });
   },
-  // mounted() {},
   methods: {
-    seachv(){
-      // debugger
-      for(let j in this.catoryListLabel){
-        if (this.catoryListLabel[j].indexOf(this.value2) != -1) {
-          this.currentCatoryListLabel = this.catoryListLabel[j]
-          break
-        }
-      }
-    },
     //筛选奖项
     chaxun(dataList) {
       let arr2 = [];
@@ -206,10 +210,7 @@ export default {
           this.depatmentList.push(dataList[i]);
         }
       }
-      //
       return arr2;
-      // alert(arr2);//弹出匹配的值
-      // arr2 = [];//清空数组，否则第二次查询时会因为有是全局变量，而导致先前查询的值会和这次一起弹出
     },
     chaxunjiang(dataList) {
       let arr2 = [];
@@ -229,10 +230,8 @@ export default {
       // arr2 = [];//清空数组，否则第二次查询时会因为有是全局变量，而导致先前查询的值会和这次一起弹出
     },
     changeHandler(label) {
-      debugger
       this.detailFlag = false;
       setTimeout(() => {
-        // debugger
         let selectTop = document.querySelector(
           ".cube-scroll-nav-bar-item_active"
         );
@@ -289,10 +288,8 @@ export default {
       let that = this
       queryData.departmentName = that.selectedDepartment;
       queryCategory(queryData).then(res => {
-        // that.labels = that.chaxun(res.data)
         that.catoryListLabel = [];
         that.middlecatoryListLabel = that.chaxunjiang(res.data);
-        // that.middlecatoryListLabel = that.catoryListLabel
         for (let i in that.middlecatoryListLabel) {
           that.catoryListLabel.push(
             '<span style="display: inline-block;padding: 5px;font-size: 12px;margin:10px">' +
@@ -300,27 +297,10 @@ export default {
               "</span>"
           );
         }
-        for(let j in that.catoryListLabel){
-            if(that.catoryListLabel[j].indexOf(that.secondSelectItem.categoryName) != -1){
-              that.seconddepart= that.catoryListLabel[j]
-              break
-            }
-        }
         that.currentCatoryListLabel = that.catoryListLabel[0];
       });
     },
-    jumpDetails(item) {
-      this.$router.push({
-        name: "honorDetail",
-        query: {
-          // catoryList: this.catoryList,
-          selectItem: item,
-          catoryListChildrenList: this.catoryListChildrenList
-        }
-      });
-    },
     changeYear(label) {
-      debugger
       this.detailFlag = false;
       setTimeout(() => {
         let selectTop = document.querySelector(
@@ -405,6 +385,22 @@ export default {
       this.detailFlag = false;
       this.detailItem = {};
       this.catoryListChildrenList = this.backcatoryListChildrenList;
+    },
+    search(){
+      let queryData = {}
+        queryData.personName =  this.seachvalue
+        queryCelebrityPerson(queryData).then(res => {
+          if(res.data.itemList != undefined){
+            this.catoryListChildrenList = res.data.itemList;
+          }else{
+            this.$createDialog({
+                type: "alert",
+                title: "提示",
+                content: "暂无此人",
+                icon: "cubeic-alert"
+              }).show();
+          }
+        })
     }
   }
 };
