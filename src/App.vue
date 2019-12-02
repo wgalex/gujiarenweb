@@ -83,6 +83,7 @@ export default {
     // this.save_userName('123');
     // debugger
     // 获取用户 id
+    return
     setDDConfig().then(res => {
       console.log(res);
       var that = this;

@@ -19,7 +19,7 @@ import VideoPlayer from 'vue-video-player'
 require('video.js/dist/video-js.css')
 require('vue-video-player/src/custom-theme.css')
 Vue.use(VideoPlayer)
-
+import "@/assets/iconfont/iconfont.css";
 //使用mui
 import './lib/mui/css/mui.min.css'
 // import './lib/mui/js/mui.js'
