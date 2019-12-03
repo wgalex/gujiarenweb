@@ -1,8 +1,8 @@
 <template>
   <div style="height:100%">
-    <div style="background-image: linear-gradient(#0e82fd, #3edbfa);">
+    <div style="background-image: linear-gradient(#c00105, #fff);">
       <div>
-        <mt-search placeholder="搜索" cancel-text="确认" v-model="seachvalue" @blur.native.capture="search" style="padding-bottom: 2%;"></mt-search>
+        <mt-search placeholder="搜索" cancel-text="确认" v-model="seachvalue" @blur.native.capture="search"  style="padding-bottom: 2%;"></mt-search>
       </div>
       <!-- <div> -->
       <!-- <div> -->
@@ -128,7 +128,7 @@ export default {
         for (var i in that.allhonerlist) {
           startcatoryYears.push(that.allhonerlist[i].years);
           startcatoryListLabel.push(that.allhonerlist[i].categoryName);
-          // debugger
+          // 
         }
         that.middlecatoryYears = that.quchong(startcatoryYears);
         that.middlecatoryListLabel = that.quchong(startcatoryListLabel);
@@ -148,7 +148,7 @@ export default {
         }
         that.changeYear(that.catoryYears[0]);
         setTimeout(() => {
-          // debugger
+          // 
           that.cureet = that.catoryListLabel[0];
         }, 5);
       });
@@ -156,7 +156,7 @@ export default {
   },
   methods: {
     seachva() {
-      // debugger;
+      // ;
       for (let j in this.catoryListLabel) {
         if (this.catoryListLabel[j].indexOf(this.value3) != -1) {
           this.cureet = this.catoryListLabel[j];
@@ -179,9 +179,9 @@ export default {
     },
 
     changeHandler(label) {
-      // debugger;
+      // ;
       setTimeout(() => {
-        // debugger
+        // 
         let selectTop = document.querySelector(
           ".cube-scroll-nav-bar-item_active"
         );
@@ -216,10 +216,10 @@ export default {
       });
     },
     changeYear(label) {
-      // debugger
+      // 
       this.catoryListChildrenList = [];
       setTimeout(() => {
-        // debugger
+        // 
         let selectTop = document.querySelector(
           ".cube-scroll-nav-bar-item_active"
         );
@@ -243,7 +243,7 @@ export default {
       }
     },
     addline() {
-      // debugger
+      // 
       if (this.clicktwice) {
         this.mypagestyle = "-webkit-line-clamp:50";
         this.clicktwice = false;
@@ -253,6 +253,9 @@ export default {
       }
     },
     search(){
+      if(this.seachvalue == ''){
+        return
+      }
       this.$router.push({
         name: "departmentPrizeDetail",
         query: {

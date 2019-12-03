@@ -11,7 +11,7 @@
         style="position: fixed;right: 0px;bottom: 1px;width: 100%;background-color: #fff;height: 10%;z-index:99;font-size: 14px;"
       >
         <cube-tab-bar
-          v-model="selectedLabelDefault"
+          v-model="selectedTab"
           :data="tabs"
           @click="clickHandler"
           @change="changeHandler"
@@ -75,7 +75,8 @@ export default {
           label: "我的荣誉",
           icon: "wode"
         }
-      ]
+      ],
+      selectedTab: this.$store.state.selectedTab
     };
   },
   created() {
@@ -83,7 +84,6 @@ export default {
     // this.save_userName('123');
     // debugger
     // 获取用户 id
-    return
     setDDConfig().then(res => {
       console.log(res);
       var that = this;
@@ -153,6 +153,8 @@ export default {
         });
       }
     });
+    // debugger
+    this.selectedTab = this.$store.state.selectedTab
   },
   methods: {
     clickHandler(label) {
@@ -167,17 +169,21 @@ export default {
           this.$router.push({
             name: "honorIndex"
           });
+          this.$store.state.selectedTab = "首页"
           break;
         case "股份荣誉":
           this.$router.push({
-            name: "honorPrize"
+            name: "honorpRizeDetail"
           });
+          this.$store.state.selectedTab = "股份荣誉"
           //  表达式的值和 值2匹配上了，需要执行的代码;
           break;
         case "部门荣誉":
           this.$router.push({
-            name: "departShow"
+            name: "departmentPrizeDetail"
           });
+          this.$store.state.selectedTab = "部门荣誉"
+          
           //  表达式的值和 值3匹配上了，需要执行的代码;
           break;
         case "我的荣誉":
@@ -185,6 +191,8 @@ export default {
           this.$router.push({
             name: "minehonor"
           });
+          this.$store.state.selectedTab = "我的荣誉"
+
           break;
         default:
           //  如果表达式的值和以上的case后面的值都没有匹配上，那么就执行这里的代码。
@@ -258,7 +266,7 @@ export default {
   background-size: 100% 100%;
 }
 .cube-tab_active {
-  color: cyan !important;
+  color: #c00105 !important;
 }
 /* C:\Users\kuka\Desktop\gujiarenweb\src\assets\首页.png */
 </style>

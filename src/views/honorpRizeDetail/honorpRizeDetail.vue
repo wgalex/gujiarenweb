@@ -1,7 +1,12 @@
 <template>
   <div style="height:100%">
-    <div style="background-image: linear-gradient(#0e82fd, #3edbfa);">
-      <mt-search placeholder="搜索" cancel-text="确认" v-model="seachvalue" @blur.native.capture="search"></mt-search>
+    <div style="background-image: linear-gradient(#c00105, #fff);">
+      <mt-search
+        placeholder="搜索"
+        cancel-text="确认"
+        v-model="seachvalue"
+        @blur.native.capture="search"
+      ></mt-search>
       <div>
         <cube-scroll-nav-bar
           :current="catorySelected"
@@ -11,13 +16,13 @@
           style="background-color: rgba(0,0,0,0);margin-top:7px;margin-bottom:8px"
         />
       </div>
-      <div style="position: relative;"> 
+      <div style="position: relative;">
         <cube-scroll-nav-bar
           :current="catoryChildrenListLabel[0]"
           :labels="catoryChildrenListLabel"
           @change="ChildrenchangeHandler"
           :txts="catoryChildrenListLabel"
-          style="background-color:#fff!important;height:58px;"
+          style="background-color:#fff!important;height:32px;"
         />
       </div>
     </div>
@@ -56,10 +61,13 @@
       <div v-if="detailFlag">
         <div class="container">
           <div>
-            <div class="mui-card-content" style="width: 100%;height: 100px;margin-bottom: 20px;background-color: #f1f4f9;">
+            <div
+              class="mui-card-content"
+              style="width: 100%;height: 100px;margin-bottom: 20px;background-image: linear-gradient(to bottom right , #c00105, #fff)"
+            >
               <img
                 :src="detailItem.headPath"
-                style="width: 60%;height: 100%;border-radius: 18px;padding: 6px;margin: 0 auto;"
+                style="width: 100px;height: 100%;border-radius: 18px;padding: 6px;margin: 0 auto;"
                 alt
               />
             </div>
@@ -77,7 +85,11 @@
             <!-- <input type="button" id="Copy" value="点击复制代码" /> -->
             <div>
               <div class="mui-card-content" v-if="detailItem.photoPath" style="margin-top: 20px;">
-                <img :src="detailItem.photoPath" alt style="display: block;width: 100%;margin-top: 20px;height: 100%;" />
+                <img
+                  :src="detailItem.photoPath"
+                  alt
+                  style="display: block;width: 100%;margin-top: 20px;height: 100%;"
+                />
               </div>
             </div>
             <div class="mui-card-content" v-if="detailItem.filePath">
@@ -92,7 +104,7 @@
           </div>
           <!-- <div class="prism-player" id="player-con" style="margin-top:50px"></div> -->
         </div>
-        <i class="cubeic-back rrr" @click="backtest"></i>
+        <i class="cubeic-back ted" @click="backtest"></i>
       </div>
     </div>
   </div>
@@ -132,37 +144,63 @@ export default {
     };
   },
   created() {
-    this.catoryList = this.$route.query.catoryList;
-    for (var i in this.catoryList) {
-      this.startcatoryChildrenListLabel.push(this.catoryList[i].categoryName);
-      this.catoryListLabel.push(
-        '<span style="display: inline-block;padding: 5px;margin: 0 8px;font-size: 12px;">' +
-          this.catoryList[i].categoryName +
-          "</span>"
-      );
-    }
-    this.queryhoner = this.$route.query.selectItem.categoryName;
-    this.queryhonercode = this.$route.query.selectItem.categoryCode;
-
-    this.catorySelected = this.$route.query.selectItem.categoryName;
-    for (let m in this.catoryListLabel) {
-      if (this.catoryListLabel[m].indexOf(this.catorySelected) != -1) {
-        this.catorySelected = this.catoryListLabel[m];
-        this.changeHandler(this.catorySelected);
-        break;
+    
+    if (this.$route.query.catoryList != undefined) {
+      this.catoryList = this.$route.query.catoryList;
+      for (var i in this.catoryList) {
+        this.startcatoryChildrenListLabel.push(this.catoryList[i].categoryName);
+        this.catoryListLabel.push(
+          '<span style="display: inline-block;padding: 5px;margin: 0 8px;font-size: 13px;">' +
+            this.catoryList[i].categoryName +
+            "</span>"
+        );
       }
+      this.queryhoner = this.$route.query.selectItem.categoryName;
+      this.queryhonercode = this.$route.query.selectItem.categoryCode;
+
+      this.catorySelected = this.$route.query.selectItem.categoryName;
+      for (let m in this.catoryListLabel) {
+        if (this.catoryListLabel[m].indexOf(this.catorySelected) != -1) {
+          this.catorySelected = this.catoryListLabel[m];
+          this.changeHandler(this.catorySelected);
+          break;
+        }
+      }
+    } else {
+      let querydata = {};
+      querydata.orginCategoryCode = "43090";
+      let that = this
+      queryCategory(querydata).then(res => {
+        that.catoryList = res.data;
+        for (var i in that.catoryList) {
+        that.startcatoryChildrenListLabel.push(that.catoryList[i].categoryName);
+        that.catoryListLabel.push(
+          '<span style="display: inline-block;padding: 5px;margin: 0 8px;font-size: 13px;">' +
+            that.catoryList[i].categoryName +
+            "</span>"
+        );
+      }
+        that.catorySelected = that.catoryList[0].categoryName;
+        for (let m in that.catoryListLabel) {
+          if (that.catoryListLabel[m].indexOf(that.catorySelected) != -1) {
+            that.catorySelected = that.catoryListLabel[m];
+            that.changeHandler(that.catorySelected);
+            break;
+          }
+        }
+      });
     }
   },
   mounted() {},
   methods: {
-    seachvalue() {
-      for (let j in this.catoryListLabel) {
-        if (this.catoryListLabel[j].indexOf(this.value1) != -1) {
-          this.catorySelected = this.catoryListLabel[j];
-          break;
-        }
-      }
-    },
+    // seachvalue() {
+    //   for (let j in this.catoryListLabel) {
+    //     if (this.catoryListLabel[j].indexOf(this.value1) != -1) {
+    //       this.catorySelected = this.catoryListLabel[j];
+    //       break;
+    //     }
+    //   }
+    // },
     changeHandler(label) {
       this.detailFlag = false;
       this.catoryYears = [];
@@ -170,7 +208,7 @@ export default {
       this.catoryChildrenListLabel = [];
       this.middlecatoryChildrenListLabel = [];
       this.middlecatoryYears = [];
-      this.middlecatoryYears = []
+      this.middlecatoryYears = [];
       // this.middlecatoryChildrenListLabel=[]
       setTimeout(() => {
         let selectTop = document.querySelector(
@@ -222,8 +260,8 @@ export default {
       this.middlecatoryYears = [];
       this.catoryYears = [];
       this.catoryListChildrenList = [];
-      this.middlecatoryListChildrenList = []
-      this.currentChilden = ''
+      this.middlecatoryListChildrenList = [];
+      this.currentChilden = "";
       for (let i in this.middlecatoryChildrenListLabel) {
         if (label.indexOf(this.middlecatoryChildrenListLabel[i]) != -1) {
           this.currentChilden = this.middlecatoryChildrenListLabel[i];
@@ -232,19 +270,19 @@ export default {
       }
       let queryData = {};
       queryData.categoryName = this.currentChilden;
-      let middlescatoryYears = []
+      let middlescatoryYears = [];
       queryCelebrityPerson(queryData).then(res => {
         for (let k in res.data.itemList) {
           middlescatoryYears.push(res.data.itemList[k].years);
         }
-        if(middlescatoryYears.length != 0){
-          for (let m = 0; m<middlescatoryYears.length; m++) {
+        if (middlescatoryYears.length != 0) {
+          for (let m = 0; m < middlescatoryYears.length; m++) {
             if (this.middlecatoryYears.indexOf(middlescatoryYears[m]) === -1) {
               this.middlecatoryYears.push(middlescatoryYears[m]);
             }
+          }
         }
-        } 
-         
+
         for (let j in this.middlecatoryYears) {
           this.catoryYears.push(
             '<span style="display: inline-block;padding: 10px 26px 10px 10px;position: relative;">' +
@@ -270,7 +308,7 @@ export default {
       }, 5);
       // this.selectedYear = label;
       this.catoryListChildrenList = [];
-      this.currentYear = ''
+      this.currentYear = "";
       for (let j in this.middlecatoryYears) {
         if (label.indexOf(this.middlecatoryYears[j]) != -1) {
           this.currentYear = this.middlecatoryYears[j];
@@ -355,7 +393,10 @@ export default {
       this.detailItem = {};
       this.catoryListChildrenList = this.backcatoryListChildrenList;
     },
-    search(){
+    search() {
+      if(this.seachvalue == ''){
+        return
+      }
       this.$router.push({
         name: "departmentPrizeDetail",
         query: {
@@ -368,7 +409,6 @@ export default {
 </script>
 <style lang="stylus">
 .container {
-  height: 600px;
   padding: 10px;
 }
 
@@ -389,11 +429,11 @@ export default {
 
 .mint-searchbar-inner {
   position: relative;
-  height: 26px
+  height: 26px;
   border-radius: 20px;
 
   .mintui-search {
-   position: absolute;
+    position: absolute;
     top: 4px;
     right: 8px;
     font-size: 14px;
@@ -402,7 +442,7 @@ export default {
   input[type=search] {
     border-radius: 24px;
     background-color: #fff;
-    height: 26px
+    height: 26px;
     font-size: 12px;
   }
 }
@@ -453,23 +493,25 @@ export default {
 .ddd {
   border-radius: 12px;
   background-color: #fff;
-  color: skyblue;
+  color: #c00105;
 }
 
 .mags {
   background-color: #fff !important;
-  border-left: 2px solid skyblue;
-  color: skyblue;
+  border-left: 2px solid #c00105;
+  color: #c00105;
 
   .fff {
-    border-left: 8px solid skyblue;
+    border-left: 8px solid #c00105;
   }
 }
-.jjj{
-  color: skyblue;
-  border-bottom: 2px solid skyblue;
+
+.jjj {
+  color: #c00105;
+  border-bottom: 2px solid #c00105;
   z-index: 2;
 }
+
 .fff {
   position: absolute;
   top: 30%;
@@ -491,8 +533,8 @@ export default {
   font-size: 12px;
 }
 
-.rrr {
- width: 50px;
+.ted {
+  width: 50px;
   height: 50px;
   position: fixed;
   top: 50%;
@@ -501,6 +543,6 @@ export default {
   line-height: 50px;
   opacity: 0.4;
   font-size: 21px;
-  color: skyblue;
+  color: #c00105;
 }
 </style>

@@ -6,16 +6,20 @@
     <div class="container">
       <div class="mui-content" style="">
         <ul
-          class="mui-table-view mui-grid-view mui-grid-9"
-          
-        >
+          class="mui-table-view mui-grid-view mui-grid-9" style="padding-bottom: 70px;">
           <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="text-align: center;">
-            <div class="mui-card-content" style="width: 120px;background-color: #fff;height: 150px;line-height: 88px;display: inline-block;box-shadow: 3px 3px 4px #888888;">
-              <span class="iconfont icon-huabanchuangyi" style="font-size: 44px;color: #c00105;"></span>
-              <div style="height: 50px;line-height: 20px;color: #c00105;font-size: 20px;">玉华奖</div>
+            <div class="mui-card-content" style="width: 120px;background-color: #fff;height: 145px;padding-top: 45px;display: inline-block;box-shadow: 3px 3px 4px #888888;" @click="jumpDetails">
+              <span class="iconfont icon-jiangbei1" style="font-size: 44px;color: #c00105;"></span>
+              <div style="height: 50px;padding-top: 17px;color: #c00105;font-size: 18px;">部门奖</div>
             </div>
           </li>
-          <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="text-align: center;">
+          <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="text-align: center;" v-for="item in departlist" :key="item.id">
+            <div class="mui-card-content" style="width: 120px;background-color: #fff;height: 145px;padding-top: 45px;display: inline-block;box-shadow: 3px 3px 4px #888888;" @click="jumpDetail(item)">
+              <span :class="item.departicon" style="font-size: 44px;color: #c00105;"></span>
+              <div style="height: 50px;padding-top: 17px;color: #c00105;font-size: 18px;">{{item.categoryName}}</div>
+            </div>
+          </li>
+          <!-- <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="text-align: center;">
             <div class="mui-card-content" style="width: 120px;background-color: #fff;height: 150px;line-height: 88px;display: inline-block;box-shadow: 3px 3px 4px #888888;">
               <span class="iconfont icon-jiangbei1" style="font-size: 44px;color: #c00105;"></span>
               <div style="height: 50px;line-height: 20px;color: #c00105;font-size: 20px;">玉华奖</div>
@@ -32,7 +36,7 @@
               <span class="iconfont icon-chahua" style="font-size: 44px;color: #c00105;"></span>
               <div style="height: 50px;line-height: 20px;color: #c00105;font-size: 20px;">玉华奖</div>
             </div>
-          </li>
+          </li> -->
         </ul>
       </div>
     </div>
@@ -53,18 +57,45 @@ export default {
       iconlist:['icon-huabanchuangyi','icon-iconfontxiaoshoufuwujiang','icon-icon16','icon-mianhua','icon-jiangbei','icon-jiangbei1',
       'icon-jiangbei2','icon-jiang','icon-huojiangdengji','icon-chahua','icon-lianhua','icon-hua',
       'icon-hua1','icon-yanhua','icon-shuye','icon-huayecai','icon-huaban','icon-jiangbei3',
-      ]
+      ],
+      departlist:[]
     };
   },
   created() {
-    debugger
     let querydata = {};
-      querydata.orginCategoryCode = "79400";
+      querydata.orginCategoryCode = '43090'
       queryCategory(querydata).then(res => {
-        console.log(res);
+        // console.log(res);
+        let departlist = res.data
+        for(let i in departlist){
+          // departlist[i].departicon = this.iconlist[i]
+          departlist[i].departicon = "iconfont "+ this.iconlist[i] +""
+
+        }
+        this.departlist = departlist
+        console.log(departlist);
+        
     });
   },
-  methods: {}
+  methods: {
+    jumpDetail(item){
+      // debugger
+      this.$router.push({
+        name: 'honorpRizeDetail',
+        query: {
+          catoryList: this.departlist,
+          selectItem:item
+        }
+      })
+      this.$store.state.selectedTab = "我的荣誉"
+    },
+    jumpDetails(){
+      // debugger
+      this.$router.push({
+        name: 'honorpRizeDetail',
+      })
+    },
+  }
 };
 </script>
 <style lang="stylus">

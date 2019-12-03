@@ -1,8 +1,8 @@
 <template>
   <div style="height: 100%;">
-    <div style="background-image: linear-gradient(#0e82fd, #3edbfa)">
+    <div style="background-image: linear-gradient(#c00105, #fff)">
       <div >
-        <mt-search placeholder="搜索" cancel-text="确认" v-model="seachvalue" @blur.native.capture="search" style="padding-top:10px"></mt-search>
+        <mt-search placeholder="搜索" cancel-text="确认" v-model="seachvalue"  @blur.native.capture="search"  style="padding-top:10px"></mt-search>
       </div>
       <div>
         <cube-scroll-nav-bar
@@ -10,17 +10,17 @@
           :labels="catoryYears"
           @change="changeYear"
           :txts="catoryYears"
-          style="background-color: rgba(0,0,0,0);height:36px;margin-top:30px"
+          style="background-color: rgba(0,0,0,0);height:36px;margin-top:11px"
         />
       </div>
     </div>
-    <div style="position: relative;">
+    <div style="position: relative;height:45px">
       <cube-scroll-nav-bar
         :current="catoryListLabel[0]"
         :labels="catoryListLabel"
         @change="changeHandler"
         :txts="catoryListLabel"
-        style="background-color:#fff!important,height:58px"
+        style="background-color:#fff!important"
       />
     </div>
     <!-- <div> -->
@@ -28,7 +28,7 @@
           <div class="side-container" style="width:18%;float:left;background-color: #f1f4f9;height: 63%;">
           <cube-scroll-nav-bar
             direction="vertical"
-            :current="firstdepart"
+            :current="labelts[0]"
             :labels="labelts"
             :txts="labelts"
             @change="changeHandlert"
@@ -64,10 +64,10 @@
         <div v-if="detailFlag">
           <div class="container">
             <div>
-              <div class="mui-card-content" style="width: 100%;height: 100px;margin-bottom: 20px;background-color: #f1f4f9;">
+              <div class="mui-card-content" style="width: 100%;height: 100px;margin-bottom: 20px;background-image: linear-gradient(to bottom right , #c00105, #fff)">
                 <img
                   :src="detailItem.headPath"
-                  style="width: 60%;height: 100%;border-radius: 18px;padding: 6px;margin: 0 auto;"
+                  style="width: 100px;height: 100%;border-radius: 18px;padding: 6px;margin: 0 auto;"
                   alt
                 />
               </div>
@@ -151,7 +151,7 @@ export default {
     };
   },
   mounted() {
-    debugger
+    
     if(this.$route.query.seachvalue != '' && this.$route.query.seachvalue != undefined ){
         let queryData = {}
         queryData.personName =  this.$route.query.seachvalue
@@ -169,7 +169,7 @@ export default {
       });
       return
     }
-    this.firstSelectItem = this.$route.query.firstSelectItem;
+    // this.firstSelectItem = this.$route.query.firstSelectItem;
     let queryData = {};
     queryData.orginCategoryCode = 79400;
     let that = this
@@ -181,12 +181,12 @@ export default {
             this.middlelabels[i] +
             '<div class="bbb"></div></span>'
         );
-        for(let j in this.labelts){
-            if(this.labelts[j].indexOf(this.firstSelectItem.departmentName) != -1){
-              this.firstdepart = this.labelts[j]
-              break
-            }
-        }
+        // for(let j in this.labelts){
+        //     if(this.labelts[j].indexOf(this.firstSelectItem.departmentName) != -1){
+        //       this.firstdepart = this.labelts[j]
+        //       break
+        //     }
+        // }
       }
     });
   },
@@ -264,7 +264,7 @@ export default {
     },
     //纵向部门选择
     changeHandlert(label) {
-      // debugger
+      // 
       this.detailFlag = false;
       setTimeout(() => {
         let selectTop = document.querySelector(
@@ -369,10 +369,10 @@ export default {
       this.backcatoryListChildrenList = this.catoryListChildrenList;
       this.catoryListChildrenList = [];
       this.detailItem = item;
-      // debugger;
+      // ;
     },
     addline() {
-      // debugger
+      // 
       if (this.clicktwice) {
         this.mypagestyle = "-webkit-line-clamp:50";
         this.clicktwice = false;
@@ -387,6 +387,9 @@ export default {
       this.catoryListChildrenList = this.backcatoryListChildrenList;
     },
     search(){
+      if(this.seachvalue == ''){
+        return
+      }
       let queryData = {}
         queryData.personName =  this.seachvalue
         queryCelebrityPerson(queryData).then(res => {
@@ -407,7 +410,7 @@ export default {
 </script>
 <style lang="stylus">
 .container {
-  height: 600px;
+  
   padding: 10px;
 }
 
@@ -491,12 +494,11 @@ export default {
 .ddd {
   border-radius: 14px;
   background-color: #fff;
-  color: skyblue;
+  color: #c00105;
 }
 
 .ccc {
-  color: skyblue;
-  border-bottom: 2px solid skyblue;
+  color: #c00105;
   z-index: 2;
 }
 
@@ -505,18 +507,18 @@ export default {
 
 .zzz {
   background-color: #fff;
-  border-left: 2px solid skyblue;
-  color: skyblue;
+  border-left: 3px solid #c00105;
+  color: #c00105;
 
   .bbb {
-    border-left: 8px solid skyblue;
+    border-left: 8px solid #c00105;
   }
 }
 
 .bbb {
   position: absolute;
   top: 29%;
-  right: -7%;
+  right: -25%;
   width: 0px;
   height: 0px;
   border-top: 8px solid rgba(0, 0, 0, 0);
@@ -544,6 +546,6 @@ export default {
   line-height: 50px;
   opacity: 0.4;
   font-size: 21px;
-  color: skyblue;
+  color: #c00105;
 }
 </style>
