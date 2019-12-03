@@ -64,13 +64,17 @@ export default {
   created() {
     let querydata = {};
       querydata.orginCategoryCode = '43090'
+      let j =1
       queryCategory(querydata).then(res => {
-        // console.log(res);
         let departlist = res.data
         for(let i in departlist){
-          // departlist[i].departicon = this.iconlist[i]
-          departlist[i].departicon = "iconfont "+ this.iconlist[i] +""
-
+          if(j>=20){
+            j = 1 
+            departlist[i].departicon = "iconfont "+ this.iconlist[j] +""
+          }else{
+            j++
+            departlist[i].departicon = "iconfont "+ this.iconlist[j] +""
+          }
         }
         this.departlist = departlist
         console.log(departlist);

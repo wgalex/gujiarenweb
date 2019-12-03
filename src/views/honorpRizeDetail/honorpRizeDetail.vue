@@ -409,7 +409,6 @@ export default {
 </script>
 <style lang="stylus">
 .container {
-  padding: 10px;
 }
 
 .side-container {

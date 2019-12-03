@@ -25,7 +25,7 @@
     </div>
     <!-- <div> -->
       
-          <div class="side-container" style="width:18%;float:left;background-color: #f1f4f9;height: 63%;">
+          <div class="side-container" style="width:18%;float:left;background-color: #f1f4f9;height: 70%;">
           <cube-scroll-nav-bar
             direction="vertical"
             :current="labelts[0]"
@@ -410,8 +410,6 @@ export default {
 </script>
 <style lang="stylus">
 .container {
-  
-  padding: 10px;
 }
 
 .side-container {

@@ -77,8 +77,6 @@ export default {
 </script>
 <style lang="stylus">
 .container {
-  height: 600px;
-  padding: 10px;
 }
 
 .boxLeft {
