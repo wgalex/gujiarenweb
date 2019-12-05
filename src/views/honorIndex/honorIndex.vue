@@ -1,24 +1,24 @@
 <template>
   <div style="height:100%;width:100%;background-color: #f2f2f2">
     <div >
-     <img :src="loginimage" />
+     <img :src="bannerUrl" style="height:200px"/>
     </div>
     <div class="container">
       <div class="mui-content" style="">
         <ul
-          class="mui-table-view mui-grid-view mui-grid-9" style="padding-bottom: 70px;">
+          class="mui-table-view mui-grid-view mui-grid-9" style="padding-bottom: 70px;margin-top: 45px;">
+           <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="text-align: center;" v-for="item in departlist" :key="item.id">
+            <img :src="item.headPath" alt="">
+          </li>
+           <!-- <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="text-align: center;">
+            <img :src="loginimage2" alt="">
+          </li>
+           <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="text-align: center;">
+            <img :src="loginimage3" alt="">
+          </li> -->
           <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="text-align: center;">
-            <div class="mui-card-content" style="width: 120px;background-color: #fff;height: 145px;padding-top: 45px;display: inline-block;box-shadow: 3px 3px 4px #888888;" @click="jumpDetails">
-              <span class="iconfont icon-jiangbei1" style="font-size: 44px;color: #c00105;"></span>
-              <div style="height: 50px;padding-top: 17px;color: #c00105;font-size: 18px;">部门奖</div>
-            </div>
-          </li>
-          <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="text-align: center;" v-for="item in departlist" :key="item.id">
-            <div class="mui-card-content" style="width: 120px;background-color: #fff;height: 145px;padding-top: 45px;display: inline-block;box-shadow: 3px 3px 4px #888888;" @click="jumpDetail(item)">
-              <span :class="item.departicon" style="font-size: 44px;color: #c00105;"></span>
-              <div style="height: 50px;padding-top: 17px;color: #c00105;font-size: 18px;">{{item.categoryName}}</div>
-            </div>
-          </li>
+            <img :src="loginimage4" alt="">
+          </li> 
           <!-- <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="text-align: center;">
             <div class="mui-card-content" style="width: 120px;background-color: #fff;height: 150px;line-height: 88px;display: inline-block;box-shadow: 3px 3px 4px #888888;">
               <span class="iconfont icon-jiangbei1" style="font-size: 44px;color: #c00105;"></span>
@@ -54,6 +54,11 @@ export default {
       id: 1,
       bannerUrl: "",
       loginimage:require("../../assets/84161AC2B3346B02E1EB9716039098D7.png"),
+      loginimage1:require("../../assets/玉华将.png"),
+      loginimage2:require("../../assets/双即将.png"),
+      loginimage3:require("../../assets/年度将.png"),
+      loginimage4:require("../../assets/部门奖.png"),
+
       iconlist:['icon-huabanchuangyi','icon-iconfontxiaoshoufuwujiang','icon-icon16','icon-mianhua','icon-jiangbei','icon-jiangbei1',
       'icon-jiangbei2','icon-jiang','icon-huojiangdengji','icon-chahua','icon-lianhua','icon-hua',
       'icon-hua1','icon-yanhua','icon-shuye','icon-huayecai','icon-huaban','icon-jiangbei3',
@@ -62,23 +67,18 @@ export default {
     };
   },
   created() {
+    getIndexComppic(this.id).then(res => {
+      // debugger
+      this.bannerUrl = res.data.url
+    })
     let querydata = {};
       querydata.orginCategoryCode = '43090'
       let j =1
       queryCategory(querydata).then(res => {
+        debugger
         let departlist = res.data
-        for(let i in departlist){
-          if(j>=20){
-            j = 1 
-            departlist[i].departicon = "iconfont "+ this.iconlist[j] +""
-          }else{
-            j++
-            departlist[i].departicon = "iconfont "+ this.iconlist[j] +""
-          }
-        }
         this.departlist = departlist
         console.log(departlist);
-        
     });
   },
   methods: {
@@ -96,7 +96,7 @@ export default {
     jumpDetails(){
       // debugger
       this.$router.push({
-        name: 'honorpRizeDetail',
+        name: 'departmentPrizeDetail',
       })
     },
   }
@@ -146,5 +146,12 @@ export default {
   min-height: 269px;
   background-position: 50% 0px;
   background-repeat: no-repeat no-repeat;
+}
+.mui-grid-view.mui-grid-9 .mui-table-view-cell {
+  border-right:0
+  border-bottom:0
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell {
+  border-bottom:0
 }
 </style>

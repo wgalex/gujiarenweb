@@ -13,7 +13,7 @@
           :labels="catoryListLabel"
           @change="changeHandler"
           :txts="catoryListLabel"
-          style="background-color: rgba(0,0,0,0);margin-top:7px;margin-bottom:8px"
+          style="background-color: rgba(0,0,0,0);margin-top:0;margin-bottom:0"
         />
       </div>
       <div style="position: relative;">
@@ -22,7 +22,7 @@
           :labels="catoryChildrenListLabel"
           @change="ChildrenchangeHandler"
           :txts="catoryChildrenListLabel"
-          style="background-color:#fff!important;height:32px;"
+          style="background-color:#fff!important;height:24px;"
         />
       </div>
     </div>
@@ -144,13 +144,13 @@ export default {
     };
   },
   created() {
-    
+    debugger
     if (this.$route.query.catoryList != undefined) {
       this.catoryList = this.$route.query.catoryList;
       for (var i in this.catoryList) {
         this.startcatoryChildrenListLabel.push(this.catoryList[i].categoryName);
         this.catoryListLabel.push(
-          '<span style="display: inline-block;padding: 5px;margin: 0 8px;font-size: 13px;">' +
+          '<span style="display: inline-block;padding:1px 5px;margin: 0 8px;font-size: 13px;font-weight: 700;">' +
             this.catoryList[i].categoryName +
             "</span>"
         );
@@ -175,7 +175,7 @@ export default {
         for (var i in that.catoryList) {
         that.startcatoryChildrenListLabel.push(that.catoryList[i].categoryName);
         that.catoryListLabel.push(
-          '<span style="display: inline-block;padding: 5px;margin: 0 8px;font-size: 13px;">' +
+          '<span style="display: inline-block;padding:1px 5px;margin: 0 8px;font-size: 13px;font-weight: 700;">' +
             that.catoryList[i].categoryName +
             "</span>"
         );
@@ -184,7 +184,7 @@ export default {
         for (let m in that.catoryListLabel) {
           if (that.catoryListLabel[m].indexOf(that.catorySelected) != -1) {
             that.catorySelected = that.catoryListLabel[m];
-            that.changeHandler(that.catorySelected);
+            // that.changeHandler(that.catorySelected);
             break;
           }
         }
@@ -238,7 +238,7 @@ export default {
         for (var k in res.data) {
           this.middlecatoryChildrenListLabel.push(res.data[k].categoryName);
           this.catoryChildrenListLabel.push(
-            '<span style="display: inline-block;padding: 5px;font-size: 12px;margin:10px">' +
+            '<span style="display: inline-block;padding: 5px;font-size: 12px;margin:0 10px">' +
               res.data[k].categoryName +
               "</span>"
           );
@@ -418,7 +418,7 @@ export default {
 
 .mint-search {
   height: 70%;
-  padding-top: 6%;
+  padding-top: 4%;
 }
 
 .mint-searchbar {

@@ -10,7 +10,7 @@
           :labels="catoryYears"
           @change="changeYear"
           :txts="catoryYears"
-          style="background-color: rgba(0,0,0,0);height:36px;margin-top:11px"
+          style="background-color: rgba(0,0,0,0);height:26px;margin-top:0"
         />
       </div>
     </div>
@@ -177,7 +177,7 @@ export default {
       this.middlelabels = this.chaxun(res.data);
       for (var i in this.middlelabels) {
         this.labelts.push(
-          '<span style="font-size: 12px;display: inline-block;padding: 5px 10px 2px 2px;position: relative;text-align: left;" >' +
+          '<span style="font-size: 12px;display: inline-block;padding: 5px 10px 2px 2px;position: relative;text-align: left;line-height: 15px;" >' +
             this.middlelabels[i] +
             '<div class="bbb"></div></span>'
         );
@@ -292,7 +292,7 @@ export default {
         that.middlecatoryListLabel = that.chaxunjiang(res.data);
         for (let i in that.middlecatoryListLabel) {
           that.catoryListLabel.push(
-            '<span style="display: inline-block;padding: 5px;font-size: 12px;margin:10px">' +
+            '<span style="display: inline-block;padding: 5px;font-size: 12px;margin:0 10px">' +
               that.middlecatoryListLabel[i] +
               "</span>"
           );
@@ -419,7 +419,7 @@ export default {
 
 .mint-search {
   height: 60px;
-  padding-top: 6% !important;
+  padding-top: 4% !important;
 }
 
 .mint-searchbar {
@@ -497,6 +497,7 @@ export default {
 
 .ccc {
   color: #c00105;
+  border-bottom: 2px solid #c00105;
   z-index: 2;
 }
 
@@ -516,7 +517,7 @@ export default {
 .bbb {
   position: absolute;
   top: 29%;
-  right: -25%;
+  right: -14%;
   width: 0px;
   height: 0px;
   border-top: 8px solid rgba(0, 0, 0, 0);
