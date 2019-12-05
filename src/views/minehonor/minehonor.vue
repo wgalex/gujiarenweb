@@ -25,7 +25,7 @@
         />
       </div>
     </div>
-    <div class="side-container" style="width:21%;float:left;background-color: #f1f4f9;height:74%">
+    <div class="side-container" style="width:18%;float:left;background-color: #f1f4f9;height:74%">
       <cube-scroll-nav-bar
         direction="vertical"
         :current="cureet"
@@ -121,6 +121,7 @@ export default {
       let that = this;
       let queryData = {};
       queryData.personCode = that.$store.state.personCode;
+      // queryData.personName = '李白';
       queryCelebrityPerson(queryData).then(res => {
         let startcatoryYears = [];
         let startcatoryListLabel = [];
@@ -141,9 +142,9 @@ export default {
         }
         for (var i in that.middlecatoryListLabel) {
           that.catoryListLabel.push(
-            '<span style="display: inline-block;padding: 10px 26px 10px 10px;position: relative;" >' +
+            '<span style="font-size: 12px;display: inline-block;padding: 5px 2px 2px 5px;position: relative;text-align: left;width: 100%;" >' +
               that.middlecatoryListLabel[i] +
-              '<div class="rrr"></div></span>'
+              '</span>'
           );
         }
         that.changeYear(that.catoryYears[0]);
@@ -187,8 +188,14 @@ export default {
         );
         if (selectTop == null) {
         } else {
-          selectTop.classList.remove("cube-scroll-nav-bar-item_active");
-          selectTop.classList.add("hhh");
+          for (let j in this.middlecatoryListLabel) {
+            if (selectTop.innerText.indexOf(this.middlecatoryListLabel[j]) != -1) {
+              selectTop.classList.remove("cube-scroll-nav-bar-item_active");
+              selectTop.classList.add("hes");
+              break;
+            }
+          }
+          
         }
       }, 4);
       this.catoryListChildrenList = [];
@@ -225,8 +232,15 @@ export default {
         );
         if (selectTop == null) {
         } else {
-          selectTop.classList.remove("cube-scroll-nav-bar-item_active");
-          selectTop.classList.add("ggg");
+          for (let j in this.middlecatoryYears) {
+            if (selectTop.innerText.indexOf(this.middlecatoryYears[j]) != -1) {
+              selectTop.classList.remove("cube-scroll-nav-bar-item_active");
+              selectTop.classList.add("ger");
+              break;
+            }
+          }
+          
+          
         }
       }, 3);
       let currentYears = "";
@@ -347,24 +361,24 @@ export default {
 .ddd {
   border-radius: 12px;
   background-color: #fff;
-  color: skyblue;
+  color: #c00105;
 }
 
-.hhh {
+.hes {
   background-color: #fff;
-  border-left: 2px solid skyblue;
-  color: skyblue;
+  border-left: 2px solid #c00105;
+  color: #c00105;
   position: relative;
 
   .rrr {
-    border-left: 8px solid skyblue;
+    border-left: 8px solid #c00105;
   }
 }
 
 .rrr {
   position: absolute;
-  top: 30%;
-  right: 0px;
+  top: 14%;
+  right: -30%;
   width: 0px;
   height: 0px;
   border-top: 8px solid rgba(0, 0, 0, 0);
@@ -389,9 +403,9 @@ export default {
   min-height: 100%;
 }
 
-.ggg {
-  color: skyblue;
-  border-bottom: 2px solid skyblue;
+.ger {
+  color: #c00105;
+  border-bottom: 2px solid #c00105;
   z-index: 2;
   background-color: #fff;
   border-radius: 17px;
