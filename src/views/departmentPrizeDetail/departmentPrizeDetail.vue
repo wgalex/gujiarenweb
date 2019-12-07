@@ -81,10 +81,11 @@
               <!--内容区-->
               <div>
                 <span class="contentBody" @click="addline" :style="mypagestyle">
-                  <p>事迹介绍:</p>
+                  <p>人物简介:</p>
                   <div>{{detailItem.description}}</div>
                 </span>
               </div>
+              
               <!-- <input type="button" id="Copy" value="点击复制代码" /> -->
               <div>
                 <div class="mui-card-content" v-if="detailItem.photoPath" style="width: 80%;height: 80%;margin: 0 auto;">

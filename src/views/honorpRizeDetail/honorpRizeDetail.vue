@@ -85,6 +85,9 @@
                 <div>{{detailItem.description}}</div>
               </span>
             </div>
+            <div style="font-size: 14px;color: #c00105;" @click="pushReald">
+                点击详情
+            </div>
             <!-- <input type="button" id="Copy" value="点击复制代码" /> -->
             <div>
               <div class="mui-card-content" v-if="detailItem.photoPath" style="margin-top: 20px;">
@@ -147,7 +150,6 @@ export default {
     };
   },
   created() {
-    debugger
     if (this.$route.query.catoryList != undefined) {
       this.catoryList = this.$route.query.catoryList;
       for (var i in this.catoryList) {
@@ -404,6 +406,14 @@ export default {
         name: "departmentPrizeDetail",
         query: {
           seachvalue: this.seachvalue
+        }
+      });
+    },
+    pushReald(){
+      this.$router.push({
+        name: "honorRealDetail",
+        query: {
+          realDetail: this.detailItem
         }
       });
     }

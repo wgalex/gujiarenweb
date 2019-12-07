@@ -135,6 +135,12 @@ export default new Router({
       name:'departSecondShow',
       component: () => import('@/views/departSecondShow/departSecondShow'),
     },
+    //人物详情展示
+    {
+      path:'/honorRealDetail',
+      name:'honorRealDetail',
+      component: () => import('@/views/honorRealDetail/honorRealDetail'),
+    },
     // 人才池部分路由departmentPrize
     // {
     //   path:'/personnelHome',
