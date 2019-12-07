@@ -5,7 +5,7 @@ Vue.use(Vuex);
     name: '未登录',
     personCode:'',
     avatar:'',
-    selectedTab:'首页'
+    selectedTab:'我的荣誉'
      //要设置的初始属性值
    };
  const store = new Vuex.Store({

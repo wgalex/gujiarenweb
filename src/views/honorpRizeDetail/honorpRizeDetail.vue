@@ -72,7 +72,10 @@
               />
             </div>
             <div style="text-align: center;">
-              <div style="font-size:24px">{{detailItem.tittle}}</div>
+              <div style="font-size:24px;position: relative;">
+                {{detailItem.tittle}}
+                <i class="cubeic-back ted" @click="backtest"></i>
+                </div>
               <div style="text-align: right;">--{{detailItem.personName}}</div>
             </div>
             <!--内容区-->
@@ -104,7 +107,7 @@
           </div>
           <!-- <div class="prism-player" id="player-con" style="margin-top:50px"></div> -->
         </div>
-        <i class="cubeic-back ted" @click="backtest"></i>
+        
       </div>
     </div>
   </div>
@@ -535,9 +538,9 @@ export default {
 .ted {
   width: 50px;
   height: 50px;
-  position: fixed;
-  top: 50%;
-  right: 72%;
+  position: absolute;
+  top: -13px;
+  left: 0;
   text-align: center;
   line-height: 50px;
   opacity: 0.4;

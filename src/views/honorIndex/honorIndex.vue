@@ -1,13 +1,13 @@
 <template>
-  <div style="height:100%;width:100%;background-color: #f2f2f2">
-    <div >
-     <img :src="bannerUrl" style="height:200px"/>
+  <div style="height:100%;width:100%;background-color: #f2f2f2;padding-bottom: 20%;">
+    <div  >
+     <img :src="bannerUrl" style="height:200px" />
     </div>
     <div class="container">
       <div class="mui-content" style="">
         <ul
-          class="mui-table-view mui-grid-view mui-grid-9" style="padding-bottom: 70px;margin-top: 45px;">
-           <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="text-align: center;" v-for="item in departlist" :key="item.id">
+          class="mui-table-view mui-grid-view mui-grid-9" style="padding-bottom: 70px;margin-top: 8px;">
+           <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="text-align: center;" v-for="item in departlist" :key="item.id" @click='jumpDetail(item)'>
             <img :src="item.headPath" alt="">
           </li>
            <!-- <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="text-align: center;">
@@ -17,7 +17,7 @@
             <img :src="loginimage3" alt="">
           </li> -->
           <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="text-align: center;">
-            <img :src="loginimage4" alt="">
+            <img :src="loginimage4" alt="" @click='jumpDetails'>
           </li> 
           <!-- <li class="mui-table-view-cell mui-media mui-col-xs-6 mui-col-sm-6" style="text-align: center;">
             <div class="mui-card-content" style="width: 120px;background-color: #fff;height: 150px;line-height: 88px;display: inline-block;box-shadow: 3px 3px 4px #888888;">
@@ -75,7 +75,7 @@ export default {
       querydata.orginCategoryCode = '43090'
       let j =1
       queryCategory(querydata).then(res => {
-        debugger
+        // debugger
         let departlist = res.data
         this.departlist = departlist
         console.log(departlist);
@@ -83,7 +83,6 @@ export default {
   },
   methods: {
     jumpDetail(item){
-      // debugger
       this.$router.push({
         name: 'honorpRizeDetail',
         query: {
@@ -91,7 +90,7 @@ export default {
           selectItem:item
         }
       })
-      this.$store.state.selectedTab = "我的荣誉"
+      this.$store.state.selectedTab = "单位荣誉"
     },
     jumpDetails(){
       // debugger

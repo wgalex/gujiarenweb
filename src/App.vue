@@ -76,7 +76,7 @@ export default {
           icon: "wode"
         }
       ],
-      selectedTab: this.$store.state.selectedTab
+      selectedTab: '首页'
     };
   },
   created() {
@@ -97,7 +97,7 @@ export default {
       if (!is_mobi) {
         // PC
         console.log("pc");
-        DingTalkPC.ready(() => {
+             DingTalkPC.ready(() => {
           DingTalkPC.runtime.permission.requestAuthCode({
             corpId: data.corpId, //企业ID
             onSuccess: function(result) {
@@ -115,6 +115,7 @@ export default {
                 that.save_userName(res.data.name);
                 thst.save_corpId(res.data.corpId);
                 thst.save_agentid (res.data.agentid)
+                
               });
             },
             onFail: function(err) {
@@ -125,7 +126,8 @@ export default {
       } else {
         // 移动
         console.log("mobile");
-        dd.ready(() => {
+        setTimeout(() => {
+          dd.ready(() => {
           dd.ui.webViewBounce.disable();
           dd.runtime.permission.requestAuthCode({
             corpId: data.corpId,
@@ -141,9 +143,15 @@ export default {
               }).then(res => {
                 console.log(res);
                 // that.save_userId(res.data.userId);
-                that.$store.state.name = res.data.name;
-                that.$store.state.personCode = res.data.jobNumber;
-                that.$store.state.avatar = res.data.avatar;
+                if(res.data.name != undefined){
+                  localStorage.setItem("name", res.data.name)
+                }
+                if(res.data.jobNumber != undefined){
+                  localStorage.setItem("personCode", res.data.jobNumber)
+                }
+                if(res.data.avatar != undefined){
+                  localStorage.setItem("avatar", res.data.avatar)
+                }
               });
             },
             onFail: function(err) {
@@ -151,38 +159,35 @@ export default {
             }
           });
         });
+      }, 500);
       }
     });
-    // debugger
-    this.selectedTab = this.$store.state.selectedTab
+    // setInterval(() => {
+    //   this.selectedTab = this.$store.state.selectedTab
+    // }, 1000);
   },
   methods: {
     clickHandler(label) {
-      // debugger
-      // if you clicked home tab, then print 'Home'
-      // console.log(label);
-    },
-    changeHandler(label) {
-      switch (label) {
+       switch (label) {
         case "首页":
           //  表达式的值和 值1匹配上了，需要执行的代码;
           this.$router.push({
             name: "honorIndex"
           });
-          this.$store.state.selectedTab = "首页"
+          // this.$store.state.selectedTab = "首页"
           break;
         case "股份荣誉":
           this.$router.push({
             name: "honorpRizeDetail"
           });
-          this.$store.state.selectedTab = "股份荣誉"
+          // this.$store.state.selectedTab = "股份荣誉"
           //  表达式的值和 值2匹配上了，需要执行的代码;
           break;
         case "部门荣誉":
           this.$router.push({
             name: "departmentPrizeDetail"
           });
-          this.$store.state.selectedTab = "部门荣誉"
+          // this.$store.state.selectedTab = "部门荣誉"
           
           //  表达式的值和 值3匹配上了，需要执行的代码;
           break;
@@ -191,7 +196,44 @@ export default {
           this.$router.push({
             name: "minehonor"
           });
-          this.$store.state.selectedTab = "我的荣誉"
+          // this.$store.state.selectedTab = "我的荣誉"
+
+          break;
+        default:
+          //  如果表达式的值和以上的case后面的值都没有匹配上，那么就执行这里的代码。
+          break;
+      }
+    },
+    changeHandler(label) {
+      switch (label) {
+        case "首页":
+          //  表达式的值和 值1匹配上了，需要执行的代码;
+          this.$router.push({
+            name: "honorIndex"
+          });
+          // this.$store.state.selectedTab = "首页"
+          break;
+        case "股份荣誉":
+          this.$router.push({
+            name: "honorpRizeDetail"
+          });
+          // this.$store.state.selectedTab = "股份荣誉"
+          //  表达式的值和 值2匹配上了，需要执行的代码;
+          break;
+        case "部门荣誉":
+          this.$router.push({
+            name: "departmentPrizeDetail"
+          });
+          // this.$store.state.selectedTab = "部门荣誉"
+          
+          //  表达式的值和 值3匹配上了，需要执行的代码;
+          break;
+        case "我的荣誉":
+          //  表达式的值和 值3匹配上了，需要执行的代码;
+          this.$router.push({
+            name: "minehonor"
+          });
+          // this.$store.state.selectedTab = "我的荣誉"
 
           break;
         default:

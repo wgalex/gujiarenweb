@@ -72,7 +72,10 @@
                 />
               </div>
               <div style="text-align: center;">
-                <div style="font-size:24px">{{detailItem.tittle}}</div>
+                <div style="font-size:24px;position: relative;">
+                  {{detailItem.tittle}}
+                  <i class="cubeic-back ppp" @click="backtest"></i>
+                </div>
                 <div style="text-align: right;">--{{detailItem.personName}}</div>
               </div>
               <!--内容区-->
@@ -97,7 +100,6 @@
                   allowfullscreen
                 ></iframe>
               </div>
-              <i class="cubeic-back ppp" @click="backtest"></i>
             </div>
             <!-- <div class="prism-player" id="player-con" style="margin-top:50px"></div> -->
           </div>
@@ -177,7 +179,7 @@ export default {
       this.middlelabels = this.chaxun(res.data);
       for (var i in this.middlelabels) {
         this.labelts.push(
-          '<span style="font-size: 12px;display: inline-block;padding: 5px 10px 2px 2px;position: relative;text-align: left;line-height: 15px;" >' +
+          '<span style="font-size: 12px;display: inline-block;padding: 5px 10px 2px 2px;position: relative;text-align: left;line-height: 15px;width: 100%;" >' +
             this.middlelabels[i] +
             '<div class="bbb"></div></span>'
         );
@@ -538,9 +540,9 @@ export default {
 .ppp {
   width: 50px;
   height: 50px;
-  position: fixed;
-  top: 50%;
-  right: 72%;
+  position: absolute;
+  top: -13px;
+  left: 0;
   text-align: center;
   line-height: 50px;
   opacity: 0.4;

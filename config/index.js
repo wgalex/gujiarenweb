@@ -9,8 +9,8 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    // assetsPublicPath: '/mrt/',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/mrt/',
+    // assetsPublicPath: '/',
 
     proxyTable: {
 			'/kukacms': {
@@ -18,7 +18,7 @@ module.exports = {
         // target: 'http://family.kukahome.com:5080/kukacms/',
         // target: 'http://172.16.26.125:9090/kukacms',
         //target: 'http://172.16.26.125:9090'
-        // target: 'http://172.16.28.12:8080/kukacms',
+        // target: 'http://172.16.28.57:8080/kukacms',
         // target: 'http://116.62.60.13:8090/kukacms',
         target: 'http://192.168.251.33:8880//kukacms/',
         // target: 'http://family.kukahome.com:8880/kukacms/',
@@ -31,9 +31,9 @@ module.exports = {
     },
 
     // Various Dev Server settings
-    // host: 'localhost', // can be overwritten by process.env.HOST
+    host: 'localhost', // can be overwritten by process.env.HOST
     // host: '192.168.1.38',
-    host: '172.16.28.93',
+    // host: '172.16.28.70',
     port: 8090, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,

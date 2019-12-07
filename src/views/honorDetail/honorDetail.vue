@@ -1,5 +1,5 @@
 <template>
-    <div style="background-image: linear-gradient(to bottom right , #c00105, #fff)">
+    <div style="">
         <!-- <mt-header title="名人堂">
             <router-link to="" slot="left">
                 <mt-button icon="back" @click.native="$router.back(-1)"></mt-button>

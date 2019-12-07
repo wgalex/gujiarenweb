@@ -12,7 +12,6 @@
         </div>
         <span>{{loginstus}}</span>
       </div>
-
       <!-- </div> -->
       <!-- </div> -->
       <div>
@@ -57,6 +56,9 @@
         </li>
       </ul>
     </div>
+    <div style="position: fixed;top: 50%;left: 43%;color: #ccc;" v-show="noneFlag">
+      暂无数据
+    </div>
   </div>
 </template>
 
@@ -94,23 +96,25 @@ export default {
       detailFlag: false,
       detailItem: {},
       allhonerlist: [],
-      loginstus: "",
+      loginstus: "未登录",
       // loginimage: "@src/default_avtar.jpg",require('../assets/a1.png')
       loginimage: require("../../assets/default_avtar.jpg"),
       cureet: "",
-      seachvalue:""
+      seachvalue:"",
+      noneFlag:true
     };
   },
   created() {
-    // console.log(this.$store.state);
-    if (this.$store.state.avatar != "") {
-      this.loginimage = this.$store.state.avatar;
+    if (localStorage.getItem('avatar') != null) {
+      this.loginimage = localStorage.getItem('avatar');
     }
-    this.loginstus = this.$store.state.name;
+    if(localStorage.getItem('name') != null){
+      this.loginstus = localStorage.getItem('name');
+    }
     if (
-      this.$store.state.personCode == undefined ||
-      this.$store.state.personCode == ""
+      localStorage.getItem('personCode') == null
     ) {
+      this.noneFlag = true
       this.$createDialog({
         type: "alert",
         title: "提示",
@@ -120,12 +124,17 @@ export default {
     } else {
       let that = this;
       let queryData = {};
-      queryData.personCode = that.$store.state.personCode;
+      queryData.personCode = localStorage.getItem('personCode');
       // queryData.personName = '李白';
       queryCelebrityPerson(queryData).then(res => {
         let startcatoryYears = [];
         let startcatoryListLabel = [];
         that.allhonerlist = res.data.itemList;
+        if(that.allhonerlist.length == 0){
+          this.noneFlag = true
+        }else{
+          this.noneFlag = false
+        }
         for (var i in that.allhonerlist) {
           startcatoryYears.push(that.allhonerlist[i].years);
           startcatoryListLabel.push(that.allhonerlist[i].categoryName);
