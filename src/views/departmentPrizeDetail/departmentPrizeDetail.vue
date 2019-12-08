@@ -24,8 +24,7 @@
       />
     </div>
     <!-- <div> -->
-      
-          <div class="side-container" style="width:18%;float:left;background-color: #f1f4f9;height: 70%;">
+          <div class="side-container" style="width:18%;float:left;background-color: #f1f4f9;height: 70%;" v-show="hidesideFlag">
           <cube-scroll-nav-bar
             direction="vertical"
             :current="labelts[0]"
@@ -85,7 +84,9 @@
                   <div>{{detailItem.description}}</div>
                 </span>
               </div>
-              
+              <div style="font-size: 14px;color: #c00105;" @click="pushReald">
+                点击详情
+            </div>
               <!-- <input type="button" id="Copy" value="点击复制代码" /> -->
               <div>
                 <div class="mui-card-content" v-if="detailItem.photoPath" style="width: 80%;height: 80%;margin: 0 auto;">
@@ -150,7 +151,8 @@ export default {
       // secondSelectItem:{},
       firstSelectItem:{},
       firstdepart:"",
-      seconddepart:''
+      seconddepart:'',
+      hidesideFlag:true
     };
   },
   mounted() {
@@ -234,6 +236,7 @@ export default {
     },
     changeHandler(label) {
       this.detailFlag = false;
+      this.hidesideFlag = true
       setTimeout(() => {
         let selectTop = document.querySelector(
           ".cube-scroll-nav-bar-item_active"
@@ -267,7 +270,6 @@ export default {
     },
     //纵向部门选择
     changeHandlert(label) {
-      // 
       this.detailFlag = false;
       setTimeout(() => {
         let selectTop = document.querySelector(
@@ -304,6 +306,7 @@ export default {
       });
     },
     changeYear(label) {
+      this.hidesideFlag = true
       this.detailFlag = false;
       setTimeout(() => {
         let selectTop = document.querySelector(
@@ -372,6 +375,7 @@ export default {
       this.backcatoryListChildrenList = this.catoryListChildrenList;
       this.catoryListChildrenList = [];
       this.detailItem = item;
+      this.hidesideFlag = false
       // ;
     },
     addline() {
@@ -380,12 +384,13 @@ export default {
         this.mypagestyle = "-webkit-line-clamp:50";
         this.clicktwice = false;
       } else {
-        this.mypagestyle = "-webkit-line-clamp:4";
+        this.mypagestyle = "-webkit-line-clamp:6";
         this.clicktwice = true;
       }
     },
     backtest() {
       this.detailFlag = false;
+      this.hidesideFlag = true
       this.detailItem = {};
       this.catoryListChildrenList = this.backcatoryListChildrenList;
     },
@@ -407,6 +412,14 @@ export default {
               }).show();
           }
         })
+    },
+    pushReald(){
+      this.$router.push({
+        name: "honorRealDetail",
+        query: {
+          realDetail: this.detailItem
+        }
+      });
     }
   }
 };

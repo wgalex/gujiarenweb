@@ -27,7 +27,7 @@
       </div>
     </div>
     <div></div>
-    <div class="side-container" style="width:18%;background-color: #f1f4f9;height: 77%;float:left;">
+    <div class="side-container" style="width:18%;background-color: #f1f4f9;height: 77%;float:left;" v-show="hidesideflag">
       <cube-scroll-nav-bar
         direction="vertical"
         :current="catoryYears[0]"
@@ -81,7 +81,7 @@
             <!--内容区-->
             <div>
               <span class="contentBody" @click="addline" :style="mypagestyle">
-                <p>事迹介绍:</p>
+                <p>人物简介:</p>
                 <div>{{detailItem.description}}</div>
               </span>
             </div>
@@ -146,7 +146,8 @@ export default {
       currentYear: "",
       currentChildrenListLabel: "",
       currentChildrenListcode: "",
-      queryhoner: ""
+      queryhoner: "",
+      hidesideflag:true
     };
   },
   created() {
@@ -208,6 +209,7 @@ export default {
     // },
     changeHandler(label) {
       this.detailFlag = false;
+      this.hidesideflag = true
       this.catoryYears = [];
       this.catoryListChildrenList = [];
       this.catoryChildrenListLabel = [];
@@ -251,6 +253,7 @@ export default {
       });
     },
     ChildrenchangeHandler(label) {
+      this.hidesideflag = true
       this.detailFlag = false;
       setTimeout(() => {
         let selectTop = document.querySelector(
@@ -383,17 +386,19 @@ export default {
       this.backcatoryListChildrenList = this.catoryListChildrenList;
       this.catoryListChildrenList = [];
       this.detailItem = item;
+      this.hidesideflag = false
     },
     addline() {
       if (this.clicktwice) {
         this.mypagestyle = "-webkit-line-clamp:50";
         this.clicktwice = false;
       } else {
-        this.mypagestyle = "-webkit-line-clamp:4";
+        this.mypagestyle = "-webkit-line-clamp:6";
         this.clicktwice = true;
       }
     },
     backtest() {
+      this.hidesideflag = true
       this.detailFlag = false;
       this.detailItem = {};
       this.catoryListChildrenList = this.backcatoryListChildrenList;

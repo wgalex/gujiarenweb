@@ -27,7 +27,7 @@ export default {
       this.realDetail = res.data.itemList[0].mobilecontent
 
       })
-
+       
       // getCaseinfo(this.$route.query.id).then((res =>{
       //     console.log(res);
       //     this.content = res.data.content

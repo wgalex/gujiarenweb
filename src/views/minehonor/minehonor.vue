@@ -39,7 +39,7 @@
           class="mui-table-view-cell mui-media mui-col-xs-12"
           v-for="item in catoryListChildrenList"
           :key="item.id"
-          @click="jumpDetails(item)"
+          @click="pushReald(item)"
         >
           <a href="#">
             <div class="mui-card-content">
@@ -286,7 +286,15 @@ export default {
         }
       });
     }
-  }
+  },
+  pushReald(item){
+      this.$router.push({
+        name: "honorRealDetail",
+        query: {
+          realDetail: item
+        }
+      });
+    }
 };
 </script>
 <style lang="stylus">
