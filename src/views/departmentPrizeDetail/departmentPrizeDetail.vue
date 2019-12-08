@@ -73,7 +73,7 @@
               <div style="text-align: center;">
                 <div style="font-size:24px;position: relative;">
                   {{detailItem.tittle}}
-                  <i class="cubeic-back ppp" @click="backtest"></i>
+                  <i class="cubeic-back bacf" @click="backtest"></i>
                 </div>
                 <div style="text-align: right;">--{{detailItem.personName}}</div>
               </div>
@@ -417,7 +417,8 @@ export default {
       this.$router.push({
         name: "honorRealDetail",
         query: {
-          realDetail: this.detailItem
+          realDetail: this.detailItem,
+          tiaozhuan:'departmentPrizeDetail'
         }
       });
     }
@@ -551,7 +552,7 @@ export default {
   font-size: 12px;
 }
 
-.ppp {
+.bacf {
   width: 50px;
   height: 50px;
   position: absolute;

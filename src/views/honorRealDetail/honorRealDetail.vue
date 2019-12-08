@@ -1,5 +1,6 @@
 <template>
   <div class="news">
+    <i class="cubeic-back bacf" @click="tiaozhuan"></i>
       <div class="news-box" ref="news" >
           <div class="news-info" v-if="this.realDetail" ref="section" >
               <section v-html="this.realDetail.replace(/\r?\n/g, '')" ></section>
@@ -14,14 +15,15 @@ export default {
   data () {
     return {
         // content:''
-        realDetail:''
+        realDetail:'',
+        tiaozhuanye:''
     };
   },
   created(){
-    
       // this.realDetail = this.$route.query.realDetail.mobilecontent
       let queryData = {};
-      queryData.personCode = this.$route.query.realDetail.personCode
+      queryData.personCode = this.$route.query.realDetail.personCode,
+      this.tiaozhuanye = this.$route.query.tiaozhuan
       queryData.id = this.$route.query.realDetail.id
       queryCelebrityPerson(queryData).then(res => {
       this.realDetail = res.data.itemList[0].mobilecontent
@@ -33,6 +35,13 @@ export default {
       //     this.content = res.data.content
           
       // }))
+  },
+  methods:{
+    tiaozhuan(){
+      this.$router.push({
+        name: this.tiaozhuanye,
+      });
+    }
   }
 }
 </script>
@@ -60,4 +69,16 @@ export default {
       border-top 1px solid #E6E6E6
     }
   }
+  .bacf {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 2%;
+  left: 0;
+  text-align: center;
+  line-height: 50px;
+  opacity: 0.4;
+  font-size: 21px;
+  color: #c00105;
+}
 </style>

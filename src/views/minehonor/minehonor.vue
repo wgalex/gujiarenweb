@@ -291,7 +291,8 @@ export default {
       this.$router.push({
         name: "honorRealDetail",
         query: {
-          realDetail: item
+          realDetail: item,
+          tiaozhuan:'minehonor'
         }
       });
     }
