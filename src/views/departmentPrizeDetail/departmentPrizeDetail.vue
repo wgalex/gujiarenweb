@@ -62,7 +62,22 @@
         </ul>
         <div v-if="detailFlag">
           <div class="container">
-            <div>
+            <i class="cubeic-back bacf" @click="backtest"></i>
+          <div  ref="news" >
+              <div >
+                  <section v-html="this.detailItem.mobilecontent.replace(/\r?\n/g, '')" ></section>
+              </div>
+          </div>
+           <div class="mui-card-content" v-if="detailItem.filePath">
+              <iframe
+                height="15%"
+                width="100%"
+                :src="detailItem.filePath"
+                frameborder="0"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <!-- <div>
               <div class="mui-card-content" style="width: 100%;height: 100px;margin-bottom: 20px;background-image: linear-gradient(to bottom right , #c00105, #fff)">
                 <img
                   :src="detailItem.headPath"
@@ -77,7 +92,7 @@
                 </div>
                 <div style="text-align: right;">--{{detailItem.personName}}</div>
               </div>
-              <!--内容区-->
+              内容区
               <div>
                 <span class="contentBody" @click="addline" :style="mypagestyle">
                   <p>人物简介:</p>
@@ -87,7 +102,7 @@
               <div style="font-size: 14px;color: #c00105;" @click="pushReald">
                 点击详情
             </div>
-              <!-- <input type="button" id="Copy" value="点击复制代码" /> -->
+              <input type="button" id="Copy" value="点击复制代码" />
               <div>
                 <div class="mui-card-content" v-if="detailItem.photoPath" style="width: 80%;height: 80%;margin: 0 auto;">
                   <img :src="detailItem.photoPath" alt style="display: block;width: 100%;margin-top: 20px;height: 100%;" />
@@ -102,7 +117,7 @@
                   allowfullscreen
                 ></iframe>
               </div>
-            </div>
+            </div> -->
             <!-- <div class="prism-player" id="player-con" style="margin-top:50px"></div> -->
           </div>
         </div>
