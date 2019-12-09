@@ -70,6 +70,7 @@ export default {
     }
   }
   .bacf {
+  z-index :80
   width: 50px;
   height: 50px;
   position: absolute;
