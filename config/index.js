@@ -9,8 +9,8 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/mrt/',
-    // assetsPublicPath: '/',
+    // assetsPublicPath: '/mrt/',
+    assetsPublicPath: '/',
 
     proxyTable: {
 			'/kukacms': {
@@ -33,7 +33,7 @@ module.exports = {
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     // host: '192.168.1.38',
-    // host: '172.16.28.25',
+    // host: '172.16.28.71',
     port: 8090, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,

@@ -62,8 +62,8 @@
         <div class="container">
           <i class="cubeic-back bacf" @click="backtest"></i>
           <div  ref="news" >
-              <div >
-                  <section v-html="this.detailItem.mobilecontent.replace(/\r?\n/g, '')" ></section>
+              <div style="overflow: hidden">
+                  <section v-html="this.detailItem.mobilecontent.replace(/\r?\n/g, '')" style="background-color: #fff9e6;font-family: Optima-Regular, PingFangTC-light;line-height: 1.6;box-sizing: border-box;text-align: justify;"></section>
               </div>
           </div>
            <div class="mui-card-content" v-if="detailItem.filePath">
@@ -123,9 +123,8 @@
               ></iframe>
             </div>
           </div>
-          <div class="prism-player" id="player-con" style="margin-top:50px"></div>
-        </div> -->
-        
+          <div class="prism-player" id="player-con" style="margin-top:50px"></div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -443,6 +442,7 @@ export default {
 </script>
 <style lang="stylus">
 .container {
+
 }
 
 .side-container {

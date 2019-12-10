@@ -16,27 +16,28 @@ export default {
     return {
         // content:''
         realDetail:'',
-        tiaozhuanye:''
+        tiaozhuanye:'',
+        questData:{}
     };
   },
   created(){
-      // this.realDetail = this.$route.query.realDetail.mobilecontent
+    this.getUrlArgStr()
       let queryData = {};
-      queryData.personCode = this.$route.query.realDetail.personCode,
-      this.tiaozhuanye = this.$route.query.tiaozhuan
-      queryData.id = this.$route.query.realDetail.id
+      debugger
+      queryData.personCode = this.questData.personCode,
+      // this.tiaozhuanye = this.$route.query.tiaozhuan
+      queryData.categoryName = this.questData.categoryName
       queryCelebrityPerson(queryData).then(res => {
-      this.realDetail = res.data.itemList[0].mobilecontent
-
+        this.realDetail = res.data.itemList[0].mobilecontent
       })
-       
-      // getCaseinfo(this.$route.query.id).then((res =>{
-      //     console.log(res);
-      //     this.content = res.data.content
-          
-      // }))
   },
   methods:{
+    getUrlArgStr() {          
+      var url = decodeURI(location.href); 
+      var params = url.split("?")[1].split("&")
+      this.questData = {}
+      params.map(v => this.questData[v.split("=")[0]] = v.split("=")[1])
+    },
     tiaozhuan(){
       this.$router.push({
         name: this.tiaozhuanye,
