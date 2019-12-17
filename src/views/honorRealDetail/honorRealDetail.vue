@@ -23,7 +23,7 @@ export default {
   created(){
     this.getUrlArgStr()
       let queryData = {};
-      debugger
+      // debugger
       queryData.personCode = this.questData.personCode,
       // this.tiaozhuanye = this.$route.query.tiaozhuan
       queryData.categoryName = this.questData.categoryName
@@ -40,7 +40,7 @@ export default {
     },
     tiaozhuan(){
       this.$router.push({
-        name: this.tiaozhuanye,
+        name: 'honorpRizeDetail',
       });
     }
   }
@@ -71,10 +71,10 @@ export default {
     }
   }
   .bacf {
-  z-index :80
+  z-index :899
   width: 50px;
   height: 50px;
-  position: absolute;
+  position: fixed;
   top: 2%;
   left: 0;
   text-align: center;

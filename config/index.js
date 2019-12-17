@@ -6,11 +6,10 @@ const path = require('path')
 
 module.exports = {
   dev: {
-
     // Paths
     assetsSubDirectory: 'static',
-    // assetsPublicPath: '/mrt/',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/mrt/',
+    // assetsPublicPath: '/',
 
     proxyTable: {
 			'/kukacms': {
@@ -33,7 +32,7 @@ module.exports = {
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     // host: '192.168.1.38',
-    // host: '172.16.28.71',
+    // host: '172.16.28.114',
     port: 8090, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
@@ -59,7 +58,6 @@ module.exports = {
   build: {
     // Template for index.html
     index: path.resolve(__dirname, '../dist/index.html'),
-
     // Paths
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'static',

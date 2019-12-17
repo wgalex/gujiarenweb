@@ -162,11 +162,13 @@ export default {
       }, 500);
       }
     });
+    
     // setInterval(() => {
     //   this.selectedTab = this.$store.state.selectedTab
     // }, 1000);
   },
   methods: {
+    
     clickHandler(label) {
        switch (label) {
         case "首页":
@@ -251,7 +253,6 @@ export default {
   }
 };
 </script>
-
 <style>
 #app {
   width: 100%;

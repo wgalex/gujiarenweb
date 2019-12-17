@@ -24,10 +24,15 @@
           :txts="catoryChildrenListLabel"
           style="background-color:#fff!important;height:24px;"
         />
+        <i class="cubeic-back bacf" @click="backtest" v-if="detailFlag"></i>
       </div>
     </div>
     <div></div>
-    <div class="side-container" style="width:18%;background-color: #f1f4f9;height: 77%;float:left;" v-show="hidesideflag">
+    <div
+      class="side-container"
+      style="width:18%;background-color: #f1f4f9;height: 77%;float:left;"
+      v-show="hidesideflag"
+    >
       <cube-scroll-nav-bar
         direction="vertical"
         :current="catoryYears[0]"
@@ -47,12 +52,18 @@
           <a href="#">
             <div class="mui-card-content" style="padding-bottom:8%">
               <span
-                style="float:left;width:60px;height:60px;border-radius: 12px;"
+                style="float:left;width:125px;height:90px;border-radius: 12px;"
                 :style="{ 'background-image': 'url(' + item.headPath + ')','background-repeat':'no-repeat','background-size':'cover' }"
               ></span>
-              <div style="float:left;margin-left: 5%;">
-                <span class="mui-media-body">{{item.tittle}}</span>
-                <span class="mui-media-body">{{item.personName}}</span>
+              <div style="float:left;margin-left: 5%;width:50%;height:80px;display: flex">
+                <div style="align-self: center;">
+                  <div
+                    style="white-space: pre-line;word-break: break-all;word-wrap: break-word;text-align: left;"
+                  >{{item.tittle}}</div>
+                  <div
+                    style="white-space: pre-line;word-break: break-all;word-wrap: break-word;text-align: center;"
+                  >{{item.personName}}</div>
+                </div>
               </div>
             </div>
           </a>
@@ -60,70 +71,23 @@
       </ul>
       <div v-if="detailFlag">
         <div class="container">
-          <i class="cubeic-back bacf" @click="backtest"></i>
-          <div  ref="news" >
-              <div style="overflow: hidden">
-                  <section v-html="this.detailItem.mobilecontent.replace(/\r?\n/g, '')" style="background-color: #fff9e6;font-family: Optima-Regular, PingFangTC-light;line-height: 1.6;box-sizing: border-box;text-align: justify;"></section>
-              </div>
-          </div>
-           <div class="mui-card-content" v-if="detailItem.filePath">
-              <iframe
-                height="15%"
-                width="100%"
-                :src="detailItem.filePath"
-                frameborder="0"
-                allowfullscreen
-              ></iframe>
-            </div>
-          <!-- <div>
-            <div
-              class="mui-card-content"
-              style="width: 100%;height: 100px;margin-bottom: 20px;background-image: linear-gradient(to bottom right , #c00105, #fff)"
-            >
-              <img
-                :src="detailItem.headPath"
-                style="width: 100px;height: 100%;border-radius: 18px;padding: 6px;margin: 0 auto;"
-                alt
-              />
-            </div>
-            <div style="text-align: center;">
-              <div style="font-size:24px;position: relative;">
-                {{detailItem.tittle}}
-                <i class="cubeic-back ted" @click="backtest"></i>
-                </div>
-              <div style="text-align: right;">--{{detailItem.personName}}</div>
-            </div>
-            内容区
-            <div>
-              <span class="contentBody" @click="addline" :style="mypagestyle">
-                <p>人物简介:</p>
-                <div>{{detailItem.description}}</div>
-              </span>
-            </div>
-            <div style="font-size: 14px;color: #c00105;" @click="pushReald">
-                点击详情
-            </div>
-            <input type="button" id="Copy" value="点击复制代码" />
-            <div>
-              <div class="mui-card-content" v-if="detailItem.photoPath" style="margin-top: 20px;">
-                <img
-                  :src="detailItem.photoPath"
-                  alt
-                  style="display: block;width: 100%;margin-top: 20px;height: 100%;"
-                />
-              </div>
-            </div>
-            <div class="mui-card-content" v-if="detailItem.filePath">
-              <iframe
-                height="15%"
-                width="100%"
-                :src="detailItem.filePath"
-                frameborder="0"
-                allowfullscreen
-              ></iframe>
+          <div ref="news">
+            <div style="overflow: hidden">
+              <section
+                v-html="this.detailItem.mobilecontent.replace(/\r?\n/g, '')"
+                style="background-color: #fff9e6;font-family: Optima-Regular, PingFangTC-light;line-height: 1.6;box-sizing: border-box;text-align: justify;"
+              ></section>
             </div>
           </div>
-          <div class="prism-player" id="player-con" style="margin-top:50px"></div> -->
+          <div class="mui-card-content" v-if="detailItem.filePath">
+            <iframe
+              height="15%"
+              width="100%"
+              :src="detailItem.filePath"
+              frameborder="0"
+              allowfullscreen
+            ></iframe>
+          </div>
         </div>
       </div>
     </div>
@@ -161,45 +125,57 @@ export default {
       currentChildrenListLabel: "",
       currentChildrenListcode: "",
       queryhoner: "",
-      hidesideflag:true
+      hidesideflag: true,
+      baseLabel: "",
+      stamppp: [],
+      capmmd: ""
     };
   },
   created() {
     if (this.$route.query.catoryList != undefined) {
-      this.catoryList = this.$route.query.catoryList;
-      for (var i in this.catoryList) {
-        this.startcatoryChildrenListLabel.push(this.catoryList[i].categoryName);
-        this.catoryListLabel.push(
-          '<span style="display: inline-block;padding:1px 5px;margin: 0 8px;font-size: 13px;font-weight: 700;">' +
-            this.catoryList[i].categoryName +
-            "</span>"
-        );
-      }
-      this.queryhoner = this.$route.query.selectItem.categoryName;
-      this.queryhonercode = this.$route.query.selectItem.categoryCode;
-
-      this.catorySelected = this.$route.query.selectItem.categoryName;
-      for (let m in this.catoryListLabel) {
-        if (this.catoryListLabel[m].indexOf(this.catorySelected) != -1) {
-          this.catorySelected = this.catoryListLabel[m];
-          this.changeHandler(this.catorySelected);
-          break;
+      // this.catoryList = this.$route.query.catoryList;
+      let querydata = {};
+      querydata.orginCategoryCode = "43090";
+      queryCategory(querydata).then(res => {
+        this.catoryList = res.data;
+        for (var i in this.catoryList) {
+          this.startcatoryChildrenListLabel.push(
+            this.catoryList[i].categoryName
+          );
+          this.catoryListLabel.push(
+            '<span style="display: inline-block;padding:1px 5px;margin: 0 8px;font-size: 13px;font-weight: 700;">' +
+              this.catoryList[i].categoryName +
+              "</span>"
+          );
         }
-      }
+        this.queryhoner = this.$route.query.selectItem.categoryName;
+        this.queryhonercode = this.$route.query.selectItem.categoryCode;
+
+        this.catorySelected = this.$route.query.selectItem.categoryName;
+        for (let m in this.catoryListLabel) {
+          if (this.catoryListLabel[m].indexOf(this.catorySelected) != -1) {
+            this.catorySelected = this.catoryListLabel[m];
+            // this.changeHandler(this.catorySelected);
+            break;
+          }
+        }
+      });
     } else {
       let querydata = {};
       querydata.orginCategoryCode = "43090";
-      let that = this
+      let that = this;
       queryCategory(querydata).then(res => {
         that.catoryList = res.data;
         for (var i in that.catoryList) {
-        that.startcatoryChildrenListLabel.push(that.catoryList[i].categoryName);
-        that.catoryListLabel.push(
-          '<span style="display: inline-block;padding:1px 5px;margin: 0 8px;font-size: 13px;font-weight: 700;">' +
-            that.catoryList[i].categoryName +
-            "</span>"
-        );
-      }
+          that.startcatoryChildrenListLabel.push(
+            that.catoryList[i].categoryName
+          );
+          that.catoryListLabel.push(
+            '<span style="display: inline-block;padding:1px 5px;margin: 0 8px;font-size: 13px;font-weight: 700;">' +
+              that.catoryList[i].categoryName +
+              "</span>"
+          );
+        }
         that.catorySelected = that.catoryList[0].categoryName;
         for (let m in that.catoryListLabel) {
           if (that.catoryListLabel[m].indexOf(that.catorySelected) != -1) {
@@ -222,15 +198,18 @@ export default {
     //   }
     // },
     changeHandler(label) {
+      debugger
       this.detailFlag = false;
-      this.hidesideflag = true
+      this.hidesideflag = true;
       this.catoryYears = [];
       this.catoryListChildrenList = [];
       this.catoryChildrenListLabel = [];
       this.middlecatoryChildrenListLabel = [];
       this.middlecatoryYears = [];
-      this.middlecatoryYears = [];
-      // this.middlecatoryChildrenListLabel=[]
+      this.middlecatoryChildrenListLabel = [];
+      this.stamppp = [];
+      this.capmmd = "";
+      this.baseLabel = "";
       setTimeout(() => {
         let selectTop = document.querySelector(
           ".cube-scroll-nav-bar-item_active"
@@ -267,7 +246,11 @@ export default {
       });
     },
     ChildrenchangeHandler(label) {
-      this.hidesideflag = true
+      // debugger
+      if (label == "") {
+        return;
+      }
+      this.hidesideflag = true;
       this.detailFlag = false;
       setTimeout(() => {
         let selectTop = document.querySelector(
@@ -284,12 +267,42 @@ export default {
       this.catoryListChildrenList = [];
       this.middlecatoryListChildrenList = [];
       this.currentChilden = "";
+      this.baseLabel = this.middlecatoryChildrenListLabel[0];
+      //命名不规范导致的bug,强行解决
+      for (let q in this.middlecatoryChildrenListLabel) {
+        if (
+          this.middlecatoryChildrenListLabel[q].length < this.baseLabel.length
+        ) {
+          this.baseLabel = this.middlecatoryChildrenListLabel[q];
+        }
+      }
+      this.stamppp = label.split(this.baseLabel);
       for (let i in this.middlecatoryChildrenListLabel) {
-        if (label.indexOf(this.middlecatoryChildrenListLabel[i]) != -1) {
+        if (this.stamppp.length == 1) {
+          if (label.indexOf(this.middlecatoryChildrenListLabel[i]) != -1) {
+            this.currentChilden = this.middlecatoryChildrenListLabel[i];
+            break;
+          }
+          continue;
+        }
+        this.capmmd = this.middlecatoryChildrenListLabel[i].split(
+          this.baseLabel
+        )[1];
+        if (this.capmmd == "") {
+          continue;
+        }
+        if (this.stamppp[1].indexOf(this.capmmd) != -1) {
           this.currentChilden = this.middlecatoryChildrenListLabel[i];
           break;
         }
       }
+      this.stamppp = [];
+      this.capmmd = "";
+      if (this.currentChilden == "") {
+        this.currentChilden = this.baseLabel;
+        this.baseLabel = "";
+      }
+      //命名不规范导致的bug,强行解决 结束
       let queryData = {};
       queryData.categoryName = this.currentChilden;
       let middlescatoryYears = [];
@@ -400,7 +413,7 @@ export default {
       this.backcatoryListChildrenList = this.catoryListChildrenList;
       this.catoryListChildrenList = [];
       this.detailItem = item;
-      this.hidesideflag = false
+      this.hidesideflag = false;
     },
     addline() {
       if (this.clicktwice) {
@@ -412,14 +425,14 @@ export default {
       }
     },
     backtest() {
-      this.hidesideflag = true
+      this.hidesideflag = true;
       this.detailFlag = false;
       this.detailItem = {};
       this.catoryListChildrenList = this.backcatoryListChildrenList;
     },
     search() {
-      if(this.seachvalue == ''){
-        return
+      if (this.seachvalue == "") {
+        return;
       }
       this.$router.push({
         name: "departmentPrizeDetail",
@@ -428,12 +441,12 @@ export default {
         }
       });
     },
-    pushReald(){
+    pushReald() {
       this.$router.push({
         name: "honorRealDetail",
         query: {
           realDetail: this.detailItem,
-          tiaozhuan:'honorpRizeDetail'
+          tiaozhuan: "honorpRizeDetail"
         }
       });
     }
@@ -442,7 +455,6 @@ export default {
 </script>
 <style lang="stylus">
 .container {
-
 }
 
 .side-container {
@@ -571,6 +583,20 @@ export default {
   height: 50px;
   position: absolute;
   top: -13px;
+  left: 0;
+  text-align: center;
+  line-height: 50px;
+  opacity: 0.4;
+  font-size: 21px;
+  color: #c00105;
+}
+
+.bacf {
+  z-index: 899;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 55%;
   left: 0;
   text-align: center;
   line-height: 50px;

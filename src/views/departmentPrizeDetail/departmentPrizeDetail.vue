@@ -22,6 +22,7 @@
         :txts="catoryListLabel"
         style="background-color:#fff!important"
       />
+      <i class="cubeic-back bacf" @click="backtest" v-if="detailFlag"></i>
     </div>
     <!-- <div> -->
           <div class="side-container" style="width:18%;float:left;background-color: #f1f4f9;height: 70%;" v-show="hidesideFlag">
@@ -46,23 +47,27 @@
             <a href="#">
               <div class="mui-card-content">
                 <span
-                  style="float:left;width:60px;height:60px;border-radius: 12px;"
+                  style="float:left;width:125px;height:90px;border-radius: 12px;"
                   :style="{ 'background-image': 'url(' + item.headPath + ')','background-repeat':'no-repeat','background-size':'cover' }"
                 ></span>
-                <div style="width: 67%;float: right">
-                  <span
-                    class="mui-media-body"
-                    style="width: 178px;display: block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;"
-                  >{{item.tittle}}</span>
-                  <span class="mui-media-body">{{item.personName}}</span>
-                </div>
+                 <div
+                style="float:left;margin-left: 5%;width:50%;height:80px;display: flex"
+              >
+              <div style="align-self: center;">
+                <div
+                  style="white-space: pre-line;word-break: break-all;word-wrap: break-word;text-align: left;"
+                >{{item.tittle}}</div>
+                <div
+                  style="white-space: pre-line;word-break: break-all;word-wrap: break-word;text-align: center;"
+                >{{item.personName}}</div>
+              </div>
+              </div>
               </div>
             </a>
           </li>
         </ul>
         <div v-if="detailFlag">
-          <div class="container">
-            <i class="cubeic-back bacf" @click="backtest"></i>
+          <div class="container" >
           <div  ref="news" >
               <div style="overflow: hidden">
                   <!-- <section v-html="this.detailItem.mobilecontent" ></section> -->
@@ -569,10 +574,11 @@ export default {
 }
 
 .bacf {
+  z-index:899
   width: 50px;
   height: 50px;
   position: absolute;
-  top: -13px;
+  top: 55%;
   left: 0;
   text-align: center;
   line-height: 50px;

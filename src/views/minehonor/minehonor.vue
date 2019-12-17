@@ -2,7 +2,13 @@
   <div style="height:100%">
     <div style="background-image: linear-gradient(#c00105, #fff);">
       <div>
-        <mt-search placeholder="搜索" cancel-text="确认" v-model="seachvalue" @blur.native.capture="search"  style="padding-bottom: 2%;"></mt-search>
+        <mt-search
+          placeholder="搜索"
+          cancel-text="确认"
+          v-model="seachvalue"
+          @blur.native.capture="search"
+          style="padding-bottom: 2%;"
+        ></mt-search>
       </div>
       <!-- <div> -->
       <!-- <div> -->
@@ -14,7 +20,7 @@
       </div>
       <!-- </div> -->
       <!-- </div> -->
-      <div>
+      <div style="position: relative;">
         <cube-scroll-nav-bar
           :current="catoryYears[0]"
           :labels="catoryYears"
@@ -22,9 +28,14 @@
           :txts="catoryYears"
           style="height:36px"
         />
+        <i class="cubeic-back bacf" @click="backtest" v-if="detailFlag"></i>
       </div>
     </div>
-    <div class="side-container" style="width:18%;float:left;background-color: #f1f4f9;height:74%">
+    <div
+      class="side-container"
+      style="width:18%;float:left;background-color: #f1f4f9;height:74%"
+      v-show="!detailFlag"
+    >
       <cube-scroll-nav-bar
         direction="vertical"
         :current="cureet"
@@ -33,32 +44,60 @@
         :txts="catoryListLabel"
       />
     </div>
-    <div class="mui-content" style="height:560px;overflow:auto">
+    <div class="mui-content" style="height:64%;overflow:auto">
       <ul class="mui-table-view mui-grid-view mui-grid-8" style="min-height: 0px;">
         <li
           class="mui-table-view-cell mui-media mui-col-xs-12"
           v-for="item in catoryListChildrenList"
           :key="item.id"
-          @click="pushReald(item)"
+          @click="detailitem(item)"
         >
           <a href="#">
             <div class="mui-card-content">
               <span
-                style="float:left;width:60px;height:60px;border-radius: 12px;"
+                style="float:left;width:125px;height:90px;border-radius: 12px;"
                 :style="{ 'background-image': 'url(' + item.headPath + ')','background-repeat':'no-repeat','background-size':'cover' }"
               ></span>
-              <div style="float:left;margin-left: 5%;">
-                <span class="mui-media-body">{{item.tittle}}</span>
-                <span class="mui-media-body">{{item.personName}}</span>
+               <div
+                style="float:left;margin-left: 5%;width:50%;height:80px;display: flex"
+              >
+              <div style="align-self: center;">
+                <div
+                  style="white-space: pre-line;word-break: break-all;word-wrap: break-word;text-align: left;"
+                >{{item.tittle}}</div>
+                <div
+                  style="white-space: pre-line;word-break: break-all;word-wrap: break-word;text-align: center;"
+                >{{item.personName}}</div>
+              </div>
               </div>
             </div>
           </a>
         </li>
       </ul>
+      <div v-if="detailFlag">
+      <div class="container" >
+        <div ref="news">
+          <div style="overflow: hidden">
+            <section
+              v-html="this.detailItem.mobilecontent.replace(/\r?\n/g, '')"
+              style="background-color: #fff9e6;font-family: Optima-Regular, PingFangTC-light;line-height: 1.6;box-sizing: border-box;text-align: justify;"
+            ></section>
+          </div>
+        </div>
+        <div class="mui-card-content" v-if="detailItem.filePath">
+          <iframe
+            height="15%"
+            width="100%"
+            :src="detailItem.filePath"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
     </div>
-    <div style="position: fixed;top: 50%;left: 43%;color: #ccc;" v-show="noneFlag">
-      暂无数据
     </div>
+    <div style="position: fixed;top: 50%;left: 43%;color: #ccc;" v-show="noneFlag">暂无数据</div>
+    
   </div>
 </template>
 
@@ -100,21 +139,21 @@ export default {
       // loginimage: "@src/default_avtar.jpg",require('../assets/a1.png')
       loginimage: require("../../assets/default_avtar.jpg"),
       cureet: "",
-      seachvalue:"",
-      noneFlag:true
+      seachvalue: "",
+      noneFlag: true,
+      backcatoryListChildrenList: [],
+      hidesideflag: false
     };
   },
   created() {
-    if (localStorage.getItem('avatar') != null) {
-      this.loginimage = localStorage.getItem('avatar');
+    if (localStorage.getItem("avatar") != null) {
+      this.loginimage = localStorage.getItem("avatar");
     }
-    if(localStorage.getItem('name') != null){
-      this.loginstus = localStorage.getItem('name');
+    if (localStorage.getItem("name") != null) {
+      this.loginstus = localStorage.getItem("name");
     }
-    if (
-      localStorage.getItem('personCode') == null
-    ) {
-      this.noneFlag = true
+    if (localStorage.getItem("personCode") == null) {
+      this.noneFlag = true;
       this.$createDialog({
         type: "alert",
         title: "提示",
@@ -122,46 +161,46 @@ export default {
         icon: "cubeic-alert"
       }).show();
     } else {
-      let that = this;
-      let queryData = {};
-      queryData.personCode = localStorage.getItem('personCode');
-      // queryData.personName = '李白';
-      queryCelebrityPerson(queryData).then(res => {
-        let startcatoryYears = [];
-        let startcatoryListLabel = [];
-        that.allhonerlist = res.data.itemList;
-        if(that.allhonerlist.length == 0){
-          this.noneFlag = true
-        }else{
-          this.noneFlag = false
-        }
-        for (var i in that.allhonerlist) {
-          startcatoryYears.push(that.allhonerlist[i].years);
-          startcatoryListLabel.push(that.allhonerlist[i].categoryName);
-          // 
-        }
-        that.middlecatoryYears = that.quchong(startcatoryYears);
-        that.middlecatoryListLabel = that.quchong(startcatoryListLabel);
-        for (var i in that.middlecatoryYears) {
-          that.catoryYears.push(
-            '<span style="display: inline-block;padding:0 10px;font-size: 12px;"><div>' +
-              that.middlecatoryYears[i] +
-              "年</div></span>"
-          );
-        }
-        for (var i in that.middlecatoryListLabel) {
-          that.catoryListLabel.push(
-            '<span style="font-size: 12px;display: inline-block;padding: 5px 2px 2px 5px;position: relative;text-align: left;width: 100%;" >' +
-              that.middlecatoryListLabel[i] +
-              '</span>'
-          );
-        }
-        that.changeYear(that.catoryYears[0]);
-        setTimeout(() => {
-          // 
-          that.cureet = that.catoryListLabel[0];
-        }, 5);
-      });
+    let that = this;
+    let queryData = {};
+    queryData.personCode = localStorage.getItem("personCode");
+    // queryData.personName = "梦想";
+    queryCelebrityPerson(queryData).then(res => {
+      let startcatoryYears = [];
+      let startcatoryListLabel = [];
+      that.allhonerlist = res.data.itemList;
+      if (that.allhonerlist.length == 0) {
+        this.noneFlag = true;
+      } else {
+        this.noneFlag = false;
+      }
+      for (var i in that.allhonerlist) {
+        startcatoryYears.push(that.allhonerlist[i].years);
+        startcatoryListLabel.push(that.allhonerlist[i].categoryName);
+        //
+      }
+      that.middlecatoryYears = that.quchong(startcatoryYears);
+      that.middlecatoryListLabel = that.quchong(startcatoryListLabel);
+      for (var i in that.middlecatoryYears) {
+        that.catoryYears.push(
+          '<span style="display: inline-block;padding:0 10px;font-size: 12px;"><div>' +
+            that.middlecatoryYears[i] +
+            "年</div></span>"
+        );
+      }
+      for (var i in that.middlecatoryListLabel) {
+        that.catoryListLabel.push(
+          '<span style="font-size: 12px;display: inline-block;padding: 5px 2px 2px 5px;position: relative;text-align: left;width: 100%;" >' +
+            that.middlecatoryListLabel[i] +
+            "</span>"
+        );
+      }
+      that.changeYear(that.catoryYears[0]);
+      setTimeout(() => {
+        //
+        that.cureet = that.catoryListLabel[0];
+      }, 5);
+    });
     }
   },
   methods: {
@@ -189,22 +228,22 @@ export default {
     },
 
     changeHandler(label) {
-      // ;
+      this.detailFlag = false;
       setTimeout(() => {
-        // 
         let selectTop = document.querySelector(
           ".cube-scroll-nav-bar-item_active"
         );
         if (selectTop == null) {
         } else {
           for (let j in this.middlecatoryListLabel) {
-            if (selectTop.innerText.indexOf(this.middlecatoryListLabel[j]) != -1) {
+            if (
+              selectTop.innerText.indexOf(this.middlecatoryListLabel[j]) != -1
+            ) {
               selectTop.classList.remove("cube-scroll-nav-bar-item_active");
               selectTop.classList.add("hes");
               break;
             }
           }
-          
         }
       }, 4);
       this.catoryListChildrenList = [];
@@ -232,10 +271,9 @@ export default {
       });
     },
     changeYear(label) {
-      // 
+      this.detailFlag = false;
       this.catoryListChildrenList = [];
       setTimeout(() => {
-        // 
         let selectTop = document.querySelector(
           ".cube-scroll-nav-bar-item_active"
         );
@@ -248,8 +286,6 @@ export default {
               break;
             }
           }
-          
-          
         }
       }, 3);
       let currentYears = "";
@@ -266,7 +302,7 @@ export default {
       }
     },
     addline() {
-      // 
+      //
       if (this.clicktwice) {
         this.mypagestyle = "-webkit-line-clamp:50";
         this.clicktwice = false;
@@ -275,9 +311,9 @@ export default {
         this.clicktwice = true;
       }
     },
-    search(){
-      if(this.seachvalue == ''){
-        return
+    search() {
+      if (this.seachvalue == "") {
+        return;
       }
       this.$router.push({
         name: "departmentPrizeDetail",
@@ -285,17 +321,23 @@ export default {
           seachvalue: this.seachvalue
         }
       });
+    },
+    detailitem(item) {
+      debugger
+      this.detailFlag = true;
+      this.backcatoryListChildrenList = [];
+      this.backcatoryListChildrenList = this.catoryListChildrenList;
+      this.catoryListChildrenList = [];
+      this.detailItem = item;
+      this.hidesideflag = false;
+    },
+    backtest() {
+      this.hidesideflag = true;
+      this.detailFlag = false;
+      this.detailItem = {};
+      this.catoryListChildrenList = this.backcatoryListChildrenList;
     }
-  },
-  pushReald(item){
-      this.$router.push({
-        name: "honorRealDetail",
-        query: {
-          realDetail: item,
-          tiaozhuan:'minehonor'
-        }
-      });
-    }
+  }
 };
 </script>
 <style lang="stylus">
@@ -427,5 +469,18 @@ export default {
   z-index: 2;
   background-color: #fff;
   border-radius: 17px;
+}
+.bacf {
+  z-index:899
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top: 65%;
+  left: 0;
+  text-align: center;
+  line-height: 50px;
+  opacity: 0.4;
+  font-size: 21px;
+  color: #c00105;
 }
 </style>
