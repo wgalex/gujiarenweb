@@ -7,7 +7,7 @@
       <router-view v-if="!$route.meta.keepAlive" />
     </div>
     <template>
-      <div
+      <div id="tabbarsts"
         style="position: fixed;right: 0px;bottom: 1px;width: 100%;background-color: #fff;height: 10%;z-index:99;font-size: 14px;"
       >
         <cube-tab-bar
@@ -52,7 +52,7 @@ import { setDDConfig } from "@/api/dd";
 // import { mapMutations } from "vuex";
 import fetch from "@/api/fetch";
 import { Tabbar, TabItem } from "mint-ui";
-import * as dd from 'dingtalk-jsapi';
+import * as dd from "dingtalk-jsapi";
 export default {
   name: "app",
   data() {
@@ -76,10 +76,12 @@ export default {
           icon: "wode"
         }
       ],
-      selectedTab: '首页'
+      selectedTab: "首页"
     };
   },
   created() {
+    // debugger
+    
     // debugger
     // this.save_userName('123');
     // debugger
@@ -97,7 +99,7 @@ export default {
       if (!is_mobi) {
         // PC
         console.log("pc");
-             DingTalkPC.ready(() => {
+        DingTalkPC.ready(() => {
           DingTalkPC.runtime.permission.requestAuthCode({
             corpId: data.corpId, //企业ID
             onSuccess: function(result) {
@@ -110,12 +112,11 @@ export default {
                 url: url,
                 method: "get"
               }).then(res => {
-                alert(res)
+                alert(res);
                 that.save_userId(res.data.userId);
                 that.save_userName(res.data.name);
                 thst.save_corpId(res.data.corpId);
-                thst.save_agentid (res.data.agentid)
-                
+                thst.save_agentid(res.data.agentid);
               });
             },
             onFail: function(err) {
@@ -128,38 +129,38 @@ export default {
         console.log("mobile");
         setTimeout(() => {
           dd.ready(() => {
-          dd.ui.webViewBounce.disable();
-          dd.runtime.permission.requestAuthCode({
-            corpId: data.corpId,
-            onSuccess: function(result) {
-              let url =
-                "/kukacms/api/categropy/getDingUserInfo.htm?accessToken=" +
-                data.token +
-                "&code=" +
-                result.code;
-              fetch({
-                url: url,
-                method: "get"
-              }).then(res => {
-                console.log(res);
-                // that.save_userId(res.data.userId);
-                if(res.data.name != undefined){
-                  localStorage.setItem("name", res.data.name)
-                }
-                if(res.data.jobNumber != undefined){
-                  localStorage.setItem("personCode", res.data.jobNumber)
-                }
-                if(res.data.avatar != undefined){
-                  localStorage.setItem("avatar", res.data.avatar)
-                }
-              });
-            },
-            onFail: function(err) {
-              window.location.reload();
-            }
+            dd.ui.webViewBounce.disable();
+            dd.runtime.permission.requestAuthCode({
+              corpId: data.corpId,
+              onSuccess: function(result) {
+                let url =
+                  "/kukacms/api/categropy/getDingUserInfo.htm?accessToken=" +
+                  data.token +
+                  "&code=" +
+                  result.code;
+                fetch({
+                  url: url,
+                  method: "get"
+                }).then(res => {
+                  console.log(res);
+                  // that.save_userId(res.data.userId);
+                  if (res.data.name != undefined) {
+                    localStorage.setItem("name", res.data.name);
+                  }
+                  if (res.data.jobNumber != undefined) {
+                    localStorage.setItem("personCode", res.data.jobNumber);
+                  }
+                  if (res.data.avatar != undefined) {
+                    localStorage.setItem("avatar", res.data.avatar);
+                  }
+                });
+              },
+              onFail: function(err) {
+                window.location.reload();
+              }
+            });
           });
-        });
-      }, 500);
+        }, 500);
       }
     });
     
@@ -167,10 +168,28 @@ export default {
     //   this.selectedTab = this.$store.state.selectedTab
     // }, 1000);
   },
+  mounted(){
+    debugger
+      var is_mobi =
+      navigator.userAgent.toLowerCase().match(/(ipod|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i
+        ) != null;
+    console.log(is_mobi);
+    if(!is_mobi){
+      var App = document.getElementById('app')
+      App.classList.add("pcCss");
+      // console.log(App);
+      var tabbarsts = document.getElementById('tabbarsts')
+      tabbarsts.classList.add("tabbarPc");
+    }else{
+      var App = document.getElementById('app')
+      App.classList.remove("pcCss");
+      var tabbarsts = document.getElementById('tabbarsts')
+      tabbarsts.classList.remove("tabbarPc");
+    }
+  },
   methods: {
-    
     clickHandler(label) {
-       switch (label) {
+      switch (label) {
         case "首页":
           //  表达式的值和 值1匹配上了，需要执行的代码;
           this.$router.push({
@@ -190,7 +209,7 @@ export default {
             name: "departmentPrizeDetail"
           });
           // this.$store.state.selectedTab = "部门荣誉"
-          
+
           //  表达式的值和 值3匹配上了，需要执行的代码;
           break;
         case "我的荣誉":
@@ -227,7 +246,7 @@ export default {
             name: "departmentPrizeDetail"
           });
           // this.$store.state.selectedTab = "部门荣誉"
-          
+
           //  表达式的值和 值3匹配上了，需要执行的代码;
           break;
         case "我的荣誉":
@@ -284,8 +303,8 @@ export default {
 }
 .gufen {
   display: inline-block;
-    height: 25px;
-    width: 25px;
+  height: 25px;
+  width: 25px;
   /* background-color: cyan; */
   background: url("./assets/股份荣誉.png") no-repeat;
   background-size: 100% 100%;
@@ -308,6 +327,25 @@ export default {
 }
 .cube-tab_active {
   color: #c00105 !important;
+}
+.pcCss{
+  width: 400px !important;
+  position: relative;
+}
+.tabbarPc{
+  position: absolute !important;
+}
+/* pc端有条黑线值白处理 */
+.mui-table-view:after {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    content: '';
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+    background-color: #fff;
 }
 /* C:\Users\kuka\Desktop\gujiarenweb\src\assets\首页.png */
 </style>

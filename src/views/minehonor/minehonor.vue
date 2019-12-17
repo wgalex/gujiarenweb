@@ -401,7 +401,6 @@ export default {
 }
 
 .mui-table-view.mui-grid-view .mui-table-view-cell {
-  border-bottom: 1px solid #ededed;
   padding-bottom: 5px;
 }
 
