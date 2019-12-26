@@ -96,7 +96,7 @@
       </div>
     </div>
     </div>
-    <div style="position: fixed;top: 50%;left: 43%;color: #ccc;" v-show="noneFlag">暂无数据</div>
+    <div style="position: fixed;top: 50%;left: 50%;color: #ccc;" v-show="noneFlag">暂无数据</div>
     
   </div>
 </template>

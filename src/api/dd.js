@@ -67,7 +67,7 @@ export function setDDConfig() {
         let config = res.data
         // console.log(res.data)
         const data = Object.assign(config, jsApiListPC)
-        DingTalkPC.config(data)
+        // DingTalkPC.config(data)
         if (data) {
           resolve(data)
         } else {

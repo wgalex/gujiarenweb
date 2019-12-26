@@ -7,7 +7,8 @@
       <router-view v-if="!$route.meta.keepAlive" />
     </div>
     <template>
-      <div id="tabbarsts"
+      <div
+        id="tabbarsts"
         style="position: fixed;right: 0px;bottom: 1px;width: 100%;background-color: #fff;height: 10%;z-index:99;font-size: 14px;"
       >
         <cube-tab-bar
@@ -81,7 +82,7 @@ export default {
   },
   created() {
     // debugger
-    
+
     // debugger
     // this.save_userName('123');
     // debugger
@@ -99,31 +100,43 @@ export default {
       if (!is_mobi) {
         // PC
         console.log("pc");
-        DingTalkPC.ready(() => {
-          DingTalkPC.runtime.permission.requestAuthCode({
-            corpId: data.corpId, //企业ID
-            onSuccess: function(result) {
-              let url =
-                "kukacms/api/categropy/getDingUserInfo.htm?accessToken=" +
-                data.token +
-                "&code=" +
-                result.code;
-              fetch({
-                url: url,
-                method: "get"
-              }).then(res => {
-                alert(res);
-                that.save_userId(res.data.userId);
-                that.save_userName(res.data.name);
-                thst.save_corpId(res.data.corpId);
-                thst.save_agentid(res.data.agentid);
-              });
-            },
-            onFail: function(err) {
-              window.location.reload();
-            }
+        // setTimeout(() => {
+          dd.ready(() => {
+            dd.runtime.permission.requestAuthCode({
+              corpId: data.corpId, //企业ID
+              onSuccess: function(result) {
+                let url =
+                  "/kukacms/api/categropy/getDingUserInfo.htm?accessToken=" +
+                  data.token +
+                  "&code=" +
+                  result.code;
+                fetch({
+                  url: url,
+                  method: "get"
+                }).then(res => {
+                  console.log(res);
+                  if (res.data.name != undefined) {
+                    localStorage.setItem("name", res.data.name);
+                  }
+                  if (res.data.jobNumber != undefined) {
+                    localStorage.setItem("personCode", res.data.jobNumber);
+                  }
+                  if (res.data.avatar != undefined) {
+                    localStorage.setItem("avatar", res.data.avatar);
+                  }
+                  // alert(res);
+                  // that.save_userId(res.data.userId);
+                  // that.save_userName(res.data.name);
+                  // thst.save_corpId(res.data.corpId);
+                  // thst.save_agentid(res.data.agentid);
+                });
+              },
+              onFail: function(err) {
+                window.location.reload();
+              }
+            });
           });
-        });
+        // }, 500);
       } else {
         // 移动
         console.log("mobile");
@@ -163,27 +176,30 @@ export default {
         }, 500);
       }
     });
-    
+
     // setInterval(() => {
     //   this.selectedTab = this.$store.state.selectedTab
     // }, 1000);
   },
-  mounted(){
-    debugger
-      var is_mobi =
-      navigator.userAgent.toLowerCase().match(/(ipod|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i
+  mounted() {
+    // debugger
+    var is_mobi =
+      navigator.userAgent
+        .toLowerCase()
+        .match(
+          /(ipod|iphone|android|coolpad|mmp|smartphone|midp|wap|xoom|symbian|j2me|blackberry|wince)/i
         ) != null;
     console.log(is_mobi);
-    if(!is_mobi){
-      var App = document.getElementById('app')
+    if (!is_mobi) {
+      var App = document.getElementById("app");
       App.classList.add("pcCss");
       // console.log(App);
-      var tabbarsts = document.getElementById('tabbarsts')
+      var tabbarsts = document.getElementById("tabbarsts");
       tabbarsts.classList.add("tabbarPc");
-    }else{
-      var App = document.getElementById('app')
+    } else {
+      var App = document.getElementById("app");
       App.classList.remove("pcCss");
-      var tabbarsts = document.getElementById('tabbarsts')
+      var tabbarsts = document.getElementById("tabbarsts");
       tabbarsts.classList.remove("tabbarPc");
     }
   },
@@ -328,24 +344,24 @@ export default {
 .cube-tab_active {
   color: #c00105 !important;
 }
-.pcCss{
+.pcCss {
   width: 400px !important;
   position: relative;
 }
-.tabbarPc{
+.tabbarPc {
   position: absolute !important;
 }
 /* pc端有条黑线值白处理 */
 .mui-table-view:after {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 1px;
-    content: '';
-    -webkit-transform: scaleY(.5);
-    transform: scaleY(.5);
-    background-color: #fff;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  content: "";
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  background-color: #fff;
 }
 /* C:\Users\kuka\Desktop\gujiarenweb\src\assets\首页.png */
 </style>
